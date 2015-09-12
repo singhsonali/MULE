@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: POwderBlue;" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="257.0" layoutY="14.0" text="Player #?" AnchorPane.topAnchor="14.0">
          <font>
@@ -27,9 +27,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="232.0" layoutY="58.0" prefWidth="150.0" />
-      <ChoiceBox layoutX="232.0" layoutY="143.0" prefWidth="150.0" />
-      <TextField layoutX="233.0" layoutY="228.0" promptText="i.e) Jeff" />
+      <ChoiceBox layoutX="232.0" layoutY="58.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;" />
+      <ChoiceBox layoutX="232.0" layoutY="143.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;" />
+      <TextField layoutX="233.0" layoutY="228.0" promptText="i.e) Jeff" style="-fx-border-color: black;" />
       <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" text="Continue" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
    </children>
 </AnchorPane>
