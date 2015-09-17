@@ -1,7 +1,7 @@
 package Main;
 
-import View.gameScreenController;
-import View.playerTraitController;
+import view.gameScreenController;
+import view.playerTraitController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,7 +33,7 @@ public class Main extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/menuRoot.fxml"));
+            loader.setLocation(Main.class.getResource("../view/menuRoot.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
