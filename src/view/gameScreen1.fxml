@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gameScreenController">
    <children>
       <Pane layoutX="150.0" layoutY="91.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -28,7 +28,7 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
-                  <Button layoutX="521.0" layoutY="361.0" mnemonicParsing="false" text="Continue" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Button fx:id="cntButton" layoutX="521.0" layoutY="361.0" mnemonicParsing="false" text="Continue" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                   <Label layoutX="202.0" layoutY="118.0" text="Select the number of players" AnchorPane.bottomAnchor="261.0" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="118.0">
                      <font>
                         <Font size="15.0" />

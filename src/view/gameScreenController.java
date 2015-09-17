@@ -49,23 +49,19 @@ public class gameScreenController{
             @Override
             public void handle(ActionEvent event) {
                 main.showPlayerTraitScreen();
-                Stage stage = (Stage)prevScene.getWindow();
+                Stage stage = (Stage) prevScene.getWindow();
                 stage.close();
             }
         });
     }
-
     @FXML
     private void switchScreen(){
         //Call an function from main to open new Scene,
         //Close itself
-        main.showPlayerTraitScreen();
-        Stage stage = (Stage)prevScene.getWindow();
-        stage.close();
+
     }
     public void setMainApp(Main mainApp) {
-        this.main = mainApp;
-
+            this.main = mainApp;
     }
 
     public void setPrevScene(Scene scene){

@@ -26,8 +26,8 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MULE");
 
-       //initRootLayout();
-        showGameScreen();
+         //initRootLayout();
+         showGameScreen();
     }
     public void initRootLayout() {
         try {
@@ -49,9 +49,8 @@ public class Main extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/gameScreen1.fxml"));
+            loader.setLocation(Main.class.getResource("../View/gameScreen1.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
-
             // Set person overview into the center of root layout
             //rootLayout.getChildren().setAll(personOverview);
 
@@ -75,7 +74,7 @@ public class Main extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/playerTraits.fxml"));
+            loader.setLocation(Main.class.getResource("../View/playerTraits.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout
@@ -99,7 +98,7 @@ public class Main extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/MapScence.fxml"));
+            loader.setLocation(Main.class.getResource("../View/MapScence.fxml"));
             AnchorPane mapScreen= (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout
