@@ -1,6 +1,7 @@
 package Main;
 
 import View.gameScreenController;
+import View.playerTraitController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,14 +15,18 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private Scene currentScene;
 
-
+    //Vars needed
+    //Player Conatiner
+    //Difficulty choice
+    //Map Choice
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MULE");
 
-        initRootLayout();
+       //initRootLayout();
         showGameScreen();
     }
     public void initRootLayout() {
@@ -48,13 +53,69 @@ public class Main extends Application {
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout
-            rootLayout.getChildren().setAll(personOverview);
+            //rootLayout.getChildren().setAll(personOverview);
 
+            Scene scene = new Scene(personOverview);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            //Gets Controller that preforms actions to the scene
             gameScreenController controller = loader.getController();
+            controller.setPrevScene(currentScene);
             loader.setController(controller);
             controller.setMainApp(this);
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showPlayerTraitScreen(){
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/playerTraits.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout
+            //rootLayout.getChildren().setAll(personOverview);
+
+            Scene scene = new Scene(personOverview);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            playerTraitController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            loader.setController(controller);
+            controller.setMainApp(this);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    public void showMapScreen(){
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/MapScence.fxml"));
+            AnchorPane mapScreen= (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout
+            //rootLayout.getChildren().setAll(personOverview);
+
+            Scene scene = new Scene(mapScreen);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+//            playerTraitController controller = loader.getController();
+//            controller.setPrevScene(currentScene);
+//            loader.setController(controller);
+//            controller.setMainApp(this);
+
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
