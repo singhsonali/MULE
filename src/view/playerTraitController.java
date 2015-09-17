@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * Controller for the PlayerTraits.fxml
  * Will lead to Map Screen afterwards
  */
-public class playerTraitController {
+public class playerTraitController extends gameScreenController {
 
     @FXML
     private Label lblPlayerNum;
@@ -49,14 +49,24 @@ public class playerTraitController {
                 "Fappy",
                 "etc."
         );
-        cntButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                main.showMapScreen();
-                Stage stage = (Stage)prevScene.getWindow();
-                stage.close();
-            }
-        });
+        //for (int i = 0; i <= players; i++) {
+            cntButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    players--;
+                    if(players == 0) {
+                        main.showPlayerTraitScreen();
+                    } else {
+                        main.showMapScreen();
+                    }
+                    //main.showMapScreen();
+                    Stage stage = (Stage)prevScene.getWindow();
+                    //stage.close();
+                }
+            });
+       // }
+
+
     }
 
     public void setMainApp(Main mainApp) {
