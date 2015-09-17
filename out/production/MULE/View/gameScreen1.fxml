@@ -7,19 +7,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gameScreenController">
    <children>
       <Pane layoutX="150.0" layoutY="91.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;">
                <children>
-<<<<<<< HEAD
-                  <Slider blockIncrement="1.0" layoutX="201.0" layoutY="162.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: POwderBlue;" value="1.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="162.0" />
-                  <Slider blockIncrement="1.0" layoutX="205.0" layoutY="229.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickMarks="true" snapToTicks="true" style="-fx-background-color: PowderBlue;" value="1.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="229.0" />
-=======
                   <Slider blockIncrement="1.0" layoutX="201.0" layoutY="162.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: black;" value="1.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="162.0" />
                   <Slider blockIncrement="1.0" layoutX="205.0" layoutY="229.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickMarks="true" snapToTicks="true" style="-fx-background-color: black;" value="1.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="229.0" />
->>>>>>> dccfca3a66474159c57f9a727411effcd8c30ca5
                   <Label layoutX="248.0" layoutY="292.0" text="Select the map" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="280.0">
                      <font>
                         <Font size="15.0" />
@@ -33,7 +28,7 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
-                  <Button layoutX="521.0" layoutY="361.0" mnemonicParsing="false" text="Continue" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Button fx:id="cntButton" layoutX="521.0" layoutY="361.0" mnemonicParsing="false" text="Continue" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                   <Label layoutX="202.0" layoutY="118.0" text="Select the number of players" AnchorPane.bottomAnchor="261.0" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="118.0">
                      <font>
                         <Font size="15.0" />

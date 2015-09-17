@@ -1,7 +1,7 @@
 package Main;
 
-import view.gameScreenController;
-import view.playerTraitController;
+import View.gameScreenController;
+import View.playerTraitController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
