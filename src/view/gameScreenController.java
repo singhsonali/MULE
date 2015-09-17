@@ -20,17 +20,15 @@ import java.io.IOException;
 
 public class gameScreenController{
 
-        @FXML
-        private Slider playerSlider;
 
-        @FXML
-        private Slider difficultySlider;
+    @FXML
+    private Slider difficultySlider;
 
-        @FXML
-        private Button cntButton;
+    @FXML
+    private Button cntButton;
 
-        @FXML
-        private Button button1;
+    @FXML
+    private Button button1;
 
     @FXML
     private Button button2;
@@ -41,18 +39,18 @@ public class gameScreenController{
     @FXML
     private Button button4;
 
-        @FXML
-        private ChoiceBox<String> cmbMapChoice;
+    @FXML
+    private ChoiceBox<String> cmbMapChoice;
 
-        protected int players;
+    private int players;
 
-        //Ref to main application
-        private Main main;
-        private Scene prevScene;
-        //Constructor
-        public gameScreenController(){
+    //Ref to main application
+    private Main main;
+    private Scene prevScene;
+    //Constructor
+    public gameScreenController(){
 
-        }
+    }
 
     @FXML
     private void initialize(){
@@ -89,12 +87,6 @@ public class gameScreenController{
             }
         });
 
-        /*playerSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
-            }
-        }); */
         cmbMapChoice.getItems().addAll(
                 "Default",
                 "Normal",
@@ -103,18 +95,14 @@ public class gameScreenController{
         cntButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                main.setPlayerCount(players);
                 main.showPlayerTraitScreen();
                 Stage stage = (Stage) prevScene.getWindow();
-                //stage.close();
+                stage.close();
             }
         });
     }
-    @FXML
-    private void switchScreen(){
-        //Call an function from main to open new Scene,
-        //Close itself
 
-    }
     public void setMainApp(Main mainApp) {
             this.main = mainApp;
     }

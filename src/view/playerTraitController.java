@@ -36,6 +36,8 @@ public class playerTraitController extends gameScreenController {
 
     private Scene prevScene;
 
+    private int playerCount;
+
     @FXML
     private void initialize(){
         cmbColor.getItems().addAll(
@@ -49,22 +51,24 @@ public class playerTraitController extends gameScreenController {
                 "Fappy",
                 "etc."
         );
-        //for (int i = 0; i <= players; i++) {
-            cntButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    players--;
-                    if(players == 0) {
-                        main.showPlayerTraitScreen();
-                    } else {
-                        main.showMapScreen();
-                    }
-                    //main.showMapScreen();
+        cntButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(playerCount != 0){
+                    System.out.println(playerCount);
+                    //Make more screens
+                    main.showPlayerTraitScreen();
                     Stage stage = (Stage)prevScene.getWindow();
-                    //stage.close();
+                    stage.close();
+                }else{
+                    //Start Game
+                    main.showMapScreen();
+                    Stage stage = (Stage)prevScene.getWindow();
+                    stage.close();
                 }
-            });
-       // }
+
+            }
+        });
 
 
     }
@@ -78,4 +82,7 @@ public class playerTraitController extends gameScreenController {
         this.prevScene = scene;
     }
 
+    public void setPlayerCount(int i){
+        playerCount = i;
+    }
 }
