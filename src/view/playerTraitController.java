@@ -3,10 +3,12 @@ import Main.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * Created by Shannor on 9/16/2015.
@@ -32,6 +34,8 @@ public class playerTraitController {
 
     private Main main;
 
+    private Scene prevScene;
+
     @FXML
     private void initialize(){
         cmbColor.getItems().addAll(
@@ -48,10 +52,11 @@ public class playerTraitController {
         cntButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Needs Functionality");
+                main.showMapScreen();
+                Stage stage = (Stage)prevScene.getWindow();
+                stage.close();
             }
         });
-
     }
 
     public void setMainApp(Main mainApp) {
@@ -59,5 +64,8 @@ public class playerTraitController {
 
     }
 
+    public void setPrevScene(Scene scene){
+        this.prevScene = scene;
+    }
 
 }
