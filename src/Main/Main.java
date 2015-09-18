@@ -72,7 +72,7 @@ public class Main extends Application {
 
             playerTraitController controller = loader.getController();
             controller.setPrevScene(currentScene);
-            controller.setPlayerCount(players--);
+            controller.setPlayerCount(--players);
             loader.setController(controller);
             controller.setMainApp(this);
 
