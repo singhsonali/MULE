@@ -29,11 +29,12 @@ public class mapController {
 
     @FXML
     private void intialize(){
+        System.out.println("MouseEvent");
         townPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             public void handle(MouseEvent event) {
-                System.out.println("MouseEvent");
                 main.showTownScreen();
+                Stage stage = (Stage)prevScene.getWindow();
+                stage.close();
             }
         });
     }
