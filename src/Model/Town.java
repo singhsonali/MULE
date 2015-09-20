@@ -7,4 +7,9 @@ package Model;
  * Stores will perform their own methods
  */
 public class Town {
+    private Store store;
+    private LandOffice landOffice;
+    private Pub pub;
+
+
 }
