@@ -1,18 +1,22 @@
 package View;
+
 import Main.Main;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import Model.Player;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import javax.sound.midi.SysexMessage;
 
 /**
  * Created by Shannor on 9/16/2015.
  * Controller for the PlayerTraits.fxml
+ * Adds information for each player
  * Will lead to Map Screen afterwards
  */
 public class playerTraitController extends gameScreenController {
@@ -40,6 +44,7 @@ public class playerTraitController extends gameScreenController {
 
     @FXML
     private void initialize(){
+
         cmbColor.getItems().addAll(
                 "Green",
                 "Blue",
@@ -51,31 +56,47 @@ public class playerTraitController extends gameScreenController {
                 "Fappy",
                 "etc."
         );
-        cntButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(playerCount != 0){
-                    System.out.println(playerCount);
-                    //Make more screens
-                    main.showPlayerTraitScreen();
-                    Stage stage = (Stage)prevScene.getWindow();
-                    stage.close();
-                }else{
-                    //Start Game
-                    main.showMapScreen();
-                    Stage stage = (Stage)prevScene.getWindow();
-                    stage.close();
-                }
 
-            }
-        });
-
-
+        cmbColor.getSelectionModel().select(0);
+        cmbRace.getSelectionModel().select(0);
     }
 
+    @FXML
+    public void confirmChoices(){
+        if(textName.getText().isEmpty()){
+            //Error Handling
+            Stage newStage = new Stage();
+            VBox comp = new VBox();
+            Label warning = new Label("Invalid Name");
+            comp.getChildren().add(warning);
+            Scene stageScene = new Scene(comp, 100, 100);
+            newStage.setScene(stageScene);
+            newStage.show();
+        }else {
+            if(playerCount > 0){
+                //Add Player's information if more than one
+                Player player = new Player(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
+                main.addPlayer(player);
+                //Display another Screen
+                main.showPlayerTraitScreen();
+                Stage stage = (Stage)prevScene.getWindow();
+                stage.close();
+            }else{
+                //If just one player, and end case for last player
+                Player player = new Player(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
+                main.addPlayer(player);
+                //Display the map Screen to start game
+                main.showMapScreen();
+                Stage stage = (Stage)prevScene.getWindow();
+                stage.close();
+            }
+
+        }
+    }
+
+    @FXML
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
-
     }
 
     public void setPrevScene(Scene scene){
@@ -83,6 +104,6 @@ public class playerTraitController extends gameScreenController {
     }
 
     public void setPlayerCount(int i){
-        playerCount = i;
+        this.playerCount = i;
     }
 }

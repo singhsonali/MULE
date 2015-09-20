@@ -1,13 +1,15 @@
 package Main;
 
+import Model.Player;
 import View.gameScreenController;
 import View.playerTraitController;
 import view.mapController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +19,9 @@ public class Main extends Application {
     private Stage primaryStage;
     private Scene currentScene;
     public int players= 0; //Temp variable to count the number of players
+    public String mapChoice;
+    //Structure to hold players
+    private ObservableList<Player> playerData = FXCollections.observableArrayList();
 
     //Vars needed
     //Player Conatiner
@@ -27,7 +32,6 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MULE");
 
-         //initRootLayout();
          showGameScreen();
     }
 
@@ -35,10 +39,8 @@ public class Main extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/gameScreen1.fxml"));
+            loader.setLocation(Main.class.getResource("../View/gameScreen.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
-            // Set person overview into the center of root layout
-            //rootLayout.getChildren().setAll(personOverview);
 
             Scene scene = new Scene(personOverview);
             currentScene = scene;
@@ -63,9 +65,6 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("../View/playerTraits.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout
-            //rootLayout.getChildren().setAll(personOverview);
-
             Scene scene = new Scene(personOverview);
             currentScene = scene;
             primaryStage.setScene(scene);
@@ -88,9 +87,6 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("../View/MapScence.fxml"));
             AnchorPane mapScreen= (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout
-            //rootLayout.getChildren().setAll(personOverview);
-
             Scene scene = new Scene(mapScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
@@ -106,6 +102,7 @@ public class Main extends Application {
         }
     }
 
+<<<<<<< HEAD
     public void showTownScreen(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -128,6 +125,18 @@ public class Main extends Application {
 
 
     }
+=======
+    public void addPlayer(Player player){
+        playerData.add(player);
+    }
+
+    public void printPlayerData(){
+        for(Player player: playerData){
+            System.out.println(player.getName() + ":" + player.getPlayerNum());
+        }
+    }
+    public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}
+>>>>>>> master
 
     public void setPlayerCount(int i){
         players = i;
