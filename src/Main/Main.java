@@ -36,12 +36,12 @@ public class Main extends Application {
 
     public void showGameScreen() {
         try {
-            // Load person overview.
+            // Load Game Screen.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/gameScreen.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane gameScreen = (AnchorPane) loader.load();
 
-            Scene scene = new Scene(personOverview);
+            Scene scene = new Scene(gameScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -81,12 +81,34 @@ public class Main extends Application {
     }
     public void showMapScreen(){
         try {
-            // Load person overview.
+            // Load Map Screen.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/MapScence.fxml"));
             AnchorPane mapScreen= (AnchorPane) loader.load();
 
             Scene scene = new Scene(mapScreen);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+//            playerTraitController controller = loader.getController();
+//            controller.setPrevScene(currentScene);
+//            loader.setController(controller);
+//            controller.setMainApp(this);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showTownMap(){
+        try {
+            // Load Town Map.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../View/townMap.fxml"));
+            AnchorPane townMap= (AnchorPane) loader.load();
+
+            Scene scene = new Scene(townMap);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
