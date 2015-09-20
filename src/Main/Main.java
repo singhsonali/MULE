@@ -101,8 +101,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-<<<<<<< HEAD
+    
     public void showTownScreen(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -125,7 +124,7 @@ public class Main extends Application {
 
 
     }
-=======
+
     public void addPlayer(Player player){
         playerData.add(player);
     }
@@ -136,7 +135,7 @@ public class Main extends Application {
         }
     }
     public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}
->>>>>>> master
+
 
     public void setPlayerCount(int i){
         players = i;
