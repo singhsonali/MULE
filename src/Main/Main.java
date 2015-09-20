@@ -2,6 +2,7 @@ package Main;
 
 import View.gameScreenController;
 import View.playerTraitController;
+import view.mapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -103,6 +104,29 @@ public class Main extends Application {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void showTownScreen(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../View/townMap.fxml"));
+            AnchorPane townMap = (AnchorPane) loader.load();
+
+            Scene scene = new Scene(townMap);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            mapController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            loader.setController(controller);
+            controller.setMainApp(this);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     public void setPlayerCount(int i){
