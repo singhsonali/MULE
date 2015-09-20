@@ -3,7 +3,7 @@ package Main;
 import Model.Player;
 import View.gameScreenController;
 import View.playerTraitController;
-import view.mapController;
+import View.mapController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -92,16 +92,16 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-//            playerTraitController controller = loader.getController();
-//            controller.setPrevScene(currentScene);
-//            loader.setController(controller);
-//            controller.setMainApp(this);
+            mapController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            loader.setController(controller);
+            controller.setMainApp(this);
 
         }catch (IOException e){
             e.printStackTrace();
         }
     }
-    
+
     public void showTownScreen(){
         try {
             FXMLLoader loader = new FXMLLoader();
