@@ -19,19 +19,16 @@ public class Main extends Application {
     private Scene currentScene;
     public int players= 0; //Temp variable to count the number of players
     public String mapChoice;
+    public static int rountCount = 0; //Max is 12
     //Structure to hold players
     private ObservableList<Player> playerData = FXCollections.observableArrayList();
 
-    //Vars needed
-    //Player Conatiner
-    //Difficulty choice
-    //Map Choice
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MULE");
 
-         showGameScreen();
+        showGameScreen();
     }
 
     public void showGameScreen() {
