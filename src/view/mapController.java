@@ -30,14 +30,14 @@ public class mapController {
     @FXML
     private void intialize(){
         System.out.println("MouseEvent");
-        townPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                main.showTownScreen();
-                Stage stage = (Stage)prevScene.getWindow();
-                stage.close();
-            }
-        });
     }
+    @FXML
+    public void openTown(){
+        main.showTownScreen();
+        Stage stage = (Stage)prevScene.getWindow();
+        stage.close();
+    }
+
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
     }

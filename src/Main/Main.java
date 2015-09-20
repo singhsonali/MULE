@@ -4,6 +4,7 @@ import Model.Player;
 import View.gameScreenController;
 import View.playerTraitController;
 import View.mapController;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,19 +21,16 @@ public class Main extends Application {
     private Scene currentScene;
     public int players= 0; //Temp variable to count the number of players
     public String mapChoice;
+    public static int rountCount = 0; //Max is 12
     //Structure to hold players
     private ObservableList<Player> playerData = FXCollections.observableArrayList();
 
-    //Vars needed
-    //Player Conatiner
-    //Difficulty choice
-    //Map Choice
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MULE");
 
-         showGameScreen();
+        showGameScreen();
     }
 
     public void showGameScreen() {
@@ -97,6 +95,7 @@ public class Main extends Application {
             loader.setController(controller);
             controller.setMainApp(this);
 
+
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -113,10 +112,10 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            mapController controller = loader.getController();
-            controller.setPrevScene(currentScene);
-            loader.setController(controller);
-            controller.setMainApp(this);
+//            mapController controller = loader.getController();
+//            controller.setPrevScene(currentScene);
+//            loader.setController(controller);
+//            controller.setMainApp(this);
 
         }catch (IOException e){
             e.printStackTrace();
@@ -135,7 +134,6 @@ public class Main extends Application {
         }
     }
     public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}
-
 
     public void setPlayerCount(int i){
         players = i;
