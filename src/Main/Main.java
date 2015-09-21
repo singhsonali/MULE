@@ -3,6 +3,8 @@ package Main;
 import Model.Player;
 import View.gameScreenController;
 import View.playerTraitController;
+import View.mapController;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,6 +90,32 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            mapController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            loader.setController(controller);
+            controller.setMainApp(this);
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showTownScreen(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../View/townMap.fxml"));
+            AnchorPane townMap = (AnchorPane) loader.load();
+
+            Scene scene = new Scene(townMap);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+//            mapController controller = loader.getController();
+//            controller.setPrevScene(currentScene);
+//            loader.setController(controller);
+//            controller.setMainApp(this);
             printPlayerData();
             //Start Game Offically
             //Game Loop
@@ -96,6 +124,8 @@ public class Main extends Application {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+
     }
 
     public void showTownMap(){
