@@ -60,6 +60,18 @@ public class Player {
         return this.playerNum;
     }
     public int getLandGrants(){return this.landGrants;}
+    public int getFood(){
+        return this.food.getAmount();
+    }
+    public int getMoney(){
+        return this.money.getAmount();
+    }
+    public int getEnergy(){
+        return this.energy.getAmount();
+    }
+
+
+
 
     public void setName(String name){
         this.name = name;
@@ -73,6 +85,9 @@ public class Player {
     public void setTurn(int i){
         this.turn = i;
     }
+    public void setFood(int i){this.food.setAmount(i);}
+    public void setMoney(int i){this.money.setAmount(i);}
+    public void setEnergy(int i){this.energy.setAmount(i);}
 
     public boolean useLandGrant(){
         if(this.landGrants > 0){

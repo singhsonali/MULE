@@ -19,7 +19,7 @@ public class Main extends Application {
     private Scene currentScene;
     public int players= 0; //Temp variable to count the number of players
     public String mapChoice;
-    public static int rountCount = 0; //Max is 12
+    public static int roundCount = 0; //Max is 12
     //Structure to hold players
     private ObservableList<Player> playerData = FXCollections.observableArrayList();
 
@@ -88,10 +88,7 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-//            playerTraitController controller = loader.getController();
-//            controller.setPrevScene(currentScene);
-//            loader.setController(controller);
-//            controller.setMainApp(this);
+            printPlayerData();
 
         }catch (IOException e){
             e.printStackTrace();
@@ -110,10 +107,6 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-//            playerTraitController controller = loader.getController();
-//            controller.setPrevScene(currentScene);
-//            loader.setController(controller);
-//            controller.setMainApp(this);
 
         }catch (IOException e){
             e.printStackTrace();
@@ -127,6 +120,7 @@ public class Main extends Application {
     public void printPlayerData(){
         for(Player player: playerData){
             System.out.println(player.getName() + ":" + player.getPlayerNum());
+            System.out.println("Money =" +player.getMoney() + " " + "Energy =" + player.getEnergy());
         }
     }
     public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}
