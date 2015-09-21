@@ -53,8 +53,8 @@ public class playerTraitController extends gameScreenController {
         );
         cmbRace.getItems().addAll(
                 "Human",
-                "Fappy",
-                "etc."
+                "Flapper",
+                "Other"
         );
 
         cmbColor.getSelectionModel().select(0);
