@@ -87,13 +87,15 @@ public class Player {
     public void setFood(int i){this.food.setAmount(i);}
     public void setMoney(int i){this.money.setAmount(i);}
     public void setEnergy(int i){this.energy.setAmount(i);}
-
+    public boolean haveLandGrants(){
+        return this.landGrants > 0;
+    }
     public boolean useLandGrant(){
-        if(this.landGrants > 0){
+        if(haveLandGrants()) {
             this.landGrants--;
-            return true; //On success
+            return  true;
         }
-        return false; //Player is out of landGrants
+        return false ; //Player is out of landGrants
     }
 
 

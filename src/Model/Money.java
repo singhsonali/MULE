@@ -2,6 +2,8 @@ package Model;
 
 /**
  * Created by Shannor on 9/20/2015.
+ * Class to hold Money item
+ * Will be held by Player and the Town stores
  */
 public class Money extends Resources{
 
