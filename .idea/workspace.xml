@@ -755,7 +755,7 @@
       <workItem from="1442613807795" duration="11904000" />
       <workItem from="1442792069562" duration="215000" />
       <workItem from="1442792496048" duration="6969000" />
-      <workItem from="1442867845702" duration="5000" />
+      <workItem from="1442867845702" duration="92000" />
     </task>
     <task id="LOCAL-00001" summary="Screen now transition until arrivng at the map screen. &#10;Info can be picked. &#10;Need to further expand input choices and storage of selection&#10;Also need to create more screens based on players">
       <created>1442459979692</created>
@@ -767,7 +767,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36924000" />
+    <option name="totallyTimeSpent" value="37011000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
