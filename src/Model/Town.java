@@ -8,5 +8,4 @@ public class Town {
     private LandOffice landOffice;
     private Pub pub;
 
-
 }
