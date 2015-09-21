@@ -10,7 +10,6 @@ public class Player {
     private String name;
     private String race;
     private String color;
-    //Resources Object
     //Turn will be given to the player
     private int turn;
     private int playerNum;
@@ -69,8 +68,6 @@ public class Player {
     public int getEnergy(){
         return this.energy.getAmount();
     }
-
-
 
 
     public void setName(String name){
