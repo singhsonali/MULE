@@ -2,7 +2,7 @@ package Model;
 
 /**
  * Created by Shannor on 9/20/2015.
- * Food class inherates form Resources
+ * Food class inherits from Resources
  */
 public class Food extends Resources {
 

@@ -49,7 +49,7 @@ public class playerTraitController extends gameScreenController {
                 "Green",
                 "Blue",
                 "Black",
-                "etc."
+                "Purple."
         );
         cmbRace.getItems().addAll(
                 "Human",

@@ -22,6 +22,8 @@ public class Player {
     private Energy energy;
     private Money money;
 
+    //Player holds an array of owned land
+
 
 
     public Player(){

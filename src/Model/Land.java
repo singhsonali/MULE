@@ -8,6 +8,7 @@ public class Land {
     private boolean river;
     private boolean open;
     private boolean town = false;
+    //Maybe an Player owner variable
 
     public Land() {
         this.mountain = 0;

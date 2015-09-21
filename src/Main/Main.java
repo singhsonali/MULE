@@ -89,6 +89,9 @@ public class Main extends Application {
             primaryStage.show();
 
             printPlayerData();
+            //Start Game Offically
+            //Game Loop
+            //Picking land Function
 
         }catch (IOException e){
             e.printStackTrace();
