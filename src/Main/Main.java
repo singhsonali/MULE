@@ -82,7 +82,7 @@ public class Main extends Application {
         try {
             // Load Map Screen.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/MapScence.fxml"));
+            loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
             AnchorPane mapScreen= (AnchorPane) loader.load();
 
             Scene scene = new Scene(mapScreen);
