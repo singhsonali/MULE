@@ -1,6 +1,7 @@
 package Model;
 
-import java.util.ArrayList;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Created by Shannor on 9/16/2015.
@@ -12,40 +13,35 @@ public class Player {
     private String name;
     private String race;
     private String color;
+    //Resources Object
     //Turn will be given to the player
     private int turn;
     private int playerNum;
-    //Each player gets two for receiving free land
-    private int landGrants;
     //The number the player is when created, Class variable
     private static int playerNumber = 0;
-    //Resources
-    private Food food;
-    private Energy energy;
-    private Money money;
-
-    //Player holds an array of owned land
-    private ArrayList<Land> ownedLand;
-
+    private boolean[][] owned = new boolean[5][9];
 
     public Player(){
         this.name = "temp";
         this.race = "temp";
         this.color = "temp";
         this.playerNum = ++playerNumber;
-        this.landGrants = 2;
-
+        for (int i = 0; i < owned.length; i++) {
+            for (int j = 0; j < owned[0].length; j++) {
+                owned[i][j] = false;
+            }
+        }
     }
     public Player(String name, String race, String color){
         this.name = name;
         this.race = race;
         this.color = color;
         this.playerNum =  ++playerNumber;
-        this.landGrants = 2;
-        this.food = new Food();
-        this.energy = new Energy();
-        this.money = new Money(this);
-        this.ownedLand = new ArrayList<Land>();
+        for (int i = 0; i < owned.length; i++) {
+            for (int j = 0; j < owned[0].length; j++) {
+                owned[i][j] = false;
+            }
+        }
     }
 
 
@@ -64,17 +60,9 @@ public class Player {
     public int getPlayerNum(){
         return this.playerNum;
     }
-    public int getLandGrants(){return this.landGrants;}
-    public int getFood(){
-        return this.food.getAmount();
+    public boolean[][] getOwned() {
+       return owned;
     }
-    public int getMoney(){
-        return this.money.getAmount();
-    }
-    public int getEnergy(){
-        return this.energy.getAmount();
-    }
-
 
     public void setName(String name){
         this.name = name;
@@ -88,26 +76,7 @@ public class Player {
     public void setTurn(int i){
         this.turn = i;
     }
-    public void setFood(int i){this.food.setAmount(i);}
-    public void setMoney(int i){this.money.setAmount(i);}
-    public void setEnergy(int i){this.energy.setAmount(i);}
-    public boolean haveLandGrants(){
-        return this.landGrants > 0;
-    }
-    public boolean useLandGrant(){
-        if(haveLandGrants()) {
-            this.landGrants--;
-            return  true;
-        }
-        return false ; //Player is out of landGrants
-    }
-
-    public void addLand(Land land){
-        ownedLand.add(land);
-    }
-    public void removeLand(Land land){
-        if(ownedLand.contains(land)) {
-            ownedLand.remove(land);
-        }
+    public void setOwned(int i, int j) {
+        this.owned[i][j] = true;
     }
 }
