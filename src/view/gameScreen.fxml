@@ -13,8 +13,7 @@
          <children>
             <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;">
                <children>
-                  <Slider blockIncrement="1.0" layoutX="201.0" layoutY="162.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: black;" value="1.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="162.0" />
-                  <Slider blockIncrement="1.0" layoutX="205.0" layoutY="229.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickMarks="true" snapToTicks="true" style="-fx-background-color: black;" value="1.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="229.0" />
+                  <Slider fx:id="difficultySlider" blockIncrement="2.0" layoutX="205.0" layoutY="229.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickMarks="true" snapToTicks="true" style="-fx-background-color: black;" value="1.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="229.0" />
                   <Label layoutX="248.0" layoutY="292.0" text="Select the map" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="280.0">
                      <font>
                         <Font size="15.0" />
@@ -118,7 +117,8 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cmbMapChoice" layoutX="231.0" layoutY="313.0" prefWidth="150.0" promptText="Map Choice" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="313.0" />
+                  <ChoiceBox fx:id="cmbMapChoice" layoutX="231.0" layoutY="313.0" prefWidth="150.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="313.0" />
+                  <Slider fx:id="numPlayerSlider" blockIncrement="2.0" layoutX="200.0" layoutY="163.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
                </children>
             </AnchorPane>
          </children>
