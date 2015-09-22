@@ -75,16 +75,14 @@ public class playerTraitController extends gameScreenController {
         }else {
             if(playerCount > 0){
                 //Add Player's information if more than one
-                Player player = new Player(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
-                main.addPlayer(player);
+                main.addPlayer(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
                 //Display another Screen
                 main.showPlayerTraitScreen();
                 Stage stage = (Stage)prevScene.getWindow();
                 stage.close();
             }else{
                 //If just one player, and end case for last player
-                Player player = new Player(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
-                main.addPlayer(player);
+                main.addPlayer(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
                 //Display the map Screen to start game
                 main.showMapScreen();
                 Stage stage = (Stage)prevScene.getWindow();
