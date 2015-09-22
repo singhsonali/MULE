@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Shannor on 9/16/2015.
  * Will hold all information about a player,
@@ -23,7 +25,7 @@ public class Player {
     private Money money;
 
     //Player holds an array of owned land
-
+    private ArrayList<Land> ownedLand;
 
 
     public Player(){
@@ -42,6 +44,7 @@ public class Player {
         this.food = new Food();
         this.energy = new Energy();
         this.money = new Money(this);
+        this.ownedLand = new ArrayList<Land>();
     }
 
 
@@ -98,5 +101,12 @@ public class Player {
         return false ; //Player is out of landGrants
     }
 
-
+    public void addLand(Land land){
+        ownedLand.add(land);
+    }
+    public void removeLand(Land land){
+        if(ownedLand.contains(land)) {
+            ownedLand.remove(land);
+        }
+    }
 }

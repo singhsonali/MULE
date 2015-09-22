@@ -8,7 +8,9 @@ public class Land {
     private boolean river;
     private boolean open;
     private boolean town = false;
+    private int cost; //Maybe need the Cost of the land piece
     //Added a player as an owner of the Land that is set when purchased.
+    //Also needed to set the color of the land
     Player player;
 
     public Land() {
