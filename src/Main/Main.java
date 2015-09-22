@@ -1,18 +1,20 @@
 package Main;
 
+import Model.Map;
 import Model.Player;
 import View.gameScreenController;
 import View.playerTraitController;
 import View.mapController;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PageLayout;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ObjectView;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -21,15 +23,16 @@ public class Main extends Application {
     private Scene currentScene;
     public int players= 0; //Temp variable to count the number of players
     public String mapChoice;
-    public static int rountCount = 0; //Max is 12
+    public static int roundCount = 0; //Max is 12
     //Structure to hold players
     private ObservableList<Player> playerData = FXCollections.observableArrayList();
+    private Map gameMap = new Map();
+
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MULE");
-
         showGameScreen();
     }
 
@@ -78,11 +81,13 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    //After each player picks traits start the game loop
     public void showMapScreen(){
         try {
             // Load Map Screen.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/MapScence.fxml"));
+            loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
             AnchorPane mapScreen= (AnchorPane) loader.load();
 
             Scene scene = new Scene(mapScreen);
@@ -92,10 +97,11 @@ public class Main extends Application {
 
             mapController controller = loader.getController();
             controller.setPrevScene(currentScene);
+            //Pass in player Array and Map Data
+            controller.setPlayerData(playerData);
+            controller.getMap(gameMap);
             loader.setController(controller);
             controller.setMainApp(this);
-
-
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -112,47 +118,23 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-//            mapController controller = loader.getController();
-//            controller.setPrevScene(currentScene);
-//            loader.setController(controller);
-//            controller.setMainApp(this);
+            printPlayerData();
 
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public void showTownMap(){
-        try {
-            // Load Town Map.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/townMap.fxml"));
-            AnchorPane townMap= (AnchorPane) loader.load();
-
-            Scene scene = new Scene(townMap);
-            currentScene = scene;
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-//            playerTraitController controller = loader.getController();
-//            controller.setPrevScene(currentScene);
-//            loader.setController(controller);
-//            controller.setMainApp(this);
 
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    public void addPlayer(Player player){
-        playerData.add(player);
+    public void addPlayer(String name, String Race, String Color){
+        Player tempPlayer = new Player(name,Race,Color);
+        playerData.add(tempPlayer);
     }
 
     public void printPlayerData(){
         for(Player player: playerData){
             System.out.println(player.getName() + ":" + player.getPlayerNum());
+            System.out.println("Money =" +player.getMoney() + " " + "Energy =" + player.getEnergy());
         }
     }
     public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}
@@ -163,5 +145,13 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void setPlayerData(ObservableList<Player> player){
+        player = FXCollections.observableArrayList(playerData);
+    }
+
+    public Map getGameMap(){
+        return this.gameMap;
     }
 }
