@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.mapController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.mapController">
     <children>
         <GridPane layoutX="50.0" layoutY="60.0" prefHeight="290.0" prefWidth="501.0">
             <columnConstraints>
@@ -27,52 +27,187 @@
             </rowConstraints>
             <children>
                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="8" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="Button01" layoutY="1.0" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button01" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3">
+               <children>
+                  <Button fx:id="Button03" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button03" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5">
+               <children>
+                  <Button fx:id="Button05" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button05" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7">
+               <children>
+                  <Button fx:id="Button07" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button07" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="8">
+               <children>
+                  <Button fx:id="Button08" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button08" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button10" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button10" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button12" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button12" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button13" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button13" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button15" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button15" />
+               </children></Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="6" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="4" />
-                <Pane fx:id="townPane" onMouseClicked="#openTown" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Tan; -fx-border-color: Black;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button16" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button16" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button17" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button17" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button21" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button21" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button22" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button22" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button23" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button23" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button25" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button25" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button26" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button26" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button27" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button27" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button30" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button30" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button32" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button32" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button33" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button33" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button35" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button35" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="Button00" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button00" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button37" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button37" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button38" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button38" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button40" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button40" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button41" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button41" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button43" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button43" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="5" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button45" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button45" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button46" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button46" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGreen; -fx-border-color: Black;" GridPane.columnIndex="7" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button47" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button47" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4">
+               <children>
+                  <Button fx:id="Button04" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button04" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button14" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button14" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button34" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button34" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button44" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button44" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="2">
+               <children>
+                  <Button fx:id="Button02" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button02" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button11" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button11" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button20" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button20" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button31" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button31" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button42" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button42" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="6">
+               <children>
+                  <Button fx:id="Button06" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button06" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="Button18" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button18" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button28" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button28" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="Button36" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button36" />
+               </children></Pane>
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="Button48" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button48" />
+               </children></Pane>
+                <Pane fx:id="townPane" onMouseClicked="#openTown" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Tan; -fx-border-color: Black;" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="Button24" mnemonicParsing="false" opacity="0.0" prefHeight="58.0" prefWidth="56.0" text="Button24" />
+               </children></Pane>
             </children>
         </GridPane>
     </children>

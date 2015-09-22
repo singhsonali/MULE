@@ -19,18 +19,29 @@ public class Player {
     private int playerNum;
     //The number the player is when created, Class variable
     private static int playerNumber = 0;
+    private boolean[][] owned = new boolean[5][9];
 
     public Player(){
         this.name = "temp";
         this.race = "temp";
         this.color = "temp";
         this.playerNum = ++playerNumber;
+        for (int i = 0; i < owned.length; i++) {
+            for (int j = 0; j < owned[0].length; j++) {
+                owned[i][j] = false;
+            }
+        }
     }
     public Player(String name, String race, String color){
         this.name = name;
         this.race = race;
         this.color = color;
         this.playerNum =  ++playerNumber;
+        for (int i = 0; i < owned.length; i++) {
+            for (int j = 0; j < owned[0].length; j++) {
+                owned[i][j] = false;
+            }
+        }
     }
 
 
@@ -49,6 +60,9 @@ public class Player {
     public int getPlayerNum(){
         return this.playerNum;
     }
+    public boolean[][] getOwned() {
+       return owned;
+    }
 
     public void setName(String name){
         this.name = name;
@@ -61,5 +75,8 @@ public class Player {
     }
     public void setTurn(int i){
         this.turn = i;
+    }
+    public void setOwned(int i, int j) {
+        this.owned[i][j] = true;
     }
 }
