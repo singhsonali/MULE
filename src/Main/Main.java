@@ -102,6 +102,7 @@ public class Main extends Application {
             controller.getMap(gameMap);
             loader.setController(controller);
             controller.setMainApp(this);
+            printPlayerData();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -149,15 +150,15 @@ public class Main extends Application {
         }
     }
 
-    public void addPlayer(String name, String Race, String Color){
-        Player tempPlayer = new Player(name,Race,Color);
-        playerData.add(tempPlayer);
+    public void addPlayer(Player player){
+//        Player tempPlayer = new Player(name,Race,Color);
+        playerData.add(player);
     }
 
     public void printPlayerData(){
         for(Player player: playerData){
             System.out.println(player.getName() + ":" + player.getPlayerNum());
-            System.out.println("Money =" +player.getMoney() + " " + "Energy =" + player.getEnergy());
+            System.out.println("Money =" + player.getMoney() + " " + "Energy =" + player.getEnergy());
         }
     }
     public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}
