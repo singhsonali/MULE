@@ -100,6 +100,7 @@ public class Main extends Application {
             //Pass in player Array and Map Data
             controller.setPlayerData(playerData);
             controller.getMap(gameMap);
+            controller.connectMapwithPanes();
             loader.setController(controller);
             controller.setMainApp(this);
             printPlayerData();
