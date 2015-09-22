@@ -34,6 +34,7 @@ public class Player {
         this.color = "temp";
         this.playerNum = ++playerNumber;
         this.landGrants = 2;
+
     }
     public Player(String name, String race, String color){
         this.name = name;
