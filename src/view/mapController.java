@@ -3,6 +3,7 @@ import Main.Main;
 import Model.Land;
 import Model.Map;
 import Model.Player;
+import com.sun.xml.internal.ws.api.FeatureConstructor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.Observable;
 
 /**
@@ -37,11 +39,146 @@ public class mapController {
     private Map tempMap;
     private boolean next = false;
     private int numPlayers = 0;
-    private int column =0;
-    private int row = 0;
+    //-1 for error checking
+    private int column =-1;
+    private int row = -1;
+
+    private Pane currentPane;
 
     @FXML
     private Pane townPane;
+
+    @FXML
+    private Pane pane00;
+
+    @FXML
+    private Pane pane01;
+
+    @FXML
+    private Pane pane03;
+
+    @FXML
+    private Pane pane05;
+
+    @FXML
+    private Pane pane07;
+
+    @FXML
+    private Pane pane08;
+
+    @FXML
+    private Pane pane10;
+
+    @FXML
+    private Pane pane12;
+
+    @FXML
+    private Pane pane13;
+
+    @FXML
+    private Pane pane15;
+
+    @FXML
+    private Pane pane16;
+
+    @FXML
+    private Pane pane17;
+
+    @FXML
+    private Pane pane21;
+
+    @FXML
+    private Pane pane22;
+
+    @FXML
+    private Pane pane23;
+
+    @FXML
+    private Pane pane25;
+
+    @FXML
+    private Pane pane26;
+
+    @FXML
+    private Pane pane27;
+
+    @FXML
+    private Pane pane30;
+
+    @FXML
+    private Pane pane32;
+
+    @FXML
+    private Pane pane33;
+
+    @FXML
+    private Pane pane35;
+
+    @FXML
+    private Pane pane37;
+
+    @FXML
+    private Pane pane38;
+
+    @FXML
+    private Pane pane40;
+
+    @FXML
+    private Pane pane41;
+
+    @FXML
+    private Pane pane43;
+
+    @FXML
+    private Pane pane45;
+
+    @FXML
+    private Pane pane46;
+
+    @FXML
+    private Pane pane47;
+
+    @FXML
+    private Pane pane04;
+
+    @FXML
+    private Pane pane14;
+
+    @FXML
+    private Pane pane34;
+
+    @FXML
+    private Pane pane44;
+
+    @FXML
+    private Pane pane02;
+
+    @FXML
+    private Pane pane11;
+
+    @FXML
+    private Pane pane20;
+
+    @FXML
+    private Pane pane31;
+
+    @FXML
+    private Pane pane42;
+
+    @FXML
+    private Pane pane06;
+
+    @FXML
+    private Pane pane18;
+
+    @FXML
+    private Pane pane28;
+
+    @FXML
+    private Pane pane36;
+
+    @FXML
+    private Pane pane48;
 
     @FXML
     private Label lblPlayerName;
@@ -58,6 +195,7 @@ public class mapController {
 
     @FXML
     private void initialize(){
+        currentPane = null;
     }
 
     @FXML
@@ -71,11 +209,13 @@ public class mapController {
 
     @FXML
     public void skipTurn(){
-        nextPlayer();
+        if(++numPlayers < tempPlayers.size()) {
+            updatePlayer();
+        }
         if(numPlayers> tempPlayers.size()){
             //Done with buying land
             //Start Turns
-            System.out.println("Finsihed buying Land.");
+            System.out.println("Finished buying Land.");
         }
     }
     @FXML
@@ -90,15 +230,24 @@ public class mapController {
                     chosenLand.setOpen(false);
                     currentPlayer.addLand(chosenLand);
                     chosenLand.setPlayerOwner(currentPlayer);
+                    currentPane = null;
+                    updateColor(chosenLand.getMyPane());
+                    //If there is another player
                     numPlayers++;
-                    //
-                    //chosenLand.setColor(currentPlayer.getColor()); //Returns a String
+                    if(numPlayers < tempPlayers.size()){
+                        updatePlayer();
+                    }
                 }else if(currentPlayer.getMoney() >= 300){
                     //Has enough money but not any landGrants
                     chosenLand.setOpen(false);
                     currentPlayer.addLand(chosenLand);
                     chosenLand.setPlayerOwner(currentPlayer);
-                    numPlayers++;
+                    currentPane = null;
+                    updateColor(chosenLand.getMyPane());
+                    //If there is another player
+                    if(++numPlayers < tempPlayers.size()-1) {
+                        updatePlayer();
+                    }
                 }else{
                     //Not enough money or any Land Grants
                     System.out.println("Player can't afford this land.");
@@ -109,19 +258,41 @@ public class mapController {
         }else{
             //All Players have finished buying land or skipping
             //Start turns
+            System.out.println("Start Town Game");
         }
-    }
 
-    public void nextPlayer(){
-        currentPlayer = tempPlayers.get(++numPlayers);
+    }
+    public void updatePlayer(){
+        currentPlayer = tempPlayers.get(numPlayers);
         this.lblPlayerName.setText(currentPlayer.getName());
     }
+
+    public void updateCurrentPane(Pane pane){
+        //Error Checking
+        if(currentPane == pane){
+            //Already current pane
+            return;
+        }
+        if(currentPane == null){
+            currentPane = pane;
+            updateColor(pane);
+        }else{
+            revertColor(currentPane);
+            currentPane = pane;
+            updateColor(pane);
+        }
+
+    }
+
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
     }
 
     public void setPrevScene(Scene scene){
         this.prevScene = scene;
+    }
+    public void getMap(Map map){
+        this.tempMap = map;
     }
 
     public void setPlayerData(ObservableList<Player> player){
@@ -130,234 +301,336 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
-    public void printPlayers(){
-//        for(Player p : tempPlayers){
-//            System.out.println(p.getName());
-//        }
-        System.out.println("Row:" + row + "Column" + column);
-    }
-    public void getMap(Map map){
-        this.tempMap = map;
+    //Ugly method of connecting Map Land's object to gridPane pane's
+    public void connectMapwithPanes(){
+        tempMap.getLand(0,0).setMyPane(pane00);
+        tempMap.getLand(0,1).setMyPane(pane01);
+        tempMap.getLand(0,2).setMyPane(pane02);
+        tempMap.getLand(0,3).setMyPane(pane03);
+        tempMap.getLand(0,4).setMyPane(pane04);
+        tempMap.getLand(0,5).setMyPane(pane05);
+        tempMap.getLand(0,6).setMyPane(pane06);
+        tempMap.getLand(0,7).setMyPane(pane07);
+        tempMap.getLand(0,8).setMyPane(pane08);
+
+        tempMap.getLand(1,0).setMyPane(pane10);
+        tempMap.getLand(1,1).setMyPane(pane11);
+        tempMap.getLand(1,2).setMyPane(pane12);
+        tempMap.getLand(1,3).setMyPane(pane13);
+        tempMap.getLand(1,4).setMyPane(pane14);
+        tempMap.getLand(1,5).setMyPane(pane15);
+        tempMap.getLand(1,6).setMyPane(pane16);
+        tempMap.getLand(1,7).setMyPane(pane17);
+        tempMap.getLand(1,8).setMyPane(pane18);
+
+        tempMap.getLand(2,0).setMyPane(pane20);
+        tempMap.getLand(2,1).setMyPane(pane21);
+        tempMap.getLand(2,2).setMyPane(pane22);
+        tempMap.getLand(2,3).setMyPane(pane23);
+        tempMap.getLand(2,5).setMyPane(pane25);
+        tempMap.getLand(2,6).setMyPane(pane26);
+        tempMap.getLand(2,7).setMyPane(pane27);
+        tempMap.getLand(2,8).setMyPane(pane28);
+
+        tempMap.getLand(3,0).setMyPane(pane30);
+        tempMap.getLand(3,1).setMyPane(pane31);
+        tempMap.getLand(3,2).setMyPane(pane32);
+        tempMap.getLand(3,3).setMyPane(pane33);
+        tempMap.getLand(3,4).setMyPane(pane34);
+        tempMap.getLand(3,5).setMyPane(pane35);
+        tempMap.getLand(3,6).setMyPane(pane36);
+        tempMap.getLand(3,7).setMyPane(pane37);
+        tempMap.getLand(3,8).setMyPane(pane38);
+
+
+        tempMap.getLand(4,0).setMyPane(pane30);
+        tempMap.getLand(4,1).setMyPane(pane31);
+        tempMap.getLand(4,2).setMyPane(pane32);
+        tempMap.getLand(4,3).setMyPane(pane33);
+        tempMap.getLand(4,4).setMyPane(pane34);
+        tempMap.getLand(4,5).setMyPane(pane35);
+        tempMap.getLand(4,6).setMyPane(pane36);
+        tempMap.getLand(4,7).setMyPane(pane37);
+        tempMap.getLand(4,8).setMyPane(pane38);
     }
 
+
+
+    public void updateColor(Pane pane){
+        //Sets the Land border to player color
+        //Temp[0] hold the original background
+        String temp[] = pane.getStyle().split(";");
+        pane.setStyle( temp[0]+ ";" + "-fx-border-color: "+currentPlayer.getColor());
+    }
+    public void revertColor(Pane pane){
+        //Set back to original color
+        String temp[] = pane.getStyle().split(";");
+        pane.setStyle(temp[0] + ";" + "-fx-border-color: Black");
+    }
+
+
     @FXML
-         public void setLandChoice00(){
+    public void setLandChoice00(){
         this.column = 0;
         this.row = 0;
+        updateCurrentPane(pane00);
     }
     @FXML
     public void setLandChoice01() {
         this.column = 1;
         this.row = 0;
+        updateCurrentPane(pane01);
     }
     @FXML
     public void setLandChoice02() {
         this.column = 2;
         this.row = 0;
+        updateCurrentPane(pane02);
     }
     @FXML
     public void setLandChoice03() {
         this.column = 3;
         this.row = 0;
+        updateCurrentPane(pane03);
     }
     @FXML
     public void setLandChoice04() {
         this.column = 4;
         this.row = 0;
+        updateCurrentPane(pane04);
     }
     @FXML
     public void setLandChoice05() {
         this.column = 5;
         this.row = 0;
+        updateCurrentPane(pane05);
     }
     @FXML
     public void setLandChoice06() {
         this.column = 6;
         this.row = 0;
+        updateCurrentPane(pane06);
     }
     @FXML
     public void setLandChoice07() {
         this.column = 7;
         this.row = 0;
+        updateCurrentPane(pane07);
     }
     @FXML
     public void setLandChoice08() {
         this.column = 8;
         this.row = 0;
+        updateCurrentPane(pane08);
     }
     @FXML
     public void setLandChoice10(){
         this.column = 0;
         this.row = 1;
+        updateCurrentPane(pane10);
     }
     @FXML
     public void setLandChoice11() {
         this.column = 1;
         this.row = 1;
+        updateCurrentPane(pane11);
     }
     @FXML
     public void setLandChoice12() {
         this.column = 2;
         this.row = 1;
+        updateCurrentPane(pane12);
     }
     @FXML
     public void setLandChoice13() {
         this.column = 3;
         this.row = 1;
+        updateCurrentPane(pane13);
     }
     @FXML
     public void setLandChoice14() {
         this.column = 4;
         this.row = 1;
+        updateCurrentPane(pane14);
     }
     @FXML
     public void setLandChoice15() {
         this.column = 5;
         this.row = 1;
+        updateCurrentPane(pane15);
     }
     @FXML
     public void setLandChoice16() {
         this.column = 6;
         this.row = 1;
+        updateCurrentPane(pane16);
     }
     @FXML
     public void setLandChoice17() {
         this.column = 7;
         this.row = 1;
+        updateCurrentPane(pane17);
     }
     @FXML
     public void setLandChoice18() {
         this.column = 8;
         this.row = 1;
+        updateCurrentPane(pane18);
     }
     @FXML
     public void setLandChoice20(){
         this.column = 0;
         this.row = 2;
+        updateCurrentPane(pane20);
     }
     @FXML
     public void setLandChoice21() {
         this.column = 1;
         this.row = 2;
+        updateCurrentPane(pane21);
     }
     @FXML
     public void setLandChoice22() {
         this.column = 2;
         this.row = 2;
+        updateCurrentPane(pane22);
     }
     @FXML
     public void setLandChoice23() {
         this.column = 3;
         this.row = 2;
+        updateCurrentPane(pane23);
     }
     @FXML
     public void setLandChoice25() {
         this.column = 5;
         this.row = 2;
+        updateCurrentPane(pane25);
     }
     @FXML
     public void setLandChoice26() {
         this.column = 6;
         this.row = 2;
+        updateCurrentPane(pane26);
     }
     @FXML
     public void setLandChoice27() {
         this.column = 7;
         this.row = 2;
+        updateCurrentPane(pane27);
     }
     @FXML
     public void setLandChoice28() {
         this.column = 8;
         this.row = 2;
+        updateCurrentPane(pane28);
     }
     @FXML
     public void setLandChoice30(){
         this.column = 0;
         this.row = 3;
+        updateCurrentPane(pane30);
     }
     @FXML
     public void setLandChoice31() {
         this.column = 1;
         this.row = 3;
+        updateCurrentPane(pane31);
     }
     @FXML
     public void setLandChoice32() {
         this.column = 2;
         this.row = 3;
+        updateCurrentPane(pane32);
     }
     @FXML
     public void setLandChoice33() {
         this.column = 3;
         this.row = 3;
+        updateCurrentPane(pane33);
     }
     @FXML
     public void setLandChoice34() {
         this.column = 4;
         this.row = 3;
+        updateCurrentPane(pane34);
     }
     @FXML
     public void setLandChoice35() {
         this.column = 5;
         this.row = 3;
+        updateCurrentPane(pane35);
     }
     @FXML
     public void setLandChoice36() {
         this.column = 6;
         this.row = 3;
+        updateCurrentPane(pane35);
     }
     @FXML
     public void setLandChoice37() {
         this.column = 7;
         this.row = 3;
+        updateCurrentPane(pane37);
     }
     @FXML
     public void setLandChoice38() {
         this.column = 8;
         this.row = 3;
+        updateCurrentPane(pane38);
     }
     @FXML
     public void setLandChoice40(){
         this.column = 0;
         this.row = 4;
+        updateCurrentPane(pane40);
     }
     @FXML
     public void setLandChoice41() {
         this.column = 1;
         this.row = 4;
+        updateCurrentPane(pane41);
     }
     @FXML
     public void setLandChoice42() {
         this.column = 2;
         this.row = 4;
+        updateCurrentPane(pane42);
     }
     @FXML
     public void setLandChoice43() {
         this.column = 3;
         this.row = 4;
+        updateCurrentPane(pane43);
     }
     @FXML
     public void setLandChoice44() {
         this.column = 4;
         this.row = 4;
+        updateCurrentPane(pane44);
     }
     @FXML
     public void setLandChoice45() {
         this.column = 5;
         this.row = 4;
+        updateCurrentPane(pane45);
     }
     @FXML
     public void setLandChoice46() {
         this.column = 6;
         this.row = 4;
+        updateCurrentPane(pane46);
     }
     @FXML
     public void setLandChoice47() {
         this.column = 7;
         this.row = 4;
+        updateCurrentPane(pane47);
     }
     @FXML
     public void setLandChoice48() {
         this.column = 8;
         this.row = 4;
+        updateCurrentPane(pane48);
     }
 }

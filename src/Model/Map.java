@@ -26,6 +26,9 @@ public class Map {
         Land[][] map;
     }
 
+    public int getRow(){return 9;}
+    public int getColumn() {return 5;}
+
     public Land getLand(int i, int j) {
         return map[i][j];
     }
