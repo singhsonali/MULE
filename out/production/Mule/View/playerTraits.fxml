@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.playerTraitController">
+    <children>
+        <Label fx:id="lblPlayerNum" layoutX="257.0" layoutY="33.0" text="Player Info" textFill="#37d3e7" AnchorPane.topAnchor="33.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="121.0" layoutY="97.0" text="Select Color:" textFill="#37d3e7">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="123.0" layoutY="190.0" text="Select Race:" textFill="#37d3e7">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="121.0" layoutY="293.0" text="Enter Name:" textFill="#37d3e7">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <ChoiceBox fx:id="cmbColor" layoutX="233.0" layoutY="93.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;" />
+        <ChoiceBox fx:id="cmbRace" layoutX="233.0" layoutY="187.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;" />
+        <TextField fx:id="textName" layoutX="232.0" layoutY="289.0" promptText="i.e) Jeff" style="-fx-border-color: black;" />
+        <Button fx:id="cntButton" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#confirmChoices" text="Continue" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+        <Label layoutX="45.0" layoutY="64.0" text="★" textFill="#fffd7b">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <Label layoutX="484.0" layoutY="130.0" text="★" textFill="#fffd7b">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="68.0" layoutY="290.0" text="★" textFill="#fffd7b" />
+        <Label layoutX="337.0" layoutY="221.0" text="★" textFill="#fffd7b">
+            <font>
+                <Font size="10.0" />
+            </font>
+        </Label>
+        <Label layoutX="530.0" layoutY="33.0" text="★" textFill="#fffd7b" />
+        <Label layoutX="418.0" layoutY="324.0" text="★" textFill="#fffd7b" />
+    </children>
+</AnchorPane>
