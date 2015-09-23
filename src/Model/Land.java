@@ -1,5 +1,8 @@
 package Model;
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+
 /**
  * Created by Ashley on 9/20/2015.
  */
@@ -8,10 +11,13 @@ public class Land {
     private boolean river;
     private boolean open;
     private boolean town = false;
-    private int cost; //Maybe need the Cost of the land piece
+
+    private final int cost = 300; //Constant cost for all pieces of land
     //Added a player as an owner of the Land that is set when purchased.
     //Also needed to set the color of the land
-    Player player;
+    private Player player;
+    @FXML
+    private Pane myPane;
 
     public Land() {
         this.mountain = 0;
@@ -57,6 +63,12 @@ public class Land {
         return town;
     }
     public Player getPlayer(){return this.player;}
+    public Pane getMyPane(){
+        return this.myPane;
+    }
+    public int getCost(){
+        return this.cost;
+    }
 
 
     public void setMountain (int mountain) {
@@ -73,5 +85,8 @@ public class Land {
     }
     public void setPlayerOwner(Player player){
         this.player = player;
+    }
+    public void setMyPane(Pane pane){
+        this.myPane = pane;
     }
 }

@@ -48,8 +48,8 @@ public class playerTraitController extends gameScreenController {
         cmbColor.getItems().addAll(
                 "Green",
                 "Blue",
-                "Black",
-                "Purple."
+                "Yellow",
+                "Red"
         );
         cmbRace.getItems().addAll(
                 "Human",
