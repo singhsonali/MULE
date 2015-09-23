@@ -75,6 +75,18 @@ public class Player {
         return this.energy.getAmount();
     }
 
+    public void addMoney(int i){
+        int temp = this.money.getAmount();
+        temp += i;
+        this.money.setAmount(temp);
+    }
+    public void subtractMoney(int i){
+        int temp = this.money.getAmount();
+        temp -= i;
+        this.money.setAmount(temp);
+    }
+
+
 
     public void setName(String name){
         this.name = name;
