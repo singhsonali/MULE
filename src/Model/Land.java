@@ -11,7 +11,8 @@ public class Land {
     private boolean river;
     private boolean open;
     private boolean town = false;
-    private int cost; //Maybe need the Cost of the land piece
+
+    private final int cost = 300; //Constant cost for all pieces of land
     //Added a player as an owner of the Land that is set when purchased.
     //Also needed to set the color of the land
     private Player player;
@@ -64,6 +65,9 @@ public class Land {
     public Player getPlayer(){return this.player;}
     public Pane getMyPane(){
         return this.myPane;
+    }
+    public int getCost(){
+        return this.cost;
     }
 
 

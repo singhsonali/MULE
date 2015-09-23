@@ -250,13 +250,13 @@ public class mapController {
                             landSelectionFinished = true;
                             setInterfaceInvis(false);
                         }
-                    } else if (currentPlayer.getMoney() >= 300) {
+                    } else if (currentPlayer.getMoney() >= chosenLand.getCost()) {
                         //Has enough money but not any landGrants
                         chosenLand.setOpen(false);
                         currentPlayer.addLand(chosenLand);
                         chosenLand.setPlayerOwner(currentPlayer);
                         currentPane = null;
-                        currentPlayer.subtractMoney(300);
+                        currentPlayer.subtractMoney(chosenLand.getCost());
                         updateColor(chosenLand.getMyPane());
                         //If there is another player
                         numPlayers++;
