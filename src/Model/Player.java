@@ -34,6 +34,7 @@ public class Player {
         this.color = "temp";
         this.playerNum = ++playerNumber;
         this.landGrants = 2;
+
     }
     public Player(String name, String race, String color){
         this.name = name;
@@ -73,6 +74,18 @@ public class Player {
     public int getEnergy(){
         return this.energy.getAmount();
     }
+
+    public void addMoney(int i){
+        int temp = this.money.getAmount();
+        temp += i;
+        this.money.setAmount(temp);
+    }
+    public void subtractMoney(int i){
+        int temp = this.money.getAmount();
+        temp -= i;
+        this.money.setAmount(temp);
+    }
+
 
 
     public void setName(String name){

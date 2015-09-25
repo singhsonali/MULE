@@ -42,8 +42,9 @@ public class mapController {
     //-1 for error checking
     private int column =-1;
     private int row = -1;
-
+    private boolean landSelectionFinished = false;
     private Pane currentPane;
+    private int skips = 0;
 
     @FXML
     private Pane townPane;
@@ -189,6 +190,9 @@ public class mapController {
     @FXML
     private Button btnSkip;
 
+    @FXML
+    private Label lblInstructions;
+
     public mapController(){
 
     }
@@ -202,87 +206,121 @@ public class mapController {
     public void openTown(){
         //Provide conditional when this method can work.
         //ie if(land purchases are done)
-        main.showTownScreen();
-        Stage stage = (Stage)prevScene.getWindow();
-        stage.close();
+        if(landSelectionFinished) {
+            main.showTownScreen();
+            Stage stage = (Stage) prevScene.getWindow();
+            stage.close();
+        }
     }
 
     @FXML
-    public void skipTurn(){
-        if(++numPlayers < tempPlayers.size()) {
-            updatePlayer();
-        }
-        if(numPlayers> tempPlayers.size()){
-            //Done with buying land
-            //Start Turns
-            System.out.println("Finished buying Land.");
-        }
-    }
-    @FXML
-    public void playersSelectLand(){
-        if(numPlayers < tempPlayers.size()){
-            //Go through land procedure
-            //If land is not owned
-            if(tempMap.getLand(row,column).isOpen()){
-                Land chosenLand = tempMap.getLand(row,column);
-                if(currentPlayer.haveLandGrants()){
-                    currentPlayer.useLandGrant();
-                    chosenLand.setOpen(false);
-                    currentPlayer.addLand(chosenLand);
-                    chosenLand.setPlayerOwner(currentPlayer);
-                    currentPane = null;
-                    updateColor(chosenLand.getMyPane());
-                    //If there is another player
-                    numPlayers++;
-                    if(numPlayers < tempPlayers.size()){
-                        updatePlayer();
-                    }
-                }else if(currentPlayer.getMoney() >= 300){
-                    //Has enough money but not any landGrants
-                    chosenLand.setOpen(false);
-                    currentPlayer.addLand(chosenLand);
-                    chosenLand.setPlayerOwner(currentPlayer);
-                    currentPane = null;
-                    updateColor(chosenLand.getMyPane());
-                    //If there is another player
-                    if(++numPlayers < tempPlayers.size()-1) {
-                        updatePlayer();
-                    }
-                }else{
-                    //Not enough money or any Land Grants
-                    System.out.println("Player can't afford this land.");
-                }
-            }else{
-                System.out.println("Land is already owned. Pick another piece of land or skip.");
+    public void skipTurn() {
+        skips++;
+        if (skips == tempPlayers.size()) {
+            System.out.println("All players skipped. Land selection phase ended.");
+            landSelectionFinished = true;
+            setInterfaceInvis(false);
+        } else if (!landSelectionFinished) {
+            numPlayers++;
+            if (numPlayers < tempPlayers.size()) {
+                updatePlayer();
+            } else {
+                //Done with buying land
+                //Start Turns
+                landSelectionFinished = true;
+                setInterfaceInvis(false);
+                System.out.println("Finished buying Land.");
+                skips = 0;
             }
-        }else{
-            //All Players have finished buying land or skipping
-            //Start turns
-            System.out.println("Start Town Game");
         }
+    }
+    @FXML
+    public void playersSelectLand() {
+        if (!landSelectionFinished) {
+            if (numPlayers < tempPlayers.size()) {
+                //Go through land procedure
+                //If land is not owned
+                if (tempMap.getLand(row, column).isOpen()) {
+                    Land chosenLand = tempMap.getLand(row, column);
+                    if (currentPlayer.haveLandGrants()) {
+                        currentPlayer.useLandGrant();
+                        chosenLand.setOpen(false);
+                        currentPlayer.addLand(chosenLand);
+                        chosenLand.setPlayerOwner(currentPlayer);
+                        currentPane = null;
+                        updateColor(chosenLand.getMyPane());
+                        //If there is another player
+                        numPlayers++;
+                        if (numPlayers < tempPlayers.size()) {
+                            updatePlayer();
+                        } else {
+                            landSelectionFinished = true;
+                            setInterfaceInvis(false);
+                            skips = 0;
+                        }
+                    } else if (currentPlayer.getMoney() >= chosenLand.getCost()) {
+                        //Has enough money but not any landGrants
+                        chosenLand.setOpen(false);
+                        currentPlayer.addLand(chosenLand);
+                        chosenLand.setPlayerOwner(currentPlayer);
+                        currentPane = null;
+                        currentPlayer.subtractMoney(chosenLand.getCost());
+                        updateColor(chosenLand.getMyPane());
+                        //If there is another player
+                        numPlayers++;
+                        if (numPlayers < tempPlayers.size()) {
+                            updatePlayer();
+                        } else {
+                            landSelectionFinished = true;
+                            setInterfaceInvis(false);
+                            skips = 0;
+                        }
+                    } else {
+                        //Not enough money or any Land Grants
+                        System.out.println("Player can't afford this land.");
+                    }
+                } else {
+                    System.out.println("Land is already owned. Pick another piece of land or skip.");
+                }
+            } else {
+                //All Players have finished buying land or skipping
+                //Start turns
+                skips = 0;
+                System.out.println("Start Town Game");
+            }
 
+        }
     }
     public void updatePlayer(){
         currentPlayer = tempPlayers.get(numPlayers);
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
-    public void updateCurrentPane(Pane pane){
+    public void updateCurrentPane(Pane pane) {
         //Error Checking
-        if(currentPane == pane){
-            //Already current pane
-            return;
-        }
-        if(currentPane == null){
-            currentPane = pane;
-            updateColor(pane);
-        }else{
-            revertColor(currentPane);
-            currentPane = pane;
-            updateColor(pane);
-        }
+        if (!landSelectionFinished) {
+            if (currentPane == pane) {
+                //Already current pane
+                return;
+            }
+            if (currentPane == null) {
+                currentPane = pane;
+                updateColor(pane);
+            } else {
+                revertColor(currentPane);
+                currentPane = pane;
+                updateColor(pane);
+            }
 
+        }
     }
+
+    public void setInterfaceInvis(boolean bool){
+        btnContinue.visibleProperty().setValue(bool);
+        btnSkip.visibleProperty().setValue(bool);
+        lblInstructions.visibleProperty().setValue(bool);
+    }
+
 
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
@@ -302,7 +340,7 @@ public class mapController {
     }
 
     //Ugly method of connecting Map Land's object to gridPane pane's
-    public void connectMapwithPanes(){
+    public void connectMapWithPanes(){
         tempMap.getLand(0,0).setMyPane(pane00);
         tempMap.getLand(0,1).setMyPane(pane01);
         tempMap.getLand(0,2).setMyPane(pane02);
@@ -343,15 +381,15 @@ public class mapController {
         tempMap.getLand(3,8).setMyPane(pane38);
 
 
-        tempMap.getLand(4,0).setMyPane(pane30);
-        tempMap.getLand(4,1).setMyPane(pane31);
-        tempMap.getLand(4,2).setMyPane(pane32);
-        tempMap.getLand(4,3).setMyPane(pane33);
-        tempMap.getLand(4,4).setMyPane(pane34);
-        tempMap.getLand(4,5).setMyPane(pane35);
-        tempMap.getLand(4,6).setMyPane(pane36);
-        tempMap.getLand(4,7).setMyPane(pane37);
-        tempMap.getLand(4,8).setMyPane(pane38);
+        tempMap.getLand(4,0).setMyPane(pane40);
+        tempMap.getLand(4,1).setMyPane(pane41);
+        tempMap.getLand(4,2).setMyPane(pane42);
+        tempMap.getLand(4,3).setMyPane(pane43);
+        tempMap.getLand(4,4).setMyPane(pane44);
+        tempMap.getLand(4,5).setMyPane(pane45);
+        tempMap.getLand(4,6).setMyPane(pane46);
+        tempMap.getLand(4,7).setMyPane(pane47);
+        tempMap.getLand(4,8).setMyPane(pane48);
     }
 
 
@@ -373,264 +411,352 @@ public class mapController {
     public void setLandChoice00(){
         this.column = 0;
         this.row = 0;
-        updateCurrentPane(pane00);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice01() {
         this.column = 1;
         this.row = 0;
-        updateCurrentPane(pane01);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice02() {
         this.column = 2;
         this.row = 0;
-        updateCurrentPane(pane02);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice03() {
         this.column = 3;
         this.row = 0;
-        updateCurrentPane(pane03);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice04() {
         this.column = 4;
         this.row = 0;
-        updateCurrentPane(pane04);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice05() {
         this.column = 5;
         this.row = 0;
-        updateCurrentPane(pane05);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice06() {
         this.column = 6;
         this.row = 0;
-        updateCurrentPane(pane06);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice07() {
         this.column = 7;
         this.row = 0;
-        updateCurrentPane(pane07);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice08() {
         this.column = 8;
         this.row = 0;
-        updateCurrentPane(pane08);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice10(){
         this.column = 0;
         this.row = 1;
-        updateCurrentPane(pane10);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice11() {
         this.column = 1;
         this.row = 1;
-        updateCurrentPane(pane11);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice12() {
         this.column = 2;
         this.row = 1;
-        updateCurrentPane(pane12);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice13() {
         this.column = 3;
         this.row = 1;
-        updateCurrentPane(pane13);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice14() {
         this.column = 4;
         this.row = 1;
-        updateCurrentPane(pane14);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice15() {
         this.column = 5;
         this.row = 1;
-        updateCurrentPane(pane15);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice16() {
         this.column = 6;
         this.row = 1;
-        updateCurrentPane(pane16);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice17() {
         this.column = 7;
         this.row = 1;
-        updateCurrentPane(pane17);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice18() {
         this.column = 8;
         this.row = 1;
-        updateCurrentPane(pane18);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice20(){
         this.column = 0;
         this.row = 2;
-        updateCurrentPane(pane20);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice21() {
         this.column = 1;
         this.row = 2;
-        updateCurrentPane(pane21);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice22() {
         this.column = 2;
         this.row = 2;
-        updateCurrentPane(pane22);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice23() {
         this.column = 3;
         this.row = 2;
-        updateCurrentPane(pane23);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice25() {
         this.column = 5;
         this.row = 2;
-        updateCurrentPane(pane25);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice26() {
         this.column = 6;
         this.row = 2;
-        updateCurrentPane(pane26);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice27() {
         this.column = 7;
         this.row = 2;
-        updateCurrentPane(pane27);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice28() {
         this.column = 8;
         this.row = 2;
-        updateCurrentPane(pane28);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice30(){
         this.column = 0;
         this.row = 3;
-        updateCurrentPane(pane30);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice31() {
         this.column = 1;
         this.row = 3;
-        updateCurrentPane(pane31);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice32() {
         this.column = 2;
         this.row = 3;
-        updateCurrentPane(pane32);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice33() {
         this.column = 3;
         this.row = 3;
-        updateCurrentPane(pane33);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice34() {
         this.column = 4;
         this.row = 3;
-        updateCurrentPane(pane34);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice35() {
         this.column = 5;
         this.row = 3;
-        updateCurrentPane(pane35);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice36() {
         this.column = 6;
         this.row = 3;
-        updateCurrentPane(pane35);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice37() {
         this.column = 7;
         this.row = 3;
-        updateCurrentPane(pane37);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice38() {
         this.column = 8;
         this.row = 3;
-        updateCurrentPane(pane38);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice40(){
         this.column = 0;
         this.row = 4;
-        updateCurrentPane(pane40);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice41() {
         this.column = 1;
         this.row = 4;
-        updateCurrentPane(pane41);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice42() {
         this.column = 2;
         this.row = 4;
-        updateCurrentPane(pane42);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice43() {
         this.column = 3;
         this.row = 4;
-        updateCurrentPane(pane43);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice44() {
         this.column = 4;
         this.row = 4;
-        updateCurrentPane(pane44);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice45() {
         this.column = 5;
         this.row = 4;
-        updateCurrentPane(pane45);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice46() {
         this.column = 6;
         this.row = 4;
-        updateCurrentPane(pane46);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice47() {
         this.column = 7;
         this.row = 4;
-        updateCurrentPane(pane47);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
     @FXML
     public void setLandChoice48() {
         this.column = 8;
         this.row = 4;
-        updateCurrentPane(pane48);
+        if(tempMap.getLand(row,column).isOpen()){
+            updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        }
     }
 }

@@ -2,21 +2,22 @@ package Main;
 
 import Model.Map;
 import Model.Player;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.io.IOException;
 import View.gameScreenController;
 import View.playerTraitController;
 import View.mapController;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.print.PageLayout;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ObjectView;
-import java.io.IOException;
-
+/**
+ * Created by Shannor on 9/23/2015.
+ */
 public class Main extends Application {
 
     private Stage primaryStage;
@@ -100,9 +101,10 @@ public class Main extends Application {
             //Pass in player Array and Map Data
             controller.setPlayerData(playerData);
             controller.getMap(gameMap);
-            controller.connectMapwithPanes();
+            controller.connectMapWithPanes();
             loader.setController(controller);
             controller.setMainApp(this);
+            printPlayerData();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -150,15 +152,15 @@ public class Main extends Application {
         }
     }
 
-    public void addPlayer(String name, String Race, String Color){
-        Player tempPlayer = new Player(name,Race,Color);
-        playerData.add(tempPlayer);
+    public void addPlayer(Player player){
+//        Player tempPlayer = new Player(name,Race,Color);
+        playerData.add(player);
     }
 
     public void printPlayerData(){
         for(Player player: playerData){
             System.out.println(player.getName() + ":" + player.getPlayerNum());
-            System.out.println("Money =" +player.getMoney() + " " + "Energy =" + player.getEnergy());
+            System.out.println("Money =" + player.getMoney() + " " + "Energy =" + player.getEnergy());
         }
     }
     public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}

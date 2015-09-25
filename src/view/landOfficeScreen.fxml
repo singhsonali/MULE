@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Indigo;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="180.0" layoutY="31.0" text="Land Office" textFill="#7c6b6b">
+         <font>
+            <Font name="Eras Bold ITC" size="41.0" />
+         </font>
+      </Label>
+      <Button layoutX="200.0" layoutY="149.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="183.0" text="Buy">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="200.0" layoutY="214.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="183.0" text="Sell">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" text="Return" />
+   </children>
+</Pane>
