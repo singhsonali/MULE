@@ -5,6 +5,6 @@ package Model;
  */
 public class Pub {
 
-
+    public Pub() {}
 
 }
