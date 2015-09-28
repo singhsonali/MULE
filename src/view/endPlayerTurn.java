@@ -16,26 +16,26 @@ import java.io.IOException;
  */
 public class endPlayerTurn {
 
-    @FXML
-    private Button buttonUp;
+        @FXML
+        private Button buttonUp;
 
-    @FXML
-    private Label error;
+        @FXML
+        private Label error;
 
-    @FXML
-    private void buttonAction(ActionEvent button) throws IOException {
-        Stage s;
-        Parent root;
-        Button a = (Button) button.getSource();
-        s = (Stage) a.getScene().getWindow();
-        if (a == buttonUp) {
-            root = FXMLLoader.load(getClass().getResource("townMap.fxml"));
-        } else {
-            root = null;
+        @FXML
+        private void buttonAction(ActionEvent button) throws IOException {
+            Stage s;
+            Parent root;
+            Button a = (Button) button.getSource();
+            s = (Stage) a.getScene().getWindow();
+            if (a == buttonUp) {
+                root = FXMLLoader.load(getClass().getResource("townMap.fxml"));
+            } else {
+                root = null;
+            }
+            Scene scene = new Scene(root);
+            s.setScene(scene);
+            s.show();
         }
-        Scene scene = new Scene(root);
-        s.setScene(scene);
-        s.show();
-    }
 
 }

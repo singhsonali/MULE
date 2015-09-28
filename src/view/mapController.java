@@ -44,6 +44,7 @@ public class mapController {
     private int row = -1;
     private boolean landSelectionFinished = false;
     private Pane currentPane;
+    private int skips = 0;
 
     @FXML
     private Pane townPane;
@@ -214,7 +215,12 @@ public class mapController {
 
     @FXML
     public void skipTurn() {
-        if (!landSelectionFinished) {
+        skips++;
+        if (skips == tempPlayers.size()) {
+            System.out.println("All players skipped. Land selection phase ended.");
+            landSelectionFinished = true;
+            setInterfaceInvis(false);
+        } else if (!landSelectionFinished) {
             numPlayers++;
             if (numPlayers < tempPlayers.size()) {
                 updatePlayer();
@@ -224,6 +230,7 @@ public class mapController {
                 landSelectionFinished = true;
                 setInterfaceInvis(false);
                 System.out.println("Finished buying Land.");
+                skips = 0;
             }
         }
     }
@@ -249,6 +256,7 @@ public class mapController {
                         } else {
                             landSelectionFinished = true;
                             setInterfaceInvis(false);
+                            skips = 0;
                         }
                     } else if (currentPlayer.getMoney() >= chosenLand.getCost()) {
                         //Has enough money but not any landGrants
@@ -265,6 +273,7 @@ public class mapController {
                         } else {
                             landSelectionFinished = true;
                             setInterfaceInvis(false);
+                            skips = 0;
                         }
                     } else {
                         //Not enough money or any Land Grants
@@ -276,6 +285,7 @@ public class mapController {
             } else {
                 //All Players have finished buying land or skipping
                 //Start turns
+                skips = 0;
                 System.out.println("Start Town Game");
             }
 

@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.mapController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.mapController">
     <children>
         <GridPane fx:id="gridPlaneMap" layoutX="50.0" layoutY="60.0" prefHeight="290.0" prefWidth="501.0">
             <columnConstraints>
@@ -62,20 +62,20 @@
                 <Pane fx:id="pane44" onMouseClicked="#setLandChoice44" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Aqua;" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                 <Pane fx:id="pane02" onMouseClicked="#setLandChoice02" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="2" />
                 <Pane fx:id="pane11" onMouseClicked="#setLandChoice11" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Pane fx:id="pane20" onMouseClicked="#setLandChoice20" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.rowIndex="2" />
-                <Pane fx:id="pane31" onMouseClicked="#setLandChoice31" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Pane fx:id="pane42" onMouseClicked="#setLandChoice42" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                <Pane fx:id="pane06" onMouseClicked="#setLandChoice06" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="6" />
-                <Pane fx:id="pane18" onMouseClicked="#setLandChoice18" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                <Pane fx:id="pane20" onMouseClicked="#setLandChoice20" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray; -fx-border-color: Black;" GridPane.rowIndex="2" />
+                <Pane fx:id="pane31" onMouseClicked="#setLandChoice31" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: LightGray; -fx-border-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Pane fx:id="pane42" onMouseClicked="#setLandChoice42" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: LightGray; -fx-border-color: Black;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <Pane fx:id="pane06" onMouseClicked="#setLandChoice06" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray; -fx-border-color: Black;" GridPane.columnIndex="6" />
+                <Pane fx:id="pane18" onMouseClicked="#setLandChoice18" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="1" />
                 <Pane fx:id="pane28" onMouseClicked="#setLandChoice28" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                <Pane fx:id="pane36" onMouseClicked="#setLandChoice36" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                <Pane fx:id="pane48" onMouseClicked="#setLandChoice48" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+                <Pane fx:id="pane36" onMouseClicked="#setLandChoice36" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: LightGray; -fx-border-color: Black;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                <Pane fx:id="pane48" onMouseClicked="#setLandChoice48" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: LightGray; -fx-border-color: Black;" GridPane.columnIndex="8" GridPane.rowIndex="4" />
                 <Pane fx:id="townPane" onDragDetected="#openTown" onMouseClicked="#openTown" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Tan; -fx-border-color: Black;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             </children>
         </GridPane>
-        <Label fx:id="lblPlayerName" layoutX="50.0" layoutY="26.0" text="Label" />
-        <Label fx:id="lblInstructions" layoutX="248.0" layoutY="26.0" text="Pick a piece of Land" />
-        <Button fx:id="btnContinue" layoutX="412.0" layoutY="22.0" mnemonicParsing="false" onAction="#playersSelectLand" text="Continue" />
-        <Button fx:id="btnSkip" layoutX="499.0" layoutY="22.0" mnemonicParsing="false" onAction="#skipTurn" text="Skip" />
+      <Label fx:id="lblPlayerName" layoutX="50.0" layoutY="26.0" text="Label" />
+      <Label fx:id="lblInstructions" layoutX="248.0" layoutY="26.0" text="Pick a piece of Land" />
+      <Button fx:id="btnContinue" layoutX="412.0" layoutY="22.0" mnemonicParsing="false" onAction="#playersSelectLand" text="Continue" />
+      <Button fx:id="btnSkip" layoutX="499.0" layoutY="22.0" mnemonicParsing="false" onAction="#skipTurn" text="Skip" />
     </children>
 </AnchorPane>
