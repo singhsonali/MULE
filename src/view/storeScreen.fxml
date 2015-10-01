@@ -25,8 +25,8 @@
       </Label>
       <ChoiceBox layoutX="302.0" layoutY="129.0" prefWidth="150.0" />
       <TextField layoutX="303.0" layoutY="206.0" />
-      <Button layoutX="222.0" layoutY="284.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Buy" />
-      <Button layoutX="322.0" layoutY="284.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Sell" />
-      <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" text="Return" />
+      <Button fx:id="btnBuy" layoutX="222.0" layoutY="284.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Buy" />
+      <Button fx:id="btnSell" layoutX="322.0" layoutY="284.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Sell" />
+      <Button fx:id="btnReturn" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" text="Return" />
    </children>
 </Pane>

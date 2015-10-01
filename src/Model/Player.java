@@ -23,6 +23,10 @@ public class Player {
     private Food food;
     private Energy energy;
     private Money money;
+    private Mule mule;
+    //How much time they have for the round
+    private int roundTime;
+    private Round round;
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
@@ -45,6 +49,7 @@ public class Player {
         this.food = new Food();
         this.energy = new Energy();
         this.money = new Money(this);
+        this.mule = new Mule();
         this.ownedLand = new ArrayList<Land>();
     }
 
@@ -73,6 +78,15 @@ public class Player {
     }
     public int getEnergy(){
         return this.energy.getAmount();
+    }
+    public int calcRoundTime() {
+        if (getFood() == 0 || mule.getAmount() != 0 && energy.getAmount() == 0) { //No food or no energy for mules
+            return 5;
+        } else if (!round.checkRequirement(food) || energy.getAmount() < mule.getAmount()) { //Not enough food or energy for mules
+            return 30;
+        } else { //Meets food and energy requirement
+            return 50;
+        }
     }
 
     public void addMoney(int i){
