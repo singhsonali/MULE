@@ -43,4 +43,8 @@ public class GameTimer {
         });
     }
 
+    public void setDuration(int duration){
+        this.duration = duration;
+    }
+
 }
