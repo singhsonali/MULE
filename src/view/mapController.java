@@ -296,6 +296,40 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
+    public void updateList() {
+        ObservableList<Player> temp = FXCollections.observableArrayList();
+        int fuckThis;
+        temp = tempPlayers;
+        if (tempPlayers.size() == 5000) {
+            tempPlayers = temp;
+        }
+        tempPlayers = temp;
+    }
+
+    public void updateTempPlayers() {
+        ObservableList<Player> temp = FXCollections.observableArrayList();
+        for (int i = 0; i < this.tempPlayers.size(); i++) {
+            if (temp.get(0) == null) {
+                temp.set(0, tempPlayers.get(0));
+            } else {
+                if (tempPlayers.get(i).getScore() > (temp.get(i - 1)).getScore()) {
+                    temp.set(i, tempPlayers.get(i));
+                } else if (tempPlayers.get(i).getScore() < (temp.get(i - 1)).getScore()) {
+                    temp.set(i, temp.get(i - 1));
+                    temp.set((i - 1), tempPlayers.get(i));
+                } else {
+                    if (tempPlayers.get(i).getPlayerNum() > temp.get(i - 1).getPlayerNum()) {
+                        temp.set(i, temp.get(i - 1));
+                        temp.set((i - 1), tempPlayers.get(i));
+                    } else {
+                        temp.set(i, tempPlayers.get(i));
+                    }
+                }
+            }
+        }
+        tempPlayers = temp;
+    }
+
     public void updateCurrentPane(Pane pane) {
         //Error Checking
         if (!landSelectionFinished) {
@@ -334,6 +368,7 @@ public class mapController {
     }
 
     public void setPlayerData(ObservableList<Player> player){
+        updateList();
         this.tempPlayers = FXCollections.observableArrayList(player);
         currentPlayer = tempPlayers.get(0);
         this.lblPlayerName.setText(currentPlayer.getName());

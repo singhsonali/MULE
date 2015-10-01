@@ -23,6 +23,7 @@ public class Player {
     private Food food;
     private Energy energy;
     private Money money;
+    private Ore ore;
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
@@ -52,6 +53,7 @@ public class Player {
     public String getName(){
         return this.name;
     }
+
     public String getRace(){
         return this.race;
     }
@@ -74,7 +76,7 @@ public class Player {
     public int getEnergy(){
         return this.energy.getAmount();
     }
-
+    public int getOre() { return this.ore.getAmount(); }
     public void addMoney(int i){
         int temp = this.money.getAmount();
         temp += i;
@@ -103,6 +105,7 @@ public class Player {
     public void setFood(int i){this.food.setAmount(i);}
     public void setMoney(int i){this.money.setAmount(i);}
     public void setEnergy(int i){this.energy.setAmount(i);}
+    public void setOre(int i){this.ore.setAmount(i);}
     public boolean haveLandGrants(){
         return this.landGrants > 0;
     }
@@ -121,5 +124,16 @@ public class Player {
         if(ownedLand.contains(land)) {
             ownedLand.remove(land);
         }
+    }
+
+    public int getScore() {
+        int moneyScore = getMoney();
+        int energyScore = getEnergy() * 25;
+        int foodScore = getFood() * 30;
+        int landScore = getLandGrants() * 500;
+        int oreScore = getOre() * 50;
+
+        int score = moneyScore + energyScore + foodScore + landScore + oreScore;
+        return score;
     }
 }

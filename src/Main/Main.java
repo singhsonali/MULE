@@ -177,6 +177,10 @@ public class Main extends Application {
         player = FXCollections.observableArrayList(playerData);
     }
 
+    public ObservableList<Player> getPlayerData() {
+        return playerData;
+    }
+
     public Map getGameMap(){
         return this.gameMap;
     }
