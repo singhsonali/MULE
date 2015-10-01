@@ -2,6 +2,7 @@ package View;
 
 
 import Main.Main;
+import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,16 +18,17 @@ import javafx.stage.Stage;
 public class townController {
 
     @FXML
-    private ;
+    private Pane landOffice;
 
     @FXML
-    private Button cntButton;
+    private Pane store;
 
     @FXML
-    private Slider numPlayerSlider;
+    private Pane pub;
 
     @FXML
-    private ChoiceBox<String> cmbMapChoice;
+    private Pane assay;
+
 
     //Ref to main application
     private Main main;
@@ -34,33 +36,20 @@ public class townController {
     private Scene prevScene;
 
     //Constructor
-    public gameScreenController(){
+    public townController(){
 
     }
 
     @FXML
     private void initialize(){
 
-        //Set the default number of players to one
-        numPlayerSlider.setValue(1);
-        //Adds choices
-        cmbMapChoice.getItems().addAll(
-                "Default",
-                "Normal",
-                "Random"
-        );
-        //Sets first item as default of combo box
-        cmbMapChoice.getSelectionModel().select(0);
-
         //When continue button is pressed
-        cntButton.setOnAction(new EventHandler<ActionEvent>() {
+        pub.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //Return number of players to main
-                main.setPlayerCount((int)numPlayerSlider.getValue());
                 //Return map choice to Main
-                main.setMapChoice(getMapChoice());
-                main.showPlayerTraitScreen();
+                main.showPubScreen();
                 //Closes this screen
                 Stage stage = (Stage) prevScene.getWindow();
                 stage.close();
