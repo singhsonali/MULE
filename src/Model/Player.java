@@ -79,6 +79,15 @@ public class Player {
     public int getEnergy(){
         return this.energy.getAmount();
     }
+    public int calcRoundTime() {
+        if (getFood() == 0 || mule.getAmount() != 0 && energy.getAmount() == 0) { //No food or no energy for mules
+            return 5;
+        } else if (!round.checkRequirement(food) || energy.getAmount() < mule.getAmount()) { //Not enough food or energy for mules
+            return 30;
+        } else { //Meets food and energy requirement
+            return 50;
+        }
+    }
 
     public void addMoney(int i){
         int temp = this.money.getAmount();
