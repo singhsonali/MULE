@@ -1,5 +1,8 @@
 package Model;
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+
 /**
  * Created by Ashley on 9/20/2015.
  */
@@ -9,15 +12,24 @@ public class Land {
     private boolean open;
     private boolean town = false;
 
+    private final int cost = 300; //Constant cost for all pieces of land
+    //Added a player as an owner of the Land that is set when purchased.
+    //Also needed to set the color of the land
+    private Player player;
+    @FXML
+    private Pane myPane;
+
     public Land() {
         this.mountain = 0;
         this.river = false;
         this.open = true;
+        this.player = null;
     }
     public Land(int mountain) {
         this.mountain = mountain;
         this.river = mountain != 0;
         this.open = true;
+        this.player = null;
     }
     public Land(boolean river) {
         this.river = river;
@@ -25,6 +37,7 @@ public class Land {
             this.mountain = 0;
             this.open = true;
         }
+        this.player = null;
     }
     public Land(Town town) {
         this.mountain = 0;
@@ -33,22 +46,30 @@ public class Land {
         this.town = true;
     }
 
-    public boolean hasRiver(Land land) {
+    public boolean hasRiver() {
         return this.river;
     }
-    public boolean hasMountain(Land land) {
+    public boolean hasMountain() {
         return this.mountain != 0;
     }
-    public boolean isOpen (Land land) { return this.open;}
-    public boolean isPlain (Land land) {
+    public boolean isOpen () { return this.open;}
+    public boolean isPlain () {
         return this.mountain == 0 && !this.river;
     }
-    public int getMountain (Land land) {
+    public int getMountain () {
         return this.mountain;
     }
-    public boolean isTown (Land land) {
+    public boolean isTown () {
         return town;
     }
+    public Player getPlayer(){return this.player;}
+    public Pane getMyPane(){
+        return this.myPane;
+    }
+    public int getCost(){
+        return this.cost;
+    }
+
 
     public void setMountain (int mountain) {
         this.mountain = mountain;
@@ -61,5 +82,11 @@ public class Land {
     }
     public void setTown (boolean town) {
         this.town = town;
+    }
+    public void setPlayerOwner(Player player){
+        this.player = player;
+    }
+    public void setMyPane(Pane pane){
+        this.myPane = pane;
     }
 }

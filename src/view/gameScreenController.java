@@ -76,7 +76,7 @@ public class gameScreenController{
         return cmbMapChoice.getValue();
     }
     public void setMainApp(Main mainApp) {
-            this.main = mainApp;
+        this.main = mainApp;
     }
 
     public void setPrevScene(Scene scene){
