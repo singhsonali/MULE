@@ -17,9 +17,6 @@ import javafx.stage.Stage;
 public class townController {
 
     @FXML
-    private ;
-
-    @FXML
     private Button cntButton;
 
     @FXML
@@ -34,7 +31,7 @@ public class townController {
     private Scene prevScene;
 
     //Constructor
-    public gameScreenController(){
+    public townController(){
 
     }
 
@@ -59,7 +56,7 @@ public class townController {
                 //Return number of players to main
                 main.setPlayerCount((int)numPlayerSlider.getValue());
                 //Return map choice to Main
-                main.setMapChoice(getMapChoice());
+                //main.setMapChoice(getMapChoice());
                 main.showPlayerTraitScreen();
                 //Closes this screen
                 Stage stage = (Stage) prevScene.getWindow();
