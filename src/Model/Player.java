@@ -23,6 +23,10 @@ public class Player {
     private Food food;
     private Energy energy;
     private Money money;
+    private Mule mule;
+    //How much time they have for the round
+    private int roundTime;
+    private Round round;
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
@@ -45,6 +49,7 @@ public class Player {
         this.food = new Food();
         this.energy = new Energy();
         this.money = new Money(this);
+        this.mule = new Mule();
         this.ownedLand = new ArrayList<Land>();
     }
 
