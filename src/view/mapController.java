@@ -320,6 +320,7 @@ public class mapController {
         gameTimer = new GameTimer(10);
         gameTimer.setLabel(lblInstructions);
         gameTimer.startTimer();
+
     }
 
 

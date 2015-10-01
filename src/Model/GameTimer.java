@@ -5,12 +5,14 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
-
 /**
  * Created by Shannor on 9/30/2015.
+ * Timer class to keep track of each players turn
  */
 public class GameTimer {
     private Timeline timeline;
@@ -32,9 +34,13 @@ public class GameTimer {
                 new KeyFrame(Duration.seconds(duration+1),
                         new KeyValue(timeSeconds,0)));
         timeline.playFromStart();
+
+        timeline.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Time is up");
+            }
+        });
     }
 
-    public void stopTimer(){
-        timeline.stop();
-    }
 }
