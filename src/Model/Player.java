@@ -13,7 +13,7 @@ public class Player {
     private String race;
     private String color;
     //Turn will be given to the player
-    private int turn;
+    private boolean turn = false;
     private int playerNum;
     //Each player gets two for receiving free land
     private int landGrants;
@@ -63,7 +63,7 @@ public class Player {
     public String getColor(){
         return this.color;
     }
-    public int getTurn(){
+    public boolean getTurn(){
         return this.turn;
     }
     public int getPlayerNum(){
@@ -111,8 +111,8 @@ public class Player {
     public void setColor(String color){
         this.color = color;
     }
-    public void setTurn(int i){
-        this.turn = i;
+    public void setTurn(boolean b){
+        this.turn = b;
     }
     public void setFood(int i){this.food.setAmount(i);}
     public void setMoney(int i){this.money.setAmount(i);}
