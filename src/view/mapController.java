@@ -1,28 +1,19 @@
 package View;
 import Main.Main;
+import Model.GameTimer;
 import Model.Land;
 import Model.Map;
 import Model.Player;
-import com.sun.xml.internal.ws.api.FeatureConstructor;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.util.Observable;
 
 /**
  * Created by Melanie Smith on 9/20/2015.
@@ -193,12 +184,19 @@ public class mapController {
     @FXML
     private Label lblInstructions;
 
+
+    private GameTimer gameTimer;
+
     public mapController(){
 
     }
 
+    private Timeline timeline;
+
+
     @FXML
     private void initialize(){
+
         currentPane = null;
     }
 
@@ -318,7 +316,10 @@ public class mapController {
     public void setInterfaceInvis(boolean bool){
         btnContinue.visibleProperty().setValue(bool);
         btnSkip.visibleProperty().setValue(bool);
-        lblInstructions.visibleProperty().setValue(bool);
+        //lblInstructions.visibleProperty().setValue(bool);
+        gameTimer = new GameTimer(10);
+        gameTimer.setLabel(lblInstructions);
+        gameTimer.startTimer();
     }
 
 
