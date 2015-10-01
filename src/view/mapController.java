@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.util.Comparator;
 import java.util.Observable;
 
 /**
@@ -307,27 +308,33 @@ public class mapController {
     }
 
     public void updateTempPlayers() {
-        ObservableList<Player> temp = FXCollections.observableArrayList();
-        for (int i = 0; i < this.tempPlayers.size(); i++) {
-            if (temp.get(0) == null) {
-                temp.set(0, tempPlayers.get(0));
-            } else {
-                if (tempPlayers.get(i).getScore() > (temp.get(i - 1)).getScore()) {
-                    temp.set(i, tempPlayers.get(i));
-                } else if (tempPlayers.get(i).getScore() < (temp.get(i - 1)).getScore()) {
-                    temp.set(i, temp.get(i - 1));
-                    temp.set((i - 1), tempPlayers.get(i));
-                } else {
-                    if (tempPlayers.get(i).getPlayerNum() > temp.get(i - 1).getPlayerNum()) {
-                        temp.set(i, temp.get(i - 1));
-                        temp.set((i - 1), tempPlayers.get(i));
-                    } else {
-                        temp.set(i, tempPlayers.get(i));
-                    }
-                }
-            }
-        }
-        tempPlayers = temp;
+        //Dont need this, just constantly emptying the list
+        //All you need is this method. can tweek it if you want but should do the job
+        tempPlayers.sorted(new PlayerComparator());
+//        ObservableList<Player> temp = FXCollections.observableArrayList();
+//
+//
+//        for (int i = 0; i < this.tempPlayers.size(); i++) {
+//            if (temp.get(0) == null) {
+//                temp.set(0, tempPlayers.get(0));
+//            } else {
+//                if (tempPlayers.get(i).getScore() > (temp.get(i - 1)).getScore()) {
+//                    temp.set(i, tempPlayers.get(i));
+//                } else if (tempPlayers.get(i).getScore() < (temp.get(i - 1)).getScore()) {
+//                    temp.set(i, temp.get(i - 1));
+//                    temp.set((i - 1), tempPlayers.get(i));
+//                } else {
+//                    if (tempPlayers.get(i).getPlayerNum() > temp.get(i - 1).getPlayerNum()) {
+//                        temp.set(i, temp.get(i - 1));
+//                        temp.set((i - 1), tempPlayers.get(i));
+//                    } else {
+//                        temp.set(i, tempPlayers.get(i));
+//                    }
+//                }
+//            }
+//        }
+        currentPlayer = tempPlayers.get(0);
+        this.lblPlayerName.setText(currentPlayer.getName());
     }
 
     public void updateCurrentPane(Pane pane) {
@@ -368,10 +375,25 @@ public class mapController {
     }
 
     public void setPlayerData(ObservableList<Player> player){
-        updateList();
         this.tempPlayers = FXCollections.observableArrayList(player);
-        currentPlayer = tempPlayers.get(0);
-        this.lblPlayerName.setText(currentPlayer.getName());
+        updateTempPlayers();
+    }
+
+    //Does the comparison between two players and the one with the lower score goes first
+    public static class PlayerComparator implements Comparator<Player>{
+
+        public int compare(Player a, Player b){
+            int aScore = a.getScore();
+            int bScore = b.getScore();
+            if(aScore < bScore){
+                return 1;
+            }else if(aScore > bScore){
+                return -1;
+            }else{
+                return 0;
+            }
+
+        }
     }
 
     //Ugly method of connecting Map Land's object to gridPane pane's
