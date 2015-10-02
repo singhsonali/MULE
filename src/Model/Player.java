@@ -70,7 +70,9 @@ public class Player {
     public int getPlayerNum(){
         return this.playerNum;
     }
-    public int getLandGrants(){return this.landGrants;}
+    public int getLandGrants(){
+        return this.landGrants;
+    }
     public int getFood(){
         return this.food.getAmount();
     }
@@ -115,9 +117,15 @@ public class Player {
     public void setTurn(boolean b){
         this.turn = b;
     }
-    public void setFood(int i){this.food.setAmount(i);}
-    public void setMoney(int i){this.money.setAmount(i);}
-    public void setEnergy(int i){this.energy.setAmount(i);}
+    public void setFood(int i){
+        this.food.setAmount(i);
+    }
+    public void setMoney(int i){
+        this.money.setAmount(i);
+    }
+    public void setEnergy(int i){
+        this.energy.setAmount(i);
+    }
     public boolean haveLandGrants(){
         return this.landGrants > 0;
     }
@@ -137,4 +145,5 @@ public class Player {
             ownedLand.remove(land);
         }
     }
+    
 }
