@@ -184,7 +184,6 @@ public class mapController {
     @FXML
     private Label lblInstructions;
 
-
     private GameTimer gameTimer;
 
     public mapController(){
@@ -289,6 +288,7 @@ public class mapController {
 
         }
     }
+
     public void updatePlayer(){
         currentPlayer = tempPlayers.get(numPlayers);
         this.lblPlayerName.setText(currentPlayer.getName());
@@ -317,11 +317,15 @@ public class mapController {
         btnContinue.visibleProperty().setValue(bool);
         btnSkip.visibleProperty().setValue(bool);
         //lblInstructions.visibleProperty().setValue(bool);
-        gameTimer = new GameTimer(10);
+        gameTimer = new GameTimer(currentPlayer.calcRoundTime());
         gameTimer.setLabel(lblInstructions);
         gameTimer.startTimer();
+
     }
 
+    public int getTime() {
+        return gameTimer.getTime();
+    }
 
     public void setMainApp(Main mainApp) {
         this.main = mainApp;

@@ -5,10 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Maroon;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Maroon;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.pubScreenController">
    <children>
-      <Button layoutX="230.0" layoutY="172.0" mnemonicParsing="false" text="Gamble?">
+      <Button fx:id="btnGamble" layoutX="230.0" layoutY="172.0" mnemonicParsing="false" text="Gamble?">
          <font>
             <Font size="27.0" />
          </font>
@@ -19,5 +18,6 @@
          </font>
       </Label>
       <Button layoutX="526.0" layoutY="361.0" mnemonicParsing="false" text="Return" />
+      <Label fx:id="lblTimer" layoutX="287.0" layoutY="-17.0" text="Timer" />
    </children>
-</Pane>
+</AnchorPane>

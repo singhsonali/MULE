@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.mapController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.mapController">
     <children>
         <GridPane fx:id="gridPlaneMap" layoutX="50.0" layoutY="60.0" prefHeight="290.0" prefWidth="501.0">
             <columnConstraints>
@@ -77,5 +77,6 @@
       <Label fx:id="lblInstructions" layoutX="248.0" layoutY="26.0" text="Pick a piece of Land" />
       <Button fx:id="btnContinue" layoutX="412.0" layoutY="22.0" mnemonicParsing="false" onAction="#playersSelectLand" text="Continue" />
       <Button fx:id="btnSkip" layoutX="499.0" layoutY="22.0" mnemonicParsing="false" onAction="#skipTurn" text="Skip" />
+      <Button fx:id="timeCheck" layoutX="98.0" layoutY="22.0" mnemonicParsing="false" onAction="#test" text="Time Check" />
     </children>
 </AnchorPane>
