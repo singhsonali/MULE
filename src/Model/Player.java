@@ -101,7 +101,33 @@ public class Player {
         temp -= i;
         this.money.setAmount(temp);
     }
+    public void gamble(int time, int round) {
+        int tBonus, rBonus;
+        if (time > 37) {
+            tBonus = rand.nextInt(200);
+        } else if (Game.time > 25) {
+            tBonus = rand.nextInt(150);
+        } else if (Game.time > 12) {
+            tBonus = rand.nextInt(100);
+        } else {
+            tBonus = rand.nextInt(50);
+        }
 
+        if (round < 4) {
+            rBonus = 50;
+        } else if (round < 8) {
+            rBonus = 100;
+        } else if (round < 12) {
+            rBonus = 150;
+        } else {
+            rBonus = 200;
+        }
+        if (timeBonus + roundBonus > 250) {
+            setMoney(getMoney() + 250);
+        } else {
+            setMoney(getMoney() + timeBonus + roundBonus);
+        }
+    }
 
 
     public void setName(String name){
