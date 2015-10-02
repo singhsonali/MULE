@@ -26,6 +26,6 @@ public class Round {
     }
 
     public int getGamblingBonus(Round round) {
-        return gamblingBonus[round.getRound()];
+        return gamblingBonus[roundNumber];
     }
 }
