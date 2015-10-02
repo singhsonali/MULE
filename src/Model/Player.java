@@ -104,8 +104,6 @@ public class Player {
         this.money.setAmount(temp);
     }
 
-
-
     public void setName(String name){
         this.name = name;
     }

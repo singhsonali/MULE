@@ -1,7 +1,7 @@
 package Model;
 import java.util.Random;
 /**
- * Created by Ashley on 9/20/2015.
+ * Created by Sonali.
  */
 public class Pub {
     
