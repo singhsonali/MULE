@@ -34,7 +34,7 @@ public class pubScreenController {
             @Override
             public void handle(ActionEvent event) {
 
-                timer.stopTimer();
+                timer.setDuration(0);
                 currentPlayer.setTurn(false);
                 //Closes this screen
                 Stage stage = (Stage) prevScene.getWindow();

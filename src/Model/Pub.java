@@ -32,9 +32,9 @@ public class Pub {
         }
         
         //System.out.println("Seconds left = " + secondsLeft);
-        return (int)(round.getGamblingBonus() + rand.nextInt((int)(2 * (2.14 * secondsLeft)+1))); // convert seconds to BTU then double
+        return (int)(round.getGamblingBonus(round) + rand.nextInt((int)(2 * (2.14 * secondsLeft)+1))); // convert seconds to BTU then double
+
     }
 
 }
 
-}

@@ -6,6 +6,7 @@ package Model;
 public class Round {
 
     private int[] foodRequirement = {0, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5}; //Starts at index 1
+    private int[] gamblingBonus = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 75, 100};
     private int round;
 
     public Round() {
@@ -24,4 +25,7 @@ public class Round {
         return food.getAmount() >= foodRequirement[this.round];
     }
 
+    public int getGamblingBonus(Round round) {
+        return gamblingBonus[round.getRound()];
+    }
 }
