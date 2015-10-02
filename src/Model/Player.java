@@ -25,6 +25,8 @@ public class Player {
     private Money money;
     private Ore ore;
 
+    private final int ENERGY_CONST = 25, FOOD_CONST = 30, LAND_GRAND_CONST = 500, ORE_CONST = 50;
+
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
 
@@ -47,6 +49,7 @@ public class Player {
         this.energy = new Energy();
         this.money = new Money(this);
         this.ownedLand = new ArrayList<Land>();
+        this.ore = new Ore();
     }
 
 
@@ -127,13 +130,17 @@ public class Player {
     }
 
     public int getScore() {
-        int moneyScore = getMoney();
-        int energyScore = getEnergy() * 25;
-        int foodScore = getFood() * 30;
-        int landScore = getLandGrants() * 500;
-        int oreScore = getOre() * 50;
-
-        int score = moneyScore + energyScore + foodScore + landScore + oreScore;
-        return score;
+//        int moneyScore = getMoney();
+//        int energyScore = getEnergy() * 25;
+//        int foodScore = getFood() * 30;
+//        int landScore = getLandGrants() * 500;
+//        int oreScore = getOre() * 50;
+//
+//        int score = moneyScore + energyScore + foodScore + landScore + oreScore;
+//        return score;
+        //less variables needed and don't want to hardCode in method, declare in a final variable above
+        //Can change back if you want either or
+        return getMoney() + (getEnergy()*ENERGY_CONST) + (getFood()*FOOD_CONST) +
+                (getLandGrants() * LAND_GRAND_CONST) + (getOre() * ORE_CONST);
     }
 }

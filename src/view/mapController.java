@@ -297,43 +297,14 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
-    public void updateList() {
-        ObservableList<Player> temp = FXCollections.observableArrayList();
-        int fuckThis;
-        temp = tempPlayers;
-        if (tempPlayers.size() == 5000) {
-            tempPlayers = temp;
-        }
-        tempPlayers = temp;
-    }
-
     public void updateTempPlayers() {
-        //Dont need this, just constantly emptying the list
-        //All you need is this method. can tweek it if you want but should do the job
-        tempPlayers.sorted(new PlayerComparator());
-//        ObservableList<Player> temp = FXCollections.observableArrayList();
-//
-//
-//        for (int i = 0; i < this.tempPlayers.size(); i++) {
-//            if (temp.get(0) == null) {
-//                temp.set(0, tempPlayers.get(0));
-//            } else {
-//                if (tempPlayers.get(i).getScore() > (temp.get(i - 1)).getScore()) {
-//                    temp.set(i, tempPlayers.get(i));
-//                } else if (tempPlayers.get(i).getScore() < (temp.get(i - 1)).getScore()) {
-//                    temp.set(i, temp.get(i - 1));
-//                    temp.set((i - 1), tempPlayers.get(i));
-//                } else {
-//                    if (tempPlayers.get(i).getPlayerNum() > temp.get(i - 1).getPlayerNum()) {
-//                        temp.set(i, temp.get(i - 1));
-//                        temp.set((i - 1), tempPlayers.get(i));
-//                    } else {
-//                        temp.set(i, tempPlayers.get(i));
-//                    }
-//                }
-//            }
-//        }
+        //Creates the comparator for the list
+        PlayerComparator comparator = new PlayerComparator();
+        //Sorts the list using the comparator method
+        FXCollections.sort(tempPlayers,comparator);
+        //Sets current player, (loser)
         currentPlayer = tempPlayers.get(0);
+        //Sets their name
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
@@ -376,7 +347,15 @@ public class mapController {
 
     public void setPlayerData(ObservableList<Player> player){
         this.tempPlayers = FXCollections.observableArrayList(player);
+        //Test Loops to check for sorting
+        for(Player p : tempPlayers){
+            System.out.println(p.getName());
+        }
         updateTempPlayers();
+        //See if change, if there was suppose to be one
+        for(Player p : tempPlayers){
+            System.out.println(p.getName());
+        }
     }
 
     //Does the comparison between two players and the one with the lower score goes first
