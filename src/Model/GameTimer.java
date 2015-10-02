@@ -48,4 +48,12 @@ public class GameTimer {
         this.duration = duration;
     }
 
+    public int getCurrentTime(){
+        return timeSeconds.getValue();
+    }
+    public void resetTimer(){
+        int toReset = timeSeconds.getValue();
+        setDuration(toReset);
+        startTimer();
+    }
 }
