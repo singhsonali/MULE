@@ -317,11 +317,14 @@ public class mapController {
         btnContinue.visibleProperty().setValue(bool);
         btnSkip.visibleProperty().setValue(bool);
         //lblInstructions.visibleProperty().setValue(bool);
-        gameTimer = new GameTimer(10);
+        gameTimer = new GameTimer(currentPlayer.calcRoundTime());
         gameTimer.setLabel(lblInstructions);
         gameTimer.startTimer();
     }
 
+    public int getTime() {
+        return gameTimer.getTime();
+    }
 
     public void setMainApp(Main mainApp) {
         this.main = mainApp;

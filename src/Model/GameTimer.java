@@ -37,4 +37,8 @@ public class GameTimer {
     public void stopTimer(){
         timeline.stop();
     }
+
+    public int getTime() {
+        return timeSeconds.get();
+    }
 }
