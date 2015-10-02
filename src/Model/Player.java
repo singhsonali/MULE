@@ -13,7 +13,7 @@ public class Player {
     private String race;
     private String color;
     //Turn will be given to the player
-    private int turn;
+    private boolean turn = false;
     private int playerNum;
     //Each player gets two for receiving free land
     private int landGrants;
@@ -50,6 +50,7 @@ public class Player {
         this.energy = new Energy();
         this.money = new Money(this);
         this.mule = new Mule();
+        this.round = new Round();
         this.ownedLand = new ArrayList<Land>();
     }
 
@@ -63,13 +64,15 @@ public class Player {
     public String getColor(){
         return this.color;
     }
-    public int getTurn(){
+    public boolean getTurn(){
         return this.turn;
     }
     public int getPlayerNum(){
         return this.playerNum;
     }
-    public int getLandGrants(){return this.landGrants;}
+    public int getLandGrants(){
+        return this.landGrants;
+    }
     public int getFood(){
         return this.food.getAmount();
     }
@@ -80,9 +83,9 @@ public class Player {
         return this.energy.getAmount();
     }
     public int calcRoundTime() {
-        if (getFood() == 0 || mule.getAmount() != 0 && energy.getAmount() == 0) { //No food or no energy for mules
+        if (getFood() == 0 || this.mule.getAmount() != 0 && this.energy.getAmount() == 0) { //No food or no energy for mules
             return 5;
-        } else if (!round.checkRequirement(food) || energy.getAmount() < mule.getAmount()) { //Not enough food or energy for mules
+        } else if (!this.round.checkRequirement(this.food) || this.energy.getAmount() < this.mule.getAmount()) { //Not enough food or energy for mules
             return 30;
         } else { //Meets food and energy requirement
             return 50;
@@ -111,12 +114,18 @@ public class Player {
     public void setColor(String color){
         this.color = color;
     }
-    public void setTurn(int i){
-        this.turn = i;
+    public void setTurn(boolean b){
+        this.turn = b;
     }
-    public void setFood(int i){this.food.setAmount(i);}
-    public void setMoney(int i){this.money.setAmount(i);}
-    public void setEnergy(int i){this.energy.setAmount(i);}
+    public void setFood(int i){
+        this.food.setAmount(i);
+    }
+    public void setMoney(int i){
+        this.money.setAmount(i);
+    }
+    public void setEnergy(int i){
+        this.energy.setAmount(i);
+    }
     public boolean haveLandGrants(){
         return this.landGrants > 0;
     }
@@ -136,4 +145,5 @@ public class Player {
             ownedLand.remove(land);
         }
     }
+    
 }

@@ -18,6 +18,7 @@ public class GameTimer {
     private Timeline timeline;
     private int duration;
     private IntegerProperty timeSeconds;
+    private Player currentPlayer;
 
     public GameTimer(int duration){
         this.duration = duration;
@@ -38,9 +39,28 @@ public class GameTimer {
         timeline.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //Set something to actually happen here
+                currentPlayer.setTurn(false);
                 System.out.println("Time is up");
             }
         });
     }
 
+    public void setDuration(int duration){
+        this.duration = duration;
+    }
+
+    public int getCurrentTime(){
+        return timeSeconds.getValue();
+    }
+    public void resetTimer(){
+        timeline.stop();
+        int toReset = timeSeconds.getValue();
+        setDuration(toReset);
+        startTimer();
+    }
+
+    public int getTime() {
+        return timeSeconds.get();
+    }
 }
