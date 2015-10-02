@@ -134,14 +134,12 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/pubScreen.fxml"));
-            AnchorPane townMap = (AnchorPane) loader.load();
+            AnchorPane pubAnchor = (AnchorPane) loader.load();
 
-            Scene scene = new Scene(townMap);
+            Scene scene = new Scene(pubAnchor);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
-
-            printPlayerData();
 
         }catch (IOException e){
             e.printStackTrace();
@@ -204,3 +202,4 @@ public class Main extends Application {
         return this.gameMap;
     }
 }
+

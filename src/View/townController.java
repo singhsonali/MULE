@@ -2,6 +2,7 @@ package View;
 
 
 import Main.Main;
+import Model.Map;
 import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,8 +33,8 @@ public class townController {
 
     //Ref to main application
     private Main main;
-    //Ref to last scene visited
     private Scene prevScene;
+    private Map tempMap;
 
     //Constructor
     public townController(){
@@ -41,19 +42,14 @@ public class townController {
     }
 
     @FXML
+    public void openPub() {
+        main.showPubScreen();
+        Stage stage = (Stage) prevScene.getWindow();
+        stage.close();
+    }
+
+    @FXML
     private void initialize(){
 
-        //When continue button is pressed
-        pub.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //Return number of players to main
-                //Return map choice to Main
-                main.showPubScreen();
-                //Closes this screen
-                Stage stage = (Stage) prevScene.getWindow();
-                stage.close();
-            }
-        });
     }
 }

@@ -5,8 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.townController">
    <children>
       <GridPane layoutX="-1.0" layoutY="6.0" prefHeight="394.0" prefWidth="600.0">
         <columnConstraints>
@@ -29,7 +28,7 @@
           <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" fx:id = "landOffice" style="-fx-background-color: Chocolate;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Pane fx:id="landOffice" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Chocolate;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="27.0" layoutY="14.0" text="LAND">
                      <font>
@@ -41,9 +40,10 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
+                  <Button layoutX="-1.0" layoutY="-1.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="102.0" text="landOfficeButton" />
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" fx:id = "pub" onMouseClicked="#showPubScreen" style="-fx-background-color: DarkGray;" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Pane fx:id="pub" onDragDetected="#openPub" onMouseClicked="#openPub" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGray;" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="32.0" layoutY="20.0" text="PUB">
                      <font>
@@ -52,7 +52,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" fx:id = "store" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <Pane fx:id="store" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="24.0" layoutY="14.0" text="STORE">
                      <font>
@@ -61,13 +61,14 @@
                   </Label>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" fx:id = "assay" style="-fx-background-color: Brown;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Pane fx:id="assay" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="19.0" layoutY="14.0" text="ASSAY">
                      <font>
                         <Font size="29.0" />
                      </font>
                   </Label>
+                  <Button mnemonicParsing="false" opacity="0.0" prefHeight="98.0" prefWidth="124.0" text="AssayButton" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Tan;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
