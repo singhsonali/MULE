@@ -52,6 +52,7 @@ public class GameTimer {
         return timeSeconds.getValue();
     }
     public void resetTimer(){
+        timeline.stop();
         int toReset = timeSeconds.getValue();
         setDuration(toReset);
         startTimer();
