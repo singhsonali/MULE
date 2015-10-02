@@ -298,10 +298,19 @@ public class mapController {
     }
 
     public void updateTempPlayers() {
+<<<<<<< HEAD
         //Dont need this, just constantly emptying the list
         //All you need is this method. can tweek it if you want but should do the job
         tempPlayers.sorted(new PlayerComparator());
+=======
+        //Creates the comparator for the list
+        PlayerComparator comparator = new PlayerComparator();
+        //Sorts the list using the comparator method
+        FXCollections.sort(tempPlayers,comparator);
+        //Sets current player, (loser)
+>>>>>>> origin/Riley
         currentPlayer = tempPlayers.get(0);
+        //Sets their name
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
@@ -347,7 +356,15 @@ public class mapController {
 
     public void setPlayerData(ObservableList<Player> player){
         this.tempPlayers = FXCollections.observableArrayList(player);
+        //Test Loops to check for sorting
+        for(Player p : tempPlayers){
+            System.out.println(p.getName());
+        }
         updateTempPlayers();
+        //See if change, if there was suppose to be one
+        for(Player p : tempPlayers){
+            System.out.println(p.getName());
+        }
     }
 
     //Does the comparison between two players and the one with the lower score goes first

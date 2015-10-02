@@ -51,5 +51,20 @@ public class townController {
     @FXML
     private void initialize(){
 
+<<<<<<< HEAD
+=======
+//        //When continue button is pressed
+//        pub.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                //Return number of players to main
+//                //Return map choice to Main
+//                main.showPubScreen();
+//                //Closes this screen
+//                Stage stage = (Stage) prevScene.getWindow();
+//                stage.close();
+//            }
+//        });
+>>>>>>> origin/Riley
     }
 }
