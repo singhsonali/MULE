@@ -298,17 +298,14 @@ public class mapController {
     }
 
     public void updateTempPlayers() {
-<<<<<<< HEAD
         //Dont need this, just constantly emptying the list
         //All you need is this method. can tweek it if you want but should do the job
         tempPlayers.sorted(new PlayerComparator());
-=======
         //Creates the comparator for the list
         PlayerComparator comparator = new PlayerComparator();
         //Sorts the list using the comparator method
         FXCollections.sort(tempPlayers,comparator);
         //Sets current player, (loser)
->>>>>>> origin/Riley
         currentPlayer = tempPlayers.get(0);
         //Sets their name
         this.lblPlayerName.setText(currentPlayer.getName());
