@@ -38,6 +38,7 @@ public class GameTimer {
         timeline.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //Set something to actually happen here
                 System.out.println("Time is up");
             }
         });
