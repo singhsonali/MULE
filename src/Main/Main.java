@@ -30,7 +30,7 @@ public class Main extends Application {
     //Structure to hold players
     private ObservableList<Player> playerData = FXCollections.observableArrayList();
     private Map gameMap = new Map(); //Gets map
-    private Round round; //Class for keeping track of rounds
+    private Round round = new Round(); //Class for keeping track of rounds
     private Player currentPlayer;
     @Override
     public void start(Stage primaryStage) {
@@ -130,8 +130,10 @@ public class Main extends Application {
 
             //printPlayerData();
             controller.setCurrentScene(currentScene); //Town Scene
+            controller.setMyScene(currentScene);//Used for handling end of time for player turns
             controller.setPlayerData(playerData); //pass in all players
             controller.setCurrentRound(round); //Set round
+            controller.getPrimaryStage(primaryStage);
             controller.setTimer(); //Start timer
             loader.setController(controller);
             controller.setMainApp(this);
