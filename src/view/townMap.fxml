@@ -28,7 +28,7 @@
           <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Chocolate;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Pane fx:id="landOffice" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Chocolate;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="27.0" layoutY="14.0" text="LAND">
                      <font>
@@ -42,7 +42,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkGray;" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Pane fx:id="pub" onDragDetected="#openPub" onMouseClicked="#openPub" prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: ../images/Dots.jpg" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="32.0" layoutY="20.0" text="PUB">
                      <font>
@@ -51,7 +51,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <Pane fx:id="store" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="24.0" layoutY="14.0" text="Store">
                      <font>
@@ -60,7 +60,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Pane fx:id="assay" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Brown;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="19.0" layoutY="14.0" text="ASSAY">
                      <font>

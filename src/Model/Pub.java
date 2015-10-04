@@ -4,26 +4,22 @@ import java.util.Random;
  * Created by Ashley on 9/20/2015.
  */
 public class Pub {
-    
-    private static Pub instance = null;
-    private Pub(){} // Singleton -> private constructor
-    
-    public static Pub getInstance(){
-        if(instance == null){
-            instance = new Pub();
-        }
-        
-        return instance;
+
+    private Round round;
+    private Player currentPlayer;
+
+    public Pub(Player currentPlayer, Round round){
+        this.currentPlayer = currentPlayer;
+        this.round = round;
     }
 
     /**
      * calcGamble method to calculate the amount a player can gamble in terms of time
-     * 
-     * @param round
+     *
      * @param timeLeft
      * @return time lost from player's turn
      */
-    public static int calcGamble(Round round, long timeLeft){
+    public int calcGamble(long timeLeft){
         Random rand = new Random();
         double secondsLeft = (double) timeLeft/1000;
         
@@ -32,7 +28,7 @@ public class Pub {
         }
         
         //System.out.println("Seconds left = " + secondsLeft);
-        return (int)(round.getGamblingBonus(round) + rand.nextInt((int)(2 * (2.14 * secondsLeft)+1))); // convert seconds to BTU then double
+        return (this.round.getGamblingBonus(this.round) + rand.nextInt((int)(2 * (2.14 * secondsLeft)+1))); // convert seconds to BTU then double
 
     }
 

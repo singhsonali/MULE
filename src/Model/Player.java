@@ -23,6 +23,7 @@ public class Player {
     private Food food;
     private Energy energy;
     private Money money;
+    private Ore ore;
     private Mule mule;
     //How much time they have for the round
     private int roundTime;
@@ -30,6 +31,9 @@ public class Player {
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
+
+    //Next player
+    private Player nextPlayer;
 
 
     public Player(){
@@ -50,11 +54,15 @@ public class Player {
         this.energy = new Energy();
         this.money = new Money(this);
         this.mule = new Mule();
+        this.ore = new Ore();
         this.round = new Round();
         this.ownedLand = new ArrayList<Land>();
     }
 
-
+    public int getOre() { return this.ore.getAmount(); }
+    public Player getNextPlayer() {
+        return nextPlayer;
+    }
     public String getName(){
         return this.name;
     }
@@ -82,6 +90,9 @@ public class Player {
     public int getEnergy(){
         return this.energy.getAmount();
     }
+    public Round getRound() {
+        return this.round;
+    }
     public int calcRoundTime() {
         if (getFood() == 0 || this.mule.getAmount() != 0 && this.energy.getAmount() == 0) { //No food or no energy for mules
             return 5;
@@ -90,6 +101,16 @@ public class Player {
         } else { //Meets food and energy requirement
             return 50;
         }
+    }
+    public int getScore() {
+        int moneyScore = getMoney();
+        int energyScore = getEnergy() * 25;
+        int foodScore = getFood() * 30;
+        int landScore = getLandGrants() * 500;
+        int oreScore = getOre() * 50;
+
+        int score = moneyScore + energyScore + foodScore + landScore + oreScore;
+        return score;
     }
 
     public void addMoney(int i){
@@ -103,8 +124,10 @@ public class Player {
         this.money.setAmount(temp);
     }
 
-
-
+    public void setOre(int i){this.ore.setAmount(i);}
+    public void setNextPlayer(Player nextPlayer) {
+        this.nextPlayer = nextPlayer;
+    }
     public void setName(String name){
         this.name = name;
     }

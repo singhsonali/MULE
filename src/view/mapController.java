@@ -14,6 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.util.Comparator;
+
 
 /**
  * Created by Melanie Smith on 9/20/2015.
@@ -289,9 +291,49 @@ public class mapController {
         }
     }
 
+    public int getPlayerIndex(Player player) {
+        try {
+            for (int i = 0; i < tempPlayers.size(); i++) {
+                if (tempPlayers.get(i).equals(player)) {
+                    return i + 1;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return 0; //return to initial index
+        }
+        return 10; //should never return
+    }
+
     public void updatePlayer(){
         currentPlayer = tempPlayers.get(numPlayers);
+        /*try {
+            currentPlayer.setNextPlayer(tempPlayers.get(getPlayerIndex(currentPlayer)));
+        } catch (IndexOutOfBoundsException e) {
+            currentPlayer.setNextPlayer(tempPlayers.get(0));
+        } */
         this.lblPlayerName.setText(currentPlayer.getName());
+    }
+
+    public void updateTempPlayers() {
+        //All you need is this method. can tweek it if you want but should do the job
+        tempPlayers.sorted(new PlayerComparator());
+        currentPlayer = tempPlayers.get(0);
+        this.lblPlayerName.setText(currentPlayer.getName());
+    }
+
+    public static class PlayerComparator implements Comparator<Player> {
+
+        public int compare(Player a, Player b){
+            int aScore = a.getScore();
+            int bScore = b.getScore();
+            if(aScore < bScore){
+                return 1;
+            }else if(aScore > bScore){
+                return -1;
+            }else{
+                return 0;
+            }
+        }
     }
 
     public void updateCurrentPane(Pane pane) {
@@ -323,8 +365,11 @@ public class mapController {
 
     }
 
-    public int getTime() {
-        return gameTimer.getTime();
+    public GameTimer getTimer() {
+        return gameTimer;
+    }
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public void setMainApp(Main mainApp) {
@@ -340,8 +385,7 @@ public class mapController {
 
     public void setPlayerData(ObservableList<Player> player){
         this.tempPlayers = FXCollections.observableArrayList(player);
-        currentPlayer = tempPlayers.get(0);
-        this.lblPlayerName.setText(currentPlayer.getName());
+        updateTempPlayers();
     }
 
     //Ugly method of connecting Map Land's object to gridPane pane's
