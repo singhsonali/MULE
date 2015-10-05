@@ -51,9 +51,9 @@
                         </Label>
                     </children>
                 </Pane>
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
+                <Pane onMouseClicked= "#goToStore" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
                     <children>
-                        <Label layoutX="24.0" layoutY="14.0" text="Store">
+                        <Label fx:id = "lblStore" layoutX="24.0" layoutY="14.0" text="Store">
                             <font>
                                 <Font size="30.0" />
                             </font>

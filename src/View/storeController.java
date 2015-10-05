@@ -1,13 +1,17 @@
 package View;
 import Main.Main;
-import Model.Land;
-import Model.Map;
-import Model.Player;
-import Model.Store;
+import Model.*;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.ChoiceBox;
+import javafx.stage.Stage;
+
+import java.awt.*;
 
 /**
  * Created by Ashley on 9/25/2015.
@@ -15,12 +19,25 @@ import javafx.scene.layout.Pane;
 public class storeController {
 
     private Pane currentPane;
+    @FXML
+    public TextField amnt;
 
+    @FXML
     private Button btnReturn;
+    @FXML
     private Button btnBuy;
+    @FXML
     private Button btnSell;
     private Player currentPlayer;
     private Store store;
+    @FXML
+    private ChoiceBox item;
+
+
+    private Stage primaryStage;
+    private Scene prevScene; //Town
+    private GameTimer currentTimer; //Current time
+    private Scene currentScene; //Pub
 
     public storeController() {
 
@@ -29,6 +46,61 @@ public class storeController {
     @FXML
     private void initialize(){
         currentPane = null;
+
+        item.getItems().addAll(
+                "Food",
+                "Energy",
+                "Ore"
+        );
+
+        btnBuy.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //Return number of players to main
+                String itemChoice = (String) item.getValue();
+                if (itemChoice == "Food") {
+                    buyFood(getNumChoice());
+                } else if (itemChoice == "Energy") {
+                    buyEnergy(getNumChoice());
+                } else if (itemChoice == "Ore") {
+                    buyOre(getNumChoice());
+                }
+            }
+        });
+
+        btnSell.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String itemChoice = (String) item.getValue();
+                if (itemChoice == "Food") {
+                    sellFood(getNumChoice());
+                } else if (itemChoice == "Energy") {
+                    sellEnergy(getNumChoice());
+                } else if (itemChoice == "Ore") {
+                    sellOre(getNumChoice());
+                }
+            }
+        });
+
+        btnReturn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                leaveStore();
+            }
+        });
+    }
+
+    public void leaveStore(){
+        //Close the scene
+        primaryStage.setScene(prevScene);
+        primaryStage.show();
+
+        Stage stage = new Stage();
+        stage.setScene(currentScene);
+        stage.close();
+
+
+        //controller.updateCurrent();
     }
 
     //If there is a separate buy/sell screen that we are going to implement, these methods will have to be under a different controller. I'm just putting them here for now
@@ -143,6 +215,11 @@ public class storeController {
             currentPlayer.setMoney(currentPlayer.getMoney() + (amnt * 25));
             store.setEnergy(store.getEnergy() + amnt);
         }
+    }
+
+    @FXML
+    public int getNumChoice(){
+        return Integer.parseInt(amnt.getText());
     }
 
 
