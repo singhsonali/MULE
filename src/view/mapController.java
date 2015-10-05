@@ -207,7 +207,6 @@ public class mapController {
             //round.nextRound();
             main.showTownScreen();
             //main.updateRound(round);
-            main.updatePlayerData(tempPlayers);
             currentPlayer =  tempPlayers.get(0);
             main.setCurrentPlayer(currentPlayer);
         }
@@ -339,7 +338,7 @@ public class mapController {
         FXCollections.sort(this.tempPlayers, new PlayerComparator());
     }
     public void setPlayerData(ObservableList<Player> player){
-        this.tempPlayers = FXCollections.observableArrayList(player);
+        this.tempPlayers = player;
         sortPlayers();
         currentPlayer = tempPlayers.get(0);
         this.lblPlayerName.setText(currentPlayer.getName());
