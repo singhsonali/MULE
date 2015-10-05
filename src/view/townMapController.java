@@ -37,15 +37,17 @@ public class townMapController {
     private Label lblTimer;
     @FXML
     private Label lblName;
-    private GameTimer timer;
-    private Player currentPlayer;
-    private Main main;
+
+    private Scene myScene; //Used for checking if player is on town map or a store
+    private GameTimer timer; //Display each players amount of time per turn
+    private Player currentPlayer; //Current player's turn
+    private Main main; // Reference to main methods
     private Stage primaryStage; //Stage for the stores
-    private Scene prevScene;
-    private Scene currentScene;
+    private Scene prevScene; //To return back to the map
+    private Scene currentScene; //Will change based on the store you enter
     private ObservableList<Player> tempPlayers; //Array of sorted Players
     private int playersBeenToTown = 0; //When to stop town actions
-    private Round currentRound; //Needed for gambling
+    private Round currentRound = null; //Needed for gambling
     @FXML
     private Label lblPub;
     @FXML
@@ -61,9 +63,6 @@ public class townMapController {
         timer.getTimeline().setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(primaryStage !=null){
-                    primaryStage.close();//Close any store player is in
-                }
                 updateCurrent();
             }
         });
@@ -76,11 +75,13 @@ public class townMapController {
             lblName.setText(currentPlayer.getName());
             setTimer();
         }else{
-            Stage map = new Stage();
-            map.setScene(prevScene);
-            map.show();
+            main.printPlayerData();
+            timer.stopTimer();
+            primaryStage.setScene(prevScene);
+            primaryStage.show();
             //Done here go back to Map to pick land
         }
+
     }
 
     public void setMainApp(Main mainApp) {
@@ -97,19 +98,16 @@ public class townMapController {
         this.tempPlayers = player;
         currentPlayer = tempPlayers.get(0);
         lblName.setText(currentPlayer.getName());
-        primaryStage = new Stage();
     }
 
-    public void currentPlayerGambled(Player player){
-        System.out.println(currentPlayer.getMoney());
-        currentPlayer = player; //need to test
-        System.out.println(currentPlayer.getMoney());
+    public void getPrimaryStage(Stage stage){
+        this.primaryStage = stage;
     }
     public void setCurrentRound(Round round){
         this.currentRound = round;
     }
-    public int getTime(){
-        return timer.getTime();
+    public void setMyScene(Scene scene){
+        this.myScene =scene;
     }
     public void goToPub(){
         try{
@@ -117,11 +115,19 @@ public class townMapController {
             loader.setLocation(Main.class.getResource("../View/pubScreen.fxml"));
             Pane pubScreen = loader.load();
 
+<<<<<<< HEAD
             Scene scene = new Scene(pubScreen);
+=======
+            Scene scene = new Scene(townMap);
+            pubScreenController controller = loader.getController();
+
+            controller.setPrevScene(currentScene); // Scene is Town
+>>>>>>> master
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
+<<<<<<< HEAD
             pubScreenController controller = loader.getController();
             controller.setPrevScene(currentScene);
             //printPlayerData();
@@ -129,6 +135,14 @@ public class townMapController {
             controller.setCurrentScene(currentScene);
             System.out.println(currentPlayer.getName());
             controller.getCurrentPlayer(currentPlayer);
+=======
+            controller.getStage(primaryStage); //Current Stage everything is displayed on
+            controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
+            controller.setCurrentScene(currentScene); //Scene is Pub
+            controller.setCurrentTimer(timer);// Passes timer to Pub
+            controller.setTimer();
+            controller.getCurrentPlayer(currentPlayer); //Passes current player to pub
+>>>>>>> master
             controller.setController(this);
             loader.setController(controller);
             controller.setGambleBonus(currentRound.getGamblingBonus());
