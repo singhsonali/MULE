@@ -6,22 +6,29 @@ package Model;
 public class Round {
 
     private int[] foodRequirement = {0, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5}; //Starts at index 1
-    private int round = 1;
+    private int[] gamblingBonus = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 75, 100};
+    private int round;
 
     public Round() {
-
+        this.round = 1;
     }
 
     public int getRound() {
-        return round;
+        return this.round;
     }
     public void nextRound() {
-        round++;
+        this.round++;
     }
     //Checks to make sure the food requirement is met for the round.
     //If not met, returns false.
     public boolean checkRequirement(Food food) {
-        return food.getAmount() >= foodRequirement[round];
+        return food.getAmount() >= foodRequirement[this.round];
     }
 
+    public int getGamblingBonus() {
+        return gamblingBonus[this.round];
+    }
+    public boolean gameOver(){
+        return this.round > 12 ;
+    }
 }

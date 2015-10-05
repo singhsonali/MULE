@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -114,24 +115,23 @@ public class townMapController {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/pubScreen.fxml"));
-            AnchorPane townMap = (AnchorPane) loader.load();
+            Pane pubScreen = loader.load();
 
-            Scene scene = new Scene(townMap);
-            pubScreenController controller = loader.getController();
-
-            controller.setPrevScene(currentScene);
+            Scene scene = new Scene(pubScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            pubScreenController controller = loader.getController();
+            controller.setPrevScene(currentScene);
             //printPlayerData();
             controller.getStage(primaryStage);
-            controller.setGambleBonus(currentRound.getGamblingBonus());
             controller.setCurrentScene(currentScene);
             System.out.println(currentPlayer.getName());
             controller.getCurrentPlayer(currentPlayer);
             controller.setController(this);
             loader.setController(controller);
+            controller.setGambleBonus(currentRound.getGamblingBonus());
 
 
         }catch (IOException e){

@@ -1,9 +1,6 @@
 package View;
 import Main.Main;
-import Model.GameTimer;
-import Model.Land;
-import Model.Map;
-import Model.Player;
+import Model.*;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +11,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.util.Comparator;
-import java.util.Observable;
+
 
 /**
  * Created by Melanie Smith on 9/20/2015.
@@ -24,21 +20,23 @@ import java.util.Observable;
 public class mapController {
 
 
-    private Scene prevScene;
+    private Scene prevScene; // Player traits
+    private Scene currentScene; //Map
 
     private Main main;
 
     private ObservableList<Player> tempPlayers;
     private Player currentPlayer;
     private Map tempMap;
-    private boolean next = false;
     private int numPlayers = 0;
     //-1 for error checking
-    private int column =-1;
+    private int column = -1;
     private int row = -1;
     private boolean landSelectionFinished = false;
     private Pane currentPane;
-    private int skips = 0;
+    private int skips = 0; //Counts the number of skips
+    private Round round;
+
 
     @FXML
     private Pane townPane;
@@ -188,8 +186,6 @@ public class mapController {
     private Label lblInstructions;
 
 
-    private GameTimer gameTimer;
-
     public mapController(){
 
     }
@@ -208,9 +204,13 @@ public class mapController {
         //Provide conditional when this method can work.
         //ie if(land purchases are done)
         if(landSelectionFinished) {
+            //round.nextRound();
             main.showTownScreen();
-            Stage stage = (Stage) prevScene.getWindow();
-            stage.close();
+            //main.updateRound(round);
+            main.updatePlayerData(tempPlayers);
+            currentPlayer =  tempPlayers.get(0);
+            main.setCurrentPlayer(currentPlayer);
+
         }
     }
 
@@ -292,22 +292,9 @@ public class mapController {
 
         }
     }
-   public void updatePlayer(){
-        currentPlayer = tempPlayers.get(numPlayers);
-        this.lblPlayerName.setText(currentPlayer.getName());
-    }
 
-    public void updateTempPlayers() {
-        //Dont need this, just constantly emptying the list
-        //All you need is this method. can tweek it if you want but should do the job
-        tempPlayers.sorted(new PlayerComparator());
-        //Creates the comparator for the list
-        PlayerComparator comparator = new PlayerComparator();
-        //Sorts the list using the comparator method
-        FXCollections.sort(tempPlayers,comparator);
-        //Sets current player, (loser)
-        currentPlayer = tempPlayers.get(0);
-        //Sets their name
+    public void updatePlayer(){
+        currentPlayer = tempPlayers.get(numPlayers);
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
@@ -333,10 +320,8 @@ public class mapController {
     public void setInterfaceInvis(boolean bool){
         btnContinue.visibleProperty().setValue(bool);
         btnSkip.visibleProperty().setValue(bool);
-        //lblInstructions.visibleProperty().setValue(bool);
-        gameTimer = new GameTimer(10);
-        gameTimer.setLabel(lblInstructions);
-        gameTimer.startTimer();
+        lblInstructions.setText("Go to the Town");
+        lblPlayerName.setText(tempPlayers.get(0).getName());
     }
 
 
@@ -351,33 +336,88 @@ public class mapController {
         this.tempMap = map;
     }
 
+    public void sortPlayers(){
+        FXCollections.sort(this.tempPlayers, new PlayerComparator());
+    }
     public void setPlayerData(ObservableList<Player> player){
         this.tempPlayers = FXCollections.observableArrayList(player);
-        //Test Loops to check for sorting
-        for(Player p : tempPlayers){
-            System.out.println(p.getName());
-        }
-        updateTempPlayers();
-        //See if change, if there was suppose to be one
-        for(Player p : tempPlayers){
-            System.out.println(p.getName());
-        }
+        sortPlayers();
+        currentPlayer = tempPlayers.get(0);
+        this.lblPlayerName.setText(currentPlayer.getName());
     }
 
-    //Does the comparison between two players and the one with the lower score goes first
-    public static class PlayerComparator implements Comparator<Player>{
+
+    public static class PlayerComparator implements Comparator<Player> {
 
         public int compare(Player a, Player b){
-            int aScore = a.getScore();
-            int bScore = b.getScore();
-            if(aScore < bScore){
+            int aScore = a.calcScore();
+            int bScore = b.calcScore();
+            if(aScore > bScore){
                 return 1;
-            }else if(aScore > bScore){
+            }else if(aScore < bScore){
                 return -1;
             }else{
                 return 0;
             }
+
         }
+    }
+
+    //Will be the action of an onMouseClick
+    public void placeOreMule() {
+        if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
+            tempMap.getLand(row, column).setOreMule(currentPlayer.getOreMule() + 1);
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+            tempMap.getLand(row, column).clearMule();
+            Mule mule = tempMap.getLand(row, column).getMuleType();
+            currentPlayer.removeMule(mule);
+            currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
+            currentPlayer.setHoldingMule(1);
+            tempMap.getLand(row, column).setOreMule(1);
+            currentPlayer.setHoldingMule(0);
+        } else {
+            currentPlayer.setOreMule(currentPlayer.getOreMule() - 1);
+        }
+    }
+
+    //Will be the action of an onMouseClick
+    public void placeEnergyMule() {
+        if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
+            tempMap.getLand(row, column).setEnergyMule(currentPlayer.getEnergyMule() + 1);
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+            tempMap.getLand(row, column).clearMule();
+            Mule mule = tempMap.getLand(row, column).getMuleType();
+            currentPlayer.removeMule(mule);
+            currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
+            currentPlayer.setHoldingMule(1);
+            tempMap.getLand(row, column).setOreMule(1);
+            currentPlayer.setHoldingMule(0);
+        } else {
+            currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() - 1);
+        }
+    }
+
+    //Will be the action of an onMouseClick
+    public void placeFoodMule() {
+        if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
+            tempMap.getLand(row, column).setFoodMule(currentPlayer.getFoodMule() + 1);
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+                tempMap.getLand(row, column).clearMule();
+                Mule mule = tempMap.getLand(row, column).getMuleType();
+                currentPlayer.removeMule(mule);
+                currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
+                currentPlayer.setHoldingMule(1);
+                tempMap.getLand(row, column).setFoodMule(1);
+                currentPlayer.setHoldingMule(0);
+        } else {
+            currentPlayer.setFoodMule(currentPlayer.getFoodMule() - 1);
+        }
+    }
+
+
+
+    public void setRound(Round round){
+        this.round = round;
     }
 
     //Ugly method of connecting Map Land's object to gridPane pane's

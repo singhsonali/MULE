@@ -17,4 +17,9 @@ public class Mule extends Resources {
     int getAmount() {
         return this.amount;
     }
+
+
+
+
+
 }

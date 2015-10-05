@@ -24,7 +24,12 @@ public class Player {
     private Energy energy;
     private Money money;
     private Ore ore;
-    private Mule mule;
+    private Mule oreMule;
+    private Mule energyMule;
+    private Mule foodMule;
+    private int totalMule;
+    private int holdingMule;
+
     //How much time they have for the round
     private int roundTime;
     private Round round;
@@ -33,6 +38,7 @@ public class Player {
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
+
 
 
     public Player(){
@@ -53,9 +59,14 @@ public class Player {
         this.ore = new Ore();
         this.energy = new Energy();
         this.money = new Money(this);
-        this.mule = new Mule();
+        this.foodMule = new Mule();
+        this.energyMule = new Mule();
+        this.oreMule = new Mule();
         this.ownedLand = new ArrayList<Land>();
         this.ore = new Ore();
+        totalMule = calcTotalMules();
+        this.round = new Round();
+        this.holdingMule = holdingMule;
     }
 
 
@@ -86,16 +97,23 @@ public class Player {
         return this.energy.getAmount();
     }
     public int getOre() { return this.ore.getAmount(); }
-    public int getMule() {return this.mule.getAmount(); }
+    public int getOreMule() {return this.oreMule.getAmount(); }
+    public int getEnergyMule() {return this.energyMule.getAmount(); }
+    public int getFoodMule() {return this.foodMule.getAmount(); }
+    public int getHoldingMule() {return this.holdingMule; }
 
     public int calcRoundTime() {
-        if (getFood() == 0 || mule.getAmount() != 0 && energy.getAmount() == 0) { //No food or no energy for mules
+        if (getFood() == 0 || totalMule != 0 && energy.getAmount() == 0) { //No food or no energy for mules
             return 5;
-        } else if (!round.checkRequirement(food) || energy.getAmount() < mule.getAmount()) { //Not enough food or energy for mules
+        } else if (!this.round.checkRequirement(food) || energy.getAmount() < totalMule) { //Not enough food or energy for mules
             return 30;
         } else { //Meets food and energy requirement
             return 50;
         }
+    }
+
+    public int calcTotalMules() {
+        return oreMule.getAmount() + energyMule.getAmount() + foodMule.getAmount();
     }
 
 
@@ -109,6 +127,7 @@ public class Player {
         temp -= i;
         this.money.setAmount(temp);
     }
+
 
 
 
@@ -128,7 +147,13 @@ public class Player {
     public void setMoney(int i){this.money.setAmount(i);}
     public void setEnergy(int i){this.energy.setAmount(i);}
     public void setOre(int i){this.ore.setAmount(i);}
-    public void setMule(int i){this.mule.setAmount(i);}
+
+    //There are three types of MULE a player can buy, all have different prices
+    public void setOreMule(int i){this.oreMule.setAmount(i);}
+    public void setEnergyMule(int i){this.energyMule.setAmount(i);}
+    public void setFoodMule(int i){this.foodMule.setAmount(i);}
+    public void setHoldingMule(int i){holdingMule = i; }
+
     public boolean haveLandGrants(){
         return this.landGrants > 0;
     }
@@ -140,6 +165,14 @@ public class Player {
         return false ; //Player is out of landGrants
     }
 
+    public boolean hasMule() {
+        if (holdingMule != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void addLand(Land land){
         ownedLand.add(land);
     }
@@ -149,18 +182,50 @@ public class Player {
         }
     }
 
-    public int getScore() {
-//        int moneyScore = getMoney();
-//        int energyScore = getEnergy() * 25;
-//        int foodScore = getFood() * 30;
-//        int landScore = getLandGrants() * 500;
-//        int oreScore = getOre() * 50;
-//
-//        int score = moneyScore + energyScore + foodScore + landScore + oreScore;
-//        return score;
-        //less variables needed and don't want to hardCode in method, declare in a final variable above
-        //Can change back if you want either or
+    public int calcScore() {
         return getMoney() + (getEnergy()*ENERGY_CONST) + (getFood()*FOOD_CONST) +
                 (getLandGrants() * LAND_GRAND_CONST) + (getOre() * ORE_CONST);
     }
+
+    // onMouseClick event
+    public void buyOreMule() {
+        if (money.getAmount() < 175) {
+            throw new IndexOutOfBoundsException("Insufficient funds: Cannot be in debt");
+        }
+        setMoney(money.getAmount() - 175);
+        setOreMule(oreMule.getAmount() + 1);
+    }
+
+    // onMouseClick event
+    public void buyEnergyMule() {
+        if (money.getAmount() < 150) {
+            throw new IndexOutOfBoundsException("Insufficient funds: Cannot be in debt");
+        }
+        setMoney(money.getAmount() - 150);
+        setEnergyMule(energyMule.getAmount() + 1);
+    }
+
+    //onMouseClick event
+    public void buyFoodMule() {
+        if (money.getAmount() < 125) {
+            throw new IndexOutOfBoundsException("Insufficient funds: Cannot be in debt");
+        }
+        setMoney(money.getAmount() - 125);
+        setFoodMule(foodMule.getAmount() + 1);
+    }
+
+    // happens if a player wants to replace the MULE he currently has on a piece of land
+    public void removeMule(Mule mule) {
+        if (mule == oreMule) {
+            setOreMule(getOreMule() - 1);
+        } else if (mule == foodMule) {
+            setFoodMule(getFoodMule() - 1);
+        } else if (mule == energyMule) {
+            setEnergyMule(getEnergyMule() - 1);
+        }
+    }
+
 }
+
+
+

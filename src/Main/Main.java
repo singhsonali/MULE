@@ -2,6 +2,9 @@ package Main;
 
 import Model.Map;
 import Model.Player;
+import Model.Round;
+import View.townMapController;
+import com.sun.javafx.PlatformUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,16 +23,15 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Stage primaryStage;
-    private Scene currentScene;
+    private Stage primaryStage; //Stage the holds scnes
+    private Scene currentScene; //Current displayed scene
     public int players= 0; //Temp variable to count the number of players
-    public String mapChoice;
-    public static int roundCount = 0; //Max is 12
+    public String mapChoice; //Picked map
     //Structure to hold players
     private ObservableList<Player> playerData = FXCollections.observableArrayList();
-    private Map gameMap = new Map();
-
-
+    private Map gameMap = new Map(); //Gets map
+    private Round round; //Class for keeping track of rounds
+    private Player currentPlayer;
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -102,9 +104,11 @@ public class Main extends Application {
             controller.setPlayerData(playerData);
             controller.getMap(gameMap);
             controller.connectMapWithPanes();
+            controller.setRound(round);
+
             loader.setController(controller);
             controller.setMainApp(this);
-            printPlayerData();
+            //printPlayerData();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -117,52 +121,20 @@ public class Main extends Application {
             AnchorPane townMap = (AnchorPane) loader.load();
 
             Scene scene = new Scene(townMap);
+            townMapController controller = loader.getController();
+
+            controller.setPrevScene(currentScene); //MapScene
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            printPlayerData();
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public void showPubScreen(){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/pubScreen.fxml"));
-            AnchorPane pubAnchor = (AnchorPane) loader.load();
-
-            Scene scene = new Scene(pubAnchor);
-            currentScene = scene;
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
-    public void showTownMap(){
-        try {
-            // Load Town Map.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/townMap.fxml"));
-            AnchorPane townMap= (AnchorPane) loader.load();
-
-            Scene scene = new Scene(townMap);
-            currentScene = scene;
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-//            playerTraitController controller = loader.getController();
-//            controller.setPrevScene(currentScene);
-//            loader.setController(controller);
-//            controller.setMainApp(this);
+            //printPlayerData();
+            controller.setCurrentScene(currentScene); //Town Scene
+            controller.setPlayerData(playerData); //pass in all players
+            controller.setCurrentRound(round); //Set round
+            controller.setTimer(); //Start timer
+            loader.setController(controller);
+            controller.setMainApp(this);
 
         }catch (IOException e){
             e.printStackTrace();
@@ -190,16 +162,18 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void setPlayerData(ObservableList<Player> player){
-        player = FXCollections.observableArrayList(playerData);
+    public void updatePlayerData(ObservableList<Player> playerData){
+        this.playerData.removeAll();
+        this.playerData = playerData;
     }
 
-    public ObservableList<Player> getPlayerData() {
-        return playerData;
+    public void updateRound(Round round){
+        this.round = round;
     }
-
+    public void setCurrentPlayer(Player player){
+        this.currentPlayer = player;
+    }
     public Map getGameMap(){
         return this.gameMap;
     }
 }
-
