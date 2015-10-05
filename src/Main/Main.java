@@ -135,7 +135,6 @@ public class Main extends Application {
             controller.setTimer(); //Start timer
             loader.setController(controller);
             controller.setMainApp(this);
-
         }catch (IOException e){
             e.printStackTrace();
         }
