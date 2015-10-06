@@ -4,6 +4,8 @@ import Model.*;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,6 +38,7 @@ public class mapController {
     private Pane currentPane;
     private int skips = 0; //Counts the number of skips
     private Round round;
+    private mapController controller;
 
 
     @FXML
@@ -345,6 +348,10 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
+    public void setController(mapController controller){
+        this.controller = controller;
+    }
+
 
     public static class PlayerComparator implements Comparator<Player> {
 
@@ -366,6 +373,7 @@ public class mapController {
     public void placeOreMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setOreMule(currentPlayer.getOreMule() + 1);
+            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).clearMule();
             Mule mule = tempMap.getLand(row, column).getMuleType();
@@ -373,7 +381,7 @@ public class mapController {
             currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
             currentPlayer.setHoldingMule(1);
             tempMap.getLand(row, column).setOreMule(1);
-            currentPlayer.setHoldingMule(0);
+            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
         } else {
             currentPlayer.setOreMule(currentPlayer.getOreMule() - 1);
         }
@@ -383,6 +391,7 @@ public class mapController {
     public void placeEnergyMule() {
         if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
             tempMap.getLand(row, column).setEnergyMule(currentPlayer.getEnergyMule() + 1);
+            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).clearMule();
             Mule mule = tempMap.getLand(row, column).getMuleType();
@@ -390,7 +399,7 @@ public class mapController {
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
             currentPlayer.setHoldingMule(1);
             tempMap.getLand(row, column).setOreMule(1);
-            currentPlayer.setHoldingMule(0);
+            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
         } else {
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() - 1);
         }
@@ -400,6 +409,7 @@ public class mapController {
     public void placeFoodMule() {
         if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
             tempMap.getLand(row, column).setFoodMule(currentPlayer.getFoodMule() + 1);
+            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
                 tempMap.getLand(row, column).clearMule();
                 Mule mule = tempMap.getLand(row, column).getMuleType();
@@ -407,7 +417,7 @@ public class mapController {
                 currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
                 currentPlayer.setHoldingMule(1);
                 tempMap.getLand(row, column).setFoodMule(1);
-                currentPlayer.setHoldingMule(0);
+                currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
         } else {
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() - 1);
         }

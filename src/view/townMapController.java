@@ -146,7 +146,7 @@ public class townMapController {
             AnchorPane townMap = (AnchorPane) loader.load();
 
             Scene scene = new Scene(townMap);
-            pubScreenController controller = loader.getController();
+            storeController controller = loader.getController();
 
             controller.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
@@ -154,7 +154,7 @@ public class townMapController {
             primaryStage.show();
 
             controller.getStage(primaryStage); //Current Stage everything is displayed on
-            controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
+            //controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
             controller.setCurrentScene(currentScene); //Scene is Pub
             controller.setCurrentTimer(timer);// Passes timer to Pub
             controller.setTimer();
