@@ -1,25 +1,21 @@
 package Model;
 
 /**
- * Created by Ashley on 9/30/2015.
+ * Created by rileyauten on 9/30/15.
  */
-public class Mule extends Resources {
+public class Ore extends Resources {
 
-    public Mule() {
-    this.amount = 0;
+    public Ore(){
+        this.amount = 0; //default
     }
 
     @Override
     void setAmount(int i) {
         this.amount = i;
     }
+
     @Override
     int getAmount() {
         return this.amount;
     }
-
-
-
-
-
 }

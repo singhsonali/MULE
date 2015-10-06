@@ -30,7 +30,7 @@ public class pubScreenController {
     private GameTimer currentTimer; //Current time
     private Scene currentScene; //Pub
     private Player currentPlayer; //Current player
-    private int gambleBonus ;
+    private int gambleBonus;
     private townMapController controller;
     private Pub pub;
     private Stage primaryStage;
@@ -69,6 +69,7 @@ public class pubScreenController {
     public void setPrevScene(Scene scene){
         this.prevScene = scene;
         pub = new Pub();
+        //controller.updateCurrent();
     }
     public void setCurrentScene(Scene scene){
         this.currentScene = scene;
@@ -82,6 +83,7 @@ public class pubScreenController {
         stage.setScene(currentScene);
         stage.close();
 
+
         controller.updateCurrent();
     }
     public void getStage(Stage stage){
@@ -90,8 +92,7 @@ public class pubScreenController {
     public void setGambleBonus(int bonus){
         this.gambleBonus = bonus;
     }
-    public void setController(townMapController controller){
+   public void setController(townMapController controller){
         this.controller = controller;
     }
-
 }

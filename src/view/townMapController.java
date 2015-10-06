@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -49,6 +50,8 @@ public class townMapController {
     private Round currentRound = null; //Needed for gambling
     @FXML
     private Label lblPub;
+    @FXML
+    private Label lblStore;
     @FXML
     public void initialize() {
 
@@ -131,6 +134,33 @@ public class townMapController {
             controller.setController(this);
             loader.setController(controller);
 
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void goToStore(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../View/storeScreen.fxml"));
+            AnchorPane townMap = (AnchorPane) loader.load();
+
+            Scene scene = new Scene(townMap);
+            storeController controller = loader.getController();
+
+            controller.setPrevScene(currentScene); // Scene is Town
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            controller.getStage(primaryStage); //Current Stage everything is displayed on
+            //controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
+            controller.setCurrentScene(currentScene); //Scene is Pub
+            controller.setCurrentTimer(timer);// Passes timer to Pub
+            controller.setTimer();
+            controller.getCurrentPlayer(currentPlayer); //Passes current player to pub
+            controller.setController(this);
+            loader.setController(controller);
 
         }catch (IOException e){
             e.printStackTrace();
