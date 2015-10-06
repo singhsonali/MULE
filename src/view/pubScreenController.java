@@ -22,7 +22,6 @@ public class pubScreenController {
     private Button btnReturn;
     @FXML
     private Button btnGamble;
-
     @FXML
     private Label lblPubTimer;
 

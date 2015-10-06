@@ -137,4 +137,30 @@ public class townMapController {
             e.printStackTrace();
         }
     }
+
+    public void goToStore(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../View/storeScreen.fxml"));
+            AnchorPane storeScreen = (AnchorPane) loader.load();
+
+            Scene scene = new Scene(storeScreen);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            storeController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            //printPlayerData();
+            controller.getStage(primaryStage);
+            controller.setCurrentScene(currentScene);
+            controller.getCurrentPlayer(currentPlayer);
+            controller.setController(this);
+            loader.setController(controller);
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }
