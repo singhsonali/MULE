@@ -28,7 +28,8 @@ public class Player {
     private Mule energyMule;
     private Mule foodMule;
     private int totalMule;
-    private int holdingMule;
+    private Mule holdingMule;
+    private String muleString = null;
 
     //How much time they have for the round
     private int roundTime;
@@ -100,7 +101,8 @@ public class Player {
     public int getOreMule() {return this.oreMule.getAmount(); }
     public int getEnergyMule() {return this.energyMule.getAmount(); }
     public int getFoodMule() {return this.foodMule.getAmount(); }
-    public int getHoldingMule() {return this.holdingMule; }
+    public String getMuleType() {return muleString; }
+    public Mule getHoldingMule() {return this.holdingMule; }
 
     public int calcRoundTime() {
         if (getFood() == 0 || totalMule != 0 && energy.getAmount() == 0) { //No food or no energy for mules
@@ -149,7 +151,8 @@ public class Player {
     public void setOreMule(int i){this.oreMule.setAmount(i);}
     public void setEnergyMule(int i){this.energyMule.setAmount(i);}
     public void setFoodMule(int i){this.foodMule.setAmount(i);}
-    public void setHoldingMule(int i){holdingMule = i; }
+    public void setHoldingMule(Mule mule){holdingMule = mule; }
+    public void setMuleString(String muleString) {this.muleString = muleString; }
 
     public boolean haveLandGrants(){
         return this.landGrants > 0;
@@ -163,10 +166,10 @@ public class Player {
     }
 
     public boolean hasMule() {
-        if (holdingMule != 0) {
-            return true;
-        } else {
+        if (muleString == null) {
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -200,6 +203,7 @@ public class Player {
         }
         setMoney(money.getAmount() - 150);
         setEnergyMule(energyMule.getAmount() + 1);
+        System.out.println(hasMule());
     }
 
     //onMouseClick event

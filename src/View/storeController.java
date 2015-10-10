@@ -34,6 +34,9 @@ public class storeController {
     private Scene currentScene; //Pub
     private townMapController controller;
     private GameTimer timer;
+    private Mule energyMule;
+    private Mule foodMule;
+    private Mule oreMule;
 
 
 
@@ -154,6 +157,8 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 175);
             currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
+            currentPlayer.setMuleString("oreMule");
+            currentPlayer.setHoldingMule(oreMule);
             store.deleteMule();
         }
     }
@@ -169,7 +174,10 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 150);
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() + 1);
+            currentPlayer.setMuleString("energyMule");
+            System.out.println(currentPlayer.getMuleType());
+            currentPlayer.setHoldingMule(energyMule);
+            System.out.println(currentPlayer.getHoldingMule());
             store.deleteMule();
         }
     }
@@ -185,7 +193,8 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 125);
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() + 1);
+            currentPlayer.setMuleString("foodMule");
+            currentPlayer.setHoldingMule(foodMule);
             store.deleteMule();
         }
     }
@@ -199,7 +208,7 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - (30 * amnt));
             currentPlayer.setFood(currentPlayer.getFood() + amnt);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() + 1);
+            //currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() + 1);
             store.setFood(store.getFood() - amnt);
         }
     }
@@ -307,12 +316,13 @@ public class storeController {
 
     public void goToMap() {
         try {
+            System.out.println(currentPlayer.getHoldingMule() + "wassup");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
             AnchorPane townMap = (AnchorPane) loader.load();
 
             Scene scene = new Scene(townMap);
-            pubScreenController controller = loader.getController();
+            mapController controller = loader.getController();
 
             controller.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
@@ -322,11 +332,12 @@ public class storeController {
             controller.getStage(primaryStage); //Current Stage everything is displayed on
             //controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
             controller.setCurrentScene(currentScene); //Scene is Pub
-            controller.setCurrentTimer(timer);// Passes timer to Pub
-            controller.setTimer();
+            //controller.setCurrentTimer(timer);// Passes timer to Pub
+            //controller.setTimer();
             controller.getCurrentPlayer(currentPlayer); //Passes current player to pub
             //controller.setController(this);
             loader.setController(controller);
+            System.out.println(currentPlayer.getHoldingMule() + "hello");
 
         } catch (IOException e) {
             e.printStackTrace();

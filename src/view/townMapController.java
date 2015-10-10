@@ -83,7 +83,6 @@ public class townMapController {
             primaryStage.show();
             //Done here go back to Map to pick land
         }
-
     }
 
     public void setMainApp(Main mainApp) {
@@ -112,7 +111,7 @@ public class townMapController {
         this.myScene =scene;
     }
     public void goToPub(){
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/pubScreen.fxml"));
             AnchorPane townMap = (AnchorPane) loader.load();
@@ -134,7 +133,7 @@ public class townMapController {
             controller.setController(this);
             loader.setController(controller);
 
-        }catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

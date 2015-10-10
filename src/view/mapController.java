@@ -38,7 +38,12 @@ public class mapController {
     private Pane currentPane;
     private int skips = 0; //Counts the number of skips
     private Round round;
+    private Stage primaryStage;
     private mapController controller;
+    private GameTimer currentTimer;
+    private Mule energyMule;
+    private Mule foodMule;
+    private Mule oreMule;
 
 
     @FXML
@@ -352,6 +357,17 @@ public class mapController {
         this.controller = controller;
     }
 
+    public void setCurrentScene(Scene scene){
+        this.currentScene = scene;
+    }
+
+    public void getCurrentPlayer(Player player){
+        this.currentPlayer = player;
+    }
+
+    public void setCurrentTimer(GameTimer timer){
+        this.currentTimer = timer;
+    }
 
     public static class PlayerComparator implements Comparator<Player> {
 
@@ -365,62 +381,72 @@ public class mapController {
             }else{
                 return 0;
             }
-
         }
     }
 
     //Will be the action of an onMouseClick
     public void placeOreMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
-            tempMap.getLand(row, column).setOreMule(currentPlayer.getOreMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            tempMap.getLand(row, column).setOreMule(1);
+            currentPlayer.setHoldingMule(null);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
-            tempMap.getLand(row, column).clearMule();
             Mule mule = tempMap.getLand(row, column).getMuleType();
             currentPlayer.removeMule(mule);
-            currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
-            currentPlayer.setHoldingMule(1);
+            tempMap.getLand(row, column).clearMule();
+            //currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
+            //currentPlayer.setHoldingMule(oreMule);
             tempMap.getLand(row, column).setOreMule(1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            currentPlayer.setHoldingMule(null);
         } else {
             currentPlayer.setOreMule(currentPlayer.getOreMule() - 1);
+            currentPlayer.setHoldingMule(null);
         }
     }
 
     //Will be the action of an onMouseClick
     public void placeEnergyMule() {
-        if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
-            tempMap.getLand(row, column).setEnergyMule(currentPlayer.getEnergyMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+        if (true) {
+            System.out.println(this.tempMap);
+            this.tempMap.getLand(row, column).setEnergyMule(1);
+            currentPlayer.setHoldingMule(null);
+            currentPlayer.setMuleString(null);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
-            tempMap.getLand(row, column).clearMule();
             Mule mule = tempMap.getLand(row, column).getMuleType();
             currentPlayer.removeMule(mule);
-            currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
-            currentPlayer.setHoldingMule(1);
+            tempMap.getLand(row, column).clearMule();
+            //currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
+            //currentPlayer.setHoldingMule(energyMule);
             tempMap.getLand(row, column).setOreMule(1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            currentPlayer.setHoldingMule(null);
+            currentPlayer.setMuleString(null);
         } else {
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() - 1);
+            currentPlayer.setHoldingMule(null);
+            currentPlayer.setMuleString(null);
         }
     }
 
     //Will be the action of an onMouseClick
     public void placeFoodMule() {
-        if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
-            tempMap.getLand(row, column).setFoodMule(currentPlayer.getFoodMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+        if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
+            tempMap.getLand(row, column).setFoodMule(1);
+            currentPlayer.setHoldingMule(null);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
-                tempMap.getLand(row, column).clearMule();
-                Mule mule = tempMap.getLand(row, column).getMuleType();
-                currentPlayer.removeMule(mule);
-                currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
-                currentPlayer.setHoldingMule(1);
-                tempMap.getLand(row, column).setFoodMule(1);
-                currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            Mule mule = tempMap.getLand(row, column).getMuleType();
+            currentPlayer.removeMule(mule);
+            tempMap.getLand(row, column).clearMule();
+            //currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
+            //currentPlayer.setHoldingMule(foodMule);
+            tempMap.getLand(row, column).setFoodMule(1);
+            currentPlayer.setHoldingMule(null);
         } else {
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() - 1);
+            currentPlayer.setHoldingMule(null);
         }
+    }
+
+    public void getStage(Stage stage){
+        this.primaryStage  = stage;
     }
 
 
@@ -501,352 +527,836 @@ public class mapController {
     public void setLandChoice00(){
         this.column = 0;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getMuleType() != null) {
+            if (currentPlayer.getMuleType().equals("energyMule")) {
+                tempMap.getLand(row, column).setEnergyMule(1);
+                placeEnergyMule();
+            } else if (currentPlayer.getMuleType().equals("foodMule")) {
+                placeFoodMule();
+            } else if (currentPlayer.getMuleType().equals("oreMule")) {
+                placeOreMule();
+            }
+        } else if (tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice01() {
         this.column = 1;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice02() {
         this.column = 2;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice03() {
         this.column = 3;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice04() {
         this.column = 4;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice05() {
         this.column = 5;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice06() {
         this.column = 6;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice07() {
         this.column = 7;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice08() {
         this.column = 8;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice10(){
         this.column = 0;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice11() {
         this.column = 1;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice12() {
         this.column = 2;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice13() {
         this.column = 3;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice14() {
         this.column = 4;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice15() {
         this.column = 5;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice16() {
         this.column = 6;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice17() {
         this.column = 7;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice18() {
         this.column = 8;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice20(){
         this.column = 0;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice21() {
         this.column = 1;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice22() {
         this.column = 2;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice23() {
         this.column = 3;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice25() {
         this.column = 5;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice26() {
         this.column = 6;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice27() {
         this.column = 7;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice28() {
         this.column = 8;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice30(){
         this.column = 0;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice31() {
         this.column = 1;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice32() {
         this.column = 2;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice33() {
         this.column = 3;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice34() {
         this.column = 4;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice35() {
         this.column = 5;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice36() {
         this.column = 6;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice37() {
         this.column = 7;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice38() {
         this.column = 8;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice40(){
         this.column = 0;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice41() {
         this.column = 1;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice42() {
         this.column = 2;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice43() {
         this.column = 3;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice44() {
         this.column = 4;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice45() {
         this.column = 5;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice46() {
         this.column = 6;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice47() {
         this.column = 7;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
+
     @FXML
     public void setLandChoice48() {
         this.column = 8;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.hasMule()) {
+            if (currentPlayer.getHoldingMule().equals(energyMule)) {
+                placeEnergyMule();
+            } else if (currentPlayer.getHoldingMule().equals(foodMule)) {
+                placeFoodMule();
+            } else if (currentPlayer.getHoldingMule().equals(oreMule)) {
+                placeOreMule();
+            }
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
+        } else {
+            throw new IllegalArgumentException("This land is not open to buy and is not owned by you");
         }
     }
 }
