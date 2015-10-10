@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.townMapController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.townMapController">
     <children>
         <GridPane layoutX="-1.0" layoutY="6.0" prefHeight="394.0" prefWidth="600.0">
             <columnConstraints>
@@ -51,9 +51,9 @@
                         </Label>
                     </children>
                 </Pane>
-                <Pane onMouseClicked= "#goToStore" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
+                <Pane onMouseClicked="#goToStore" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: DarkCyan;" GridPane.columnIndex="7" GridPane.rowIndex="3">
                     <children>
-                        <Label fx:id = "lblStore" layoutX="24.0" layoutY="14.0" text="Store">
+                        <Label fx:id="lblStore" layoutX="24.0" layoutY="14.0" text="Store">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -88,7 +88,7 @@
                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: tan;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Green;" GridPane.columnIndex="1">
                     <children>
-                        <Label fx:id="lblName" layoutX="14.0" layoutY="14.0" text="Label" />
+                        <Label fx:id="lblName" layoutX="14.0" layoutY="14.0" text="PlayerName" />
                     </children></Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Green;" GridPane.columnIndex="2" />
                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Green;" GridPane.columnIndex="3" />
@@ -127,4 +127,10 @@
         </GridPane>
         <Label fx:id="lblTimer" layoutX="285.0" layoutY="-17.0" prefHeight="28.0" prefWidth="30.0" text="Timer" AnchorPane.topAnchor="17.0" />
     </children>
+   <children>
+       <Label fx:id="lblPlayerMoney" layoutX="14.0" layoutY="369.0" text="PlayerMoney" />
+      <Label fx:id="lblPlayerEnergy" layoutX="83.0" layoutY="369.0" text="PlayerEnergy" />
+      <Label fx:id="lblPlayerOre" layoutX="152.0" layoutY="369.0" text="PlayerOre" />
+      <Label fx:id="lblPlayerFood" layoutX="204.0" layoutY="369.0" text="PlayerFood" />
+   </children>
 </AnchorPane>

@@ -13,8 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
 import java.awt.*;
 import java.io.IOException;
@@ -31,14 +33,11 @@ public class storeController {
     private Stage primaryStage;
     private Scene prevScene; //Town
     private GameTimer currentTimer; //Current time
-    private Scene currentScene; //Pub
+    private Scene currentScene; //Store
     private townMapController controller;
-    private GameTimer timer;
-
-
 
     @FXML
-    public TextField stuff;
+    public TextField txtAmount;
     @FXML
     private Button btnReturn;
     @FXML
@@ -46,14 +45,38 @@ public class storeController {
     @FXML
     private Button btnSell;
     @FXML
-    private Button buyMule;
-    @FXML
-    private ChoiceBox item;
+    private ChoiceBox cbItem;
     @FXML
     private ChoiceBox muleBox;
+    @FXML
+    private Label lblMuleType;
+    @FXML
+    private Label lblQuantity;
 
-
-
+    @FXML
+    private Label lblPriceEnergy;
+    @FXML
+    private Label lblPriceOre;
+    @FXML
+    private Label lblPriceFood;
+    @FXML
+    private Label lblPriceMEnergy;
+    @FXML
+    private Label lblPriceMOre;
+    @FXML
+    private Label lblPriceMFood;
+    @FXML
+    private Label lblStockEnergy;
+    @FXML
+    private Label lblStockOre;
+    @FXML
+    private Label lblStockFood;
+    @FXML
+    private Label lblStockMEnergy;
+    @FXML
+    private Label lblStockMOre;
+    @FXML
+    private Label lblStockMFood;
 
     public storeController() {
 
@@ -62,11 +85,15 @@ public class storeController {
     @FXML
     private void initialize(){
         currentPane = null;
+        store = new Store();
+        setInterfaceInvis(false);
+        updateStoreInventoryLabels();
 
-        item.getItems().addAll(
+        cbItem.getItems().addAll(
                 "Food",
                 "Energy",
-                "Ore"
+                "Ore",
+                "Mule"
         );
 
         muleBox.getItems().addAll(
@@ -75,17 +102,39 @@ public class storeController {
                 "Ore Mule"
         );
 
+        cbItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String itemChoice = (String) cbItem.getValue();
+                if (itemChoice.equals("Mule")) {
+                    setInterfaceInvis(true);
+                } else {
+                    setInterfaceInvis(false);
+                }
+            }
+        });
+
         btnBuy.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //Return number of players to main
-                String itemChoice = (String) item.getValue();
+                String itemChoice = (String) cbItem.getValue();
                 if (itemChoice.equals("Food")) {
                     buyFood(getNumChoice());
                 } else if (itemChoice.equals("Energy")) {
                     buyEnergy(getNumChoice());
                 } else if (itemChoice.equals("Ore")) {
                     buyOre(getNumChoice());
+                } else if (itemChoice.equals("Mule")) {
+                    String muleChoice = (String) muleBox.getValue();
+                    if (muleChoice.equals("Energy Mule")) {
+                        buyEnergyMule();
+                    } else if (muleChoice.equals("Food Mule")) {
+                        buyFoodMule();
+                    } else if (muleChoice.equals("Ore Mule")) {
+                        buyOreMule();
+                    }
+                    goToMap();
                 }
                 leaveStore();
             }
@@ -94,12 +143,12 @@ public class storeController {
         btnSell.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String itemChoice = (String) item.getValue();
-                if (itemChoice == "Food") {
+                String itemChoice = (String) cbItem.getValue();
+                if (itemChoice.equals("Food")) {
                     sellFood(getNumChoice());
-                } else if (itemChoice == "Energy") {
+                } else if (itemChoice.equals("Energy")) {
                     sellEnergy(getNumChoice());
-                } else if (itemChoice == "Ore") {
+                } else if (itemChoice.equals("Ore")) {
                     sellOre(getNumChoice());
                 }
                 leaveStore();
@@ -113,7 +162,7 @@ public class storeController {
             }
         });
 
-        buyMule.setOnAction(new EventHandler<ActionEvent>() {
+        /*buyMule.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String muleChoice = (String) muleBox.getValue();
@@ -126,18 +175,26 @@ public class storeController {
                 }
                 goToMap();
             }
-        });
+        }); */ //Handled in Buy/Sell Buttons
+    }
+
+    public void setInterfaceInvis(boolean bool){
+        muleBox.visibleProperty().setValue(bool);
+        lblMuleType.setVisible(bool);
+        btnSell.visibleProperty().setValue(!bool);
+        txtAmount.visibleProperty().setValue(!bool);
+        lblQuantity.setVisible(!bool);
     }
 
     public void leaveStore(){
         //Close the scene
         primaryStage.setScene(prevScene);
         primaryStage.show();
+        controller.updatePlayerInfoLabels();
 
         Stage stage = new Stage();
         stage.setScene(currentScene);
         stage.close();
-
 
         //controller.updateCurrent();
     }
@@ -154,6 +211,7 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 175);
             currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
+            currentPlayer.setHoldingMule("Ore");
             store.deleteMule();
         }
     }
@@ -169,7 +227,7 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 150);
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() + 1);
+            currentPlayer.setHoldingMule("Energy");
             store.deleteMule();
         }
     }
@@ -185,7 +243,7 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 125);
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() + 1);
+            currentPlayer.setHoldingMule("Food");
             store.deleteMule();
         }
     }
@@ -264,9 +322,8 @@ public class storeController {
 
     @FXML
     public int getNumChoice(){
-        return Integer.parseInt(stuff.getText());
+        return Integer.parseInt(txtAmount.getText());
     }
-
 
     public void getStage(Stage stage){
         this.primaryStage  = stage;
@@ -274,23 +331,19 @@ public class storeController {
     public void setController(townMapController controller){
         this.controller = controller;
     }
-
     public void getPrimaryStage(Stage stage){
         this.primaryStage = stage;
     }
-
     public void getCurrentPlayer(Player player){
         this.currentPlayer = player;
     }
     public void setPrevScene(Scene scene){
         this.prevScene = scene;
-        store = new Store();
         //controller.updateCurrent();
     }
     public void setCurrentScene(Scene scene){
         this.currentScene = scene;
     }
-
     public void setCurrentTimer(GameTimer timer){
         this.currentTimer = timer;
     }
@@ -306,13 +359,16 @@ public class storeController {
     }
 
     public void goToMap() {
-        try {
+        main.showMapScreen();
+        main.setCurrentPlayer(currentPlayer);
+        main.setMulePhase(true);
+        /*try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
-            AnchorPane townMap = (AnchorPane) loader.load();
+            AnchorPane mapScreen = (AnchorPane) loader.load();
 
-            Scene scene = new Scene(townMap);
-            pubScreenController controller = loader.getController();
+            Scene scene = new Scene(mapScreen);
+            mapController controller = loader.getController();
 
             controller.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
@@ -320,20 +376,57 @@ public class storeController {
             primaryStage.show();
 
             controller.getStage(primaryStage); //Current Stage everything is displayed on
-            //controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
             controller.setCurrentScene(currentScene); //Scene is Pub
             controller.setCurrentTimer(timer);// Passes timer to Pub
-            controller.setTimer();
+            //controller.setTimer();
             controller.getCurrentPlayer(currentPlayer); //Passes current player to pub
             //controller.setController(this);
             loader.setController(controller);
 
+            // Load Map Screen.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
+            AnchorPane mapScreen= (AnchorPane) loader.load();
+
+            Scene scene = new Scene(mapScreen);
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            mapController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            //Pass in player Array and Map Data
+            controller.setPlayerData(playerData);
+            controller.getMap(main.getGameMap());
+            controller.connectMapWithPanes();
+            controller.setRound(round);
+
+            loader.setController(controller);
+            controller.setMainApp(main);
+            //printPlayerData();
+
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } */
     }
 
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
+    }
+
+    public void updateStoreInventoryLabels() {
+        lblPriceEnergy.setText("25");
+        lblPriceFood.setText("30");
+        lblPriceOre.setText("50");
+        lblPriceMEnergy.setText("130");
+        lblPriceMFood.setText("125");
+        lblPriceMOre.setText("150");
+
+        lblStockEnergy.setText("" + store.getEnergy());
+        lblStockFood.setText("" + store.getFood());
+        lblStockOre.setText("" + store.getOre());
+        lblStockMEnergy.setText("" + store.getMuleAmount());
+        lblStockMFood.setText("" + store.getMuleAmount());
+        lblStockMOre.setText("" + store.getMuleAmount());
     }
 }
