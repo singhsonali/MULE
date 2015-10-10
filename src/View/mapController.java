@@ -39,7 +39,9 @@ public class mapController {
     private int skips = 0; //Counts the number of skips
     private Round round;
     private mapController controller;
-
+    private Stage primaryStage;
+    private GameTimer currentTimer;
+    private boolean mulePhase;
 
     @FXML
     private Pane townPane;
@@ -291,6 +293,7 @@ public class mapController {
                 skips = 0;
                 System.out.println("Start Town Game");
             }
+        } else if (mulePhase) {
 
         }
     }
@@ -315,7 +318,6 @@ public class mapController {
                 currentPane = pane;
                 updateColor(pane);
             }
-
         }
     }
 
@@ -365,7 +367,6 @@ public class mapController {
             }else{
                 return 0;
             }
-
         }
     }
 
@@ -373,15 +374,15 @@ public class mapController {
     public void placeOreMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setOreMule(currentPlayer.getOreMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            currentPlayer.setHoldingMule(null);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+            String muleType = tempMap.getLand(row, column).getMuleType();
             tempMap.getLand(row, column).clearMule();
-            Mule mule = tempMap.getLand(row, column).getMuleType();
-            currentPlayer.removeMule(mule);
+            currentPlayer.removeMule(muleType);
             currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
-            currentPlayer.setHoldingMule(1);
+            currentPlayer.setHoldingMule(muleType);
             tempMap.getLand(row, column).setOreMule(1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            currentPlayer.setHoldingMule(null);
         } else {
             currentPlayer.setOreMule(currentPlayer.getOreMule() - 1);
         }
@@ -391,15 +392,15 @@ public class mapController {
     public void placeEnergyMule() {
         if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
             tempMap.getLand(row, column).setEnergyMule(currentPlayer.getEnergyMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            currentPlayer.setHoldingMule(null);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).clearMule();
-            Mule mule = tempMap.getLand(row, column).getMuleType();
-            currentPlayer.removeMule(mule);
+            String muleType = tempMap.getLand(row, column).getMuleType();
+            currentPlayer.removeMule(muleType);
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
-            currentPlayer.setHoldingMule(1);
+            currentPlayer.setHoldingMule(muleType);
             tempMap.getLand(row, column).setOreMule(1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            currentPlayer.setHoldingMule(null);
         } else {
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() - 1);
         }
@@ -409,21 +410,19 @@ public class mapController {
     public void placeFoodMule() {
         if (!tempMap.getLand(row, column).isOpen() && tempMap.getLand(row, column).getPlayer().equals(currentPlayer)) {
             tempMap.getLand(row, column).setFoodMule(currentPlayer.getFoodMule() + 1);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+            currentPlayer.setHoldingMule(null);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
                 tempMap.getLand(row, column).clearMule();
-                Mule mule = tempMap.getLand(row, column).getMuleType();
-                currentPlayer.removeMule(mule);
-                currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
-                currentPlayer.setHoldingMule(1);
-                tempMap.getLand(row, column).setFoodMule(1);
-                currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() - 1);
+                String muleType = tempMap.getLand(row, column).getMuleType();
+                currentPlayer.removeMule(muleType);
+            currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
+                currentPlayer.setHoldingMule(muleType);
+            tempMap.getLand(row, column).setFoodMule(1);
+                currentPlayer.setHoldingMule(null);
         } else {
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() - 1);
         }
     }
-
-
 
     public void setRound(Round round){
         this.round = round;
@@ -470,7 +469,6 @@ public class mapController {
         tempMap.getLand(3,7).setMyPane(pane37);
         tempMap.getLand(3,8).setMyPane(pane38);
 
-
         tempMap.getLand(4,0).setMyPane(pane40);
         tempMap.getLand(4,1).setMyPane(pane41);
         tempMap.getLand(4,2).setMyPane(pane42);
@@ -482,13 +480,11 @@ public class mapController {
         tempMap.getLand(4,8).setMyPane(pane48);
     }
 
-
-
     public void updateColor(Pane pane){
         //Sets the Land border to player color
         //Temp[0] hold the original background
         String temp[] = pane.getStyle().split(";");
-        pane.setStyle( temp[0]+ ";" + "-fx-border-color: "+currentPlayer.getColor());
+        pane.setStyle(temp[0] + ";" + "-fx-border-color: " + currentPlayer.getColor());
     }
     public void revertColor(Pane pane){
         //Set back to original color
@@ -848,5 +844,24 @@ public class mapController {
         if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
+    }
+
+    public void getStage(Stage stage){
+        this.primaryStage  = stage;
+    }
+    public void getPrimaryStage(Stage stage){
+        this.primaryStage = stage;
+    }
+    public void getCurrentPlayer(Player player){
+        this.currentPlayer = player;
+    }
+    public void setCurrentScene(Scene scene){
+        this.currentScene = scene;
+    }
+    public void setCurrentTimer(GameTimer timer){
+        this.currentTimer = timer;
+    }
+    public void setMulePhase(boolean mulePhase) {
+        this.mulePhase = mulePhase;
     }
 }

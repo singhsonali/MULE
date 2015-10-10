@@ -5,18 +5,20 @@ package Model;
  * Food class inherits from Resources
  * Food is given at the start and updated as the game goes on
  */
-public class Food extends Resources {
+public class Food {
+
+    private int amount;
 
     public Food(){
         this.amount = 8;
     }
     //Update method
-    @Override
+    //@Override
     void setAmount(int i) {
         this.amount = i;
     }
 
-    @Override
+    //@Override
     public int getAmount() {
         return this.amount;
     }

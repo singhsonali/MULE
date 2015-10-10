@@ -83,7 +83,6 @@ public class pubScreenController {
         stage.setScene(currentScene);
         stage.close();
 
-
         controller.updateCurrent();
     }
     public void getStage(Stage stage){
@@ -92,7 +91,7 @@ public class pubScreenController {
     public void setGambleBonus(int bonus){
         this.gambleBonus = bonus;
     }
-   public void setController(townMapController controller){
+    public void setController(townMapController controller){
         this.controller = controller;
     }
 }
