@@ -8,7 +8,6 @@ package View;
  * @return Number of players, Map Chosen
  */
 import Main.Main;
-import Model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,9 +31,6 @@ public class gameScreenController{
     @FXML
     private ChoiceBox<String> cmbMapChoice;
 
-    @FXML
-    private Button btnForTesting;
-
     //Ref to main application
     private Main main;
     //Ref to last scene visited
@@ -49,7 +45,7 @@ public class gameScreenController{
     private void initialize(){
 
         //Set the default number of players to one
-        numPlayerSlider.setValue(2);
+        numPlayerSlider.setValue(1);
         //Adds choices
         cmbMapChoice.getItems().addAll(
                 "Default",
@@ -73,16 +69,6 @@ public class gameScreenController{
                 stage.close();
             }
         });
-
-        btnForTesting.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                main.setPlayerCount(2);
-                main.addPlayer(new Player("Player1", "Human", "Blue"));
-                main.addPlayer(new Player("Player2", "Human", "Yellow"));
-                main.showMapScreen();
-            }
-        });
     }
 
     @FXML
@@ -92,7 +78,10 @@ public class gameScreenController{
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
     }
+
     public void setPrevScene(Scene scene){
         this.prevScene = scene;
     }
+
+
 }

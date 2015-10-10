@@ -1,62 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import java.util.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Teal;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.storeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Teal;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.storeController">
    <children>
-      <Label layoutX="222.0" layoutY="14.0" text="Store">
+      <Label layoutX="222.0" layoutY="27.0" text="Store">
          <font>
             <Font name="Bodoni MT Black Italic" size="54.0" />
          </font>
       </Label>
-      <Label layoutX="272.0" layoutY="112.0" text="Item:">
+      <Label layoutX="175.0" layoutY="111.0" text="Item:">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lblQuantity" layoutX="224.0" layoutY="237.0" text="Quantity:">
+      <Label layoutX="133.0" layoutY="242.0" text="Quantity:">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="cbItem" layoutX="384.0" layoutY="117.0" prefWidth="150.0" />
-      <TextField fx:id="txtAmount" layoutX="384.0" layoutY="242.0" prefHeight="25.0" prefWidth="150.0" />
-      <Button fx:id="btnBuy" layoutX="219.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Buy" />
-      <Button fx:id="btnSell" layoutX="351.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Sell" />
+      <ChoiceBox fx:id="item" layoutX="302.0" layoutY="114.0" prefWidth="150.0" />
+      <TextField fx:id="stuff" layoutX="302.0" layoutY="247.0" />
+      <Button fx:id="btnBuy" layoutX="222.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Buy" />
+      <Button fx:id="btnSell" layoutX="322.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Sell" />
       <Button fx:id="btnReturn" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" text="Return" />
-      <Label fx:id="lblMuleType" layoutX="200.0" layoutY="171.0" prefHeight="36.0" prefWidth="128.0" text="Mule Type:">
+       <Button fx:id = "buyMule" layoutX="413.0" layoutY="309.0" mnemonicParsing="false" text="Buy Mule" />
+      <Label layoutX="169.0" layoutY="176.0" prefHeight="30.0" prefWidth="77.0" text="Mule:">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="muleBox" layoutX="384.0" layoutY="176.0" prefHeight="25.0" prefWidth="150.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="14.0" layoutY="89.0" stroke="BLACK" strokeType="INSIDE" width="156.0" />
-      <Label layoutX="25.0" layoutY="104.0" text="Items" />
-      <Label layoutX="133.0" layoutY="104.0" text="Stock" />
-      <Label layoutX="77.0" layoutY="104.0" text="Price" />
-      <Label layoutX="25.0" layoutY="122.0" text="Food" />
-      <Label layoutX="25.0" layoutY="140.0" text="Energy" />
-      <Label layoutX="25.0" layoutY="158.0" text="Ore" />
-      <Label layoutX="25.0" layoutY="192.0" text="Mules:" />
-      <Label layoutX="29.0" layoutY="210.0" text="Food" />
-      <Label layoutX="29.0" layoutY="228.0" text="Energy" />
-      <Label layoutX="29.0" layoutY="246.0" text="Ore" />
-      <Label fx:id="lblPriceFood" layoutX="77.0" layoutY="122.0" text="PriceFood" />
-      <Label fx:id="lblPriceEnergy" layoutX="77.0" layoutY="140.0" text="PriceEnergy" />
-      <Label fx:id="lblPriceOre" layoutX="77.0" layoutY="158.0" text="PriceOre" />
-      <Label fx:id="lblStockFood" layoutX="133.0" layoutY="122.0" text="StockFood" />
-      <Label fx:id="lblStockEnergy" layoutX="133.0" layoutY="140.0" text="StockEnergy" />
-      <Label fx:id="lblStockOre" layoutX="133.0" layoutY="158.0" text="StockOre" />
-      <Label fx:id="lblPriceMFood" layoutX="77.0" layoutY="210.0" text="PriceMFood" />
-      <Label fx:id="lblPriceMEnergy" layoutX="77.0" layoutY="228.0" text="PriceMEnergy" />
-      <Label fx:id="lblPriceMOre" layoutX="77.0" layoutY="246.0" text="PriceMOre" />
-      <Label fx:id="lblStockMFood" layoutX="133.0" layoutY="210.0" text="StockMFood" />
-      <Label fx:id="lblStockMEnergy" layoutX="133.0" layoutY="228.0" text="StockMEnergy" />
-      <Label fx:id="lblStockMOre" layoutX="133.0" layoutY="246.0" text="StockMOre" />
+      <ChoiceBox fx:id="muleBox" layoutX="302.0" layoutY="178.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

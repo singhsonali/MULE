@@ -32,8 +32,6 @@ public class Main extends Application {
     private Map gameMap = new Map(); //Gets map
     private Round round = new Round(); //Class for keeping track of rounds
     private Player currentPlayer;
-    private boolean mulePhase = false;
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -107,7 +105,6 @@ public class Main extends Application {
             controller.getMap(gameMap);
             controller.connectMapWithPanes();
             controller.setRound(round);
-            controller.setMulePhase(mulePhase);
 
             loader.setController(controller);
             controller.setMainApp(this);
@@ -180,8 +177,5 @@ public class Main extends Application {
     }
     public Map getGameMap(){
         return this.gameMap;
-    }
-    public void setMulePhase(boolean bool) {
-        this.mulePhase = true;
     }
 }
