@@ -28,7 +28,7 @@ public class Player {
     private Mule energyMule;
     private Mule foodMule;
     private int totalMule;
-    private int holdingMule;
+    private String holdingMule;
 
     //How much time they have for the round
     private int roundTime;
@@ -100,7 +100,7 @@ public class Player {
     public int getOreMule() {return this.oreMule.getAmount(); }
     public int getEnergyMule() {return this.energyMule.getAmount(); }
     public int getFoodMule() {return this.foodMule.getAmount(); }
-    public int getHoldingMule() {return this.holdingMule; }
+    public String getHoldingMule() {return this.holdingMule; }
 
     public int calcRoundTime() {
         if (getFood() == 0 || totalMule != 0 && energy.getAmount() == 0) { //No food or no energy for mules
@@ -149,7 +149,7 @@ public class Player {
     public void setOreMule(int i){this.oreMule.setAmount(i);}
     public void setEnergyMule(int i){this.energyMule.setAmount(i);}
     public void setFoodMule(int i){this.foodMule.setAmount(i);}
-    public void setHoldingMule(int i){holdingMule = i; }
+    public void setHoldingMule(String s){holdingMule = s; }
 
     public boolean haveLandGrants(){
         return this.landGrants > 0;
@@ -163,7 +163,7 @@ public class Player {
     }
 
     public boolean hasMule() {
-        if (holdingMule != 0) {
+        if (holdingMule != null) {
             return true;
         } else {
             return false;
@@ -212,12 +212,12 @@ public class Player {
     }
 
     // happens if a player wants to replace the MULE he currently has on a piece of land
-    public void removeMule(Mule mule) {
-        if (mule == oreMule) {
+    public void removeMule(String muleType) {
+        if (muleType.equals("Ore")) {
             setOreMule(getOreMule() - 1);
-        } else if (mule == foodMule) {
+        } else if (muleType.equals("Food")) {
             setFoodMule(getFoodMule() - 1);
-        } else if (mule == energyMule) {
+        } else if (muleType.equals("Energy")) {
             setEnergyMule(getEnergyMule() - 1);
         }
     }
