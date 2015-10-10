@@ -46,4 +46,6 @@ public class Store {
         return ENERGY_AMOUNT;
     }
 
+
+
 }
