@@ -26,7 +26,7 @@ public class Round {
     }
 
     public int getGamblingBonus() {
-        return gamblingBonus[this.round-1];
+        return gamblingBonus[this.round];
     }
     public boolean gameOver(){
         return this.round > 12 ;

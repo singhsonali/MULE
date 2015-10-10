@@ -5,9 +5,7 @@ package Model;
  * Class to hold Money item
  * Will be held by Player and the Town stores
  */
-public class Money /*extends Resources*/ {
-
-    private int amount;
+public class Money extends Resources {
 
     public Money(){
         this.amount = 0;
@@ -23,12 +21,12 @@ public class Money /*extends Resources*/ {
         }
     }
 
-    //@Override
+    @Override
     void setAmount(int i) {
         this.amount = i;
     }
 
-    //@Override
+    @Override
     int getAmount() {
         return this.amount;
     }

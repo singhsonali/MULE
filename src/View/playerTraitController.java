@@ -90,6 +90,7 @@ public class playerTraitController extends gameScreenController {
                 Stage stage = (Stage)prevScene.getWindow();
                 stage.close();
             }
+
         }
     }
 

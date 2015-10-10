@@ -108,13 +108,13 @@ public class Land {
         return getOreMule() + getFoodMule() + getEnergyMule();
     }
 
-    public String getMuleType() {
+    public Mule getMuleType() {
         if (getOreMule() == 1) {
-            return "oreMule";
+            return oreMule;
         } else if (getEnergyMule() == 1) {
-            return "energyMule";
+            return energyMule;
         } else if (getFoodMule() == 1) {
-            return "foodMule";
+            return foodMule;
         }
         return null;
     }
