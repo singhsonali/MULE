@@ -386,7 +386,7 @@ public class mapController {
 
     //Will be the action of an onMouseClick
     public void placeOreMule() {
-        if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
+        if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) { //so tempMap is null here because it hasn't been instantiated
             tempMap.getLand(row, column).setOreMule(1);
             currentPlayer.setHoldingMule(null);
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
