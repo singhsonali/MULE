@@ -5,7 +5,5 @@ package Model;
  */
 public class LandOffice {
 
-    public LandOffice() {
-
-    }
+    public LandOffice() {}
 }
