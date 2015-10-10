@@ -37,6 +37,14 @@ public class townMapController {
     private Label lblTimer;
     @FXML
     private Label lblName;
+    @FXML
+    private Label lblPlayerMoney;
+    @FXML
+    private Label lblPlayerEnergy;
+    @FXML
+    private Label lblPlayerOre;
+    @FXML
+    private Label lblPlayerFood;
 
     private Scene myScene; //Used for checking if player is on town map or a store
     private GameTimer timer; //Display each players amount of time per turn
@@ -52,6 +60,7 @@ public class townMapController {
     private Label lblPub;
     @FXML
     private Label lblStore;
+
     @FXML
     public void initialize() {
 
@@ -59,7 +68,7 @@ public class townMapController {
 
     public void setTimer(){
         timer = new GameTimer(currentPlayer.calcRoundTime());
-        timer.setDuration(10);//Here for testing
+        //timer.setDuration(10);//Here for testing
         timer.setLabel(lblTimer);
         timer.startTimer();
         timer.getTimeline().setOnFinished(new EventHandler<ActionEvent>() {
@@ -74,7 +83,7 @@ public class townMapController {
         if(playersBeenToTown < tempPlayers.size()-1){
             playersBeenToTown++;
             currentPlayer = tempPlayers.get(playersBeenToTown);
-            lblName.setText(currentPlayer.getName());
+            updatePlayerInfoLabels();
             setTimer();
         }else{
             main.printPlayerData();
@@ -83,7 +92,14 @@ public class townMapController {
             primaryStage.show();
             //Done here go back to Map to pick land
         }
+    }
 
+    public void updatePlayerInfoLabels() {
+        lblName.setText(currentPlayer.getName());
+        lblPlayerMoney.setText("Money: " + currentPlayer.getMoney());
+        lblPlayerFood.setText("Food: " + currentPlayer.getFood());
+        lblPlayerOre.setText("Ore: " + currentPlayer.getOre());
+        lblPlayerEnergy.setText("Energy: " + currentPlayer.getEnergy());
     }
 
     public void setMainApp(Main mainApp) {
@@ -99,7 +115,7 @@ public class townMapController {
     public void setPlayerData(ObservableList<Player> player){
         this.tempPlayers = player;
         currentPlayer = tempPlayers.get(0);
-        lblName.setText(currentPlayer.getName());
+        updatePlayerInfoLabels();
     }
 
     public void getPrimaryStage(Stage stage){
@@ -153,8 +169,8 @@ public class townMapController {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            controller.setMainApp(main);
             controller.getStage(primaryStage); //Current Stage everything is displayed on
-            //controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
             controller.setCurrentScene(currentScene); //Scene is Pub
             controller.setCurrentTimer(timer);// Passes timer to Pub
             controller.setTimer();
