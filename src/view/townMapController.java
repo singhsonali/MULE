@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -37,21 +36,17 @@ public class townMapController {
     private Label lblTimer;
     @FXML
     private Label lblName;
-
-    private Scene myScene; //Used for checking if player is on town map or a store
-    private GameTimer timer; //Display each players amount of time per turn
-    private Player currentPlayer; //Current player's turn
-    private Main main; // Reference to main methods
+    private GameTimer timer;
+    private Player currentPlayer;
+    private Main main;
     private Stage primaryStage; //Stage for the stores
-    private Scene prevScene; //To return back to the map
-    private Scene currentScene; //Will change based on the store you enter
+    private Scene prevScene;
+    private Scene currentScene;
     private ObservableList<Player> tempPlayers; //Array of sorted Players
     private int playersBeenToTown = 0; //When to stop town actions
-    private Round currentRound = null; //Needed for gambling
+    private Round currentRound; //Needed for gambling
     @FXML
     private Label lblPub;
-    @FXML
-    private Label lblStore;
     @FXML
     public void initialize() {
 
@@ -65,6 +60,9 @@ public class townMapController {
         timer.getTimeline().setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                if(primaryStage !=null){
+                    primaryStage.close();//Close any store player is in
+                }
                 updateCurrent();
             }
         });
@@ -77,13 +75,11 @@ public class townMapController {
             lblName.setText(currentPlayer.getName());
             setTimer();
         }else{
-            main.printPlayerData();
-            timer.stopTimer();
-            primaryStage.setScene(prevScene);
-            primaryStage.show();
+            Stage map = new Stage();
+            map.setScene(prevScene);
+            map.show();
             //Done here go back to Map to pick land
         }
-
     }
 
     public void setMainApp(Main mainApp) {
@@ -100,39 +96,42 @@ public class townMapController {
         this.tempPlayers = player;
         currentPlayer = tempPlayers.get(0);
         lblName.setText(currentPlayer.getName());
+        primaryStage = new Stage();
     }
 
-    public void getPrimaryStage(Stage stage){
-        this.primaryStage = stage;
+    public void currentPlayerGambled(Player player){
+        System.out.println(currentPlayer.getMoney());
+        currentPlayer = player; //need to test
+        System.out.println(currentPlayer.getMoney());
     }
     public void setCurrentRound(Round round){
         this.currentRound = round;
     }
-    public void setMyScene(Scene scene){
-        this.myScene =scene;
+    public int getTime(){
+        return timer.getTime();
     }
     public void goToPub(){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/pubScreen.fxml"));
-            AnchorPane townMap = (AnchorPane) loader.load();
+            AnchorPane pubScreen = (AnchorPane) loader.load();
 
-            Scene scene = new Scene(townMap);
-            pubScreenController controller = loader.getController();
-
-            controller.setPrevScene(currentScene); // Scene is Town
+            Scene scene = new Scene(pubScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            controller.getStage(primaryStage); //Current Stage everything is displayed on
-            controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
-            controller.setCurrentScene(currentScene); //Scene is Pub
-            controller.setCurrentTimer(timer);// Passes timer to Pub
-            controller.setTimer();
-            controller.getCurrentPlayer(currentPlayer); //Passes current player to pub
+            pubScreenController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            //printPlayerData();
+            controller.getStage(primaryStage);
+            controller.setGambleBonus(currentRound.getGamblingBonus());
+            controller.setCurrentScene(currentScene);
+            System.out.println(currentPlayer.getName());
+            controller.getCurrentPlayer(currentPlayer);
             controller.setController(this);
             loader.setController(controller);
+
 
         }catch (IOException e){
             e.printStackTrace();
@@ -143,24 +142,22 @@ public class townMapController {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../View/storeScreen.fxml"));
-            AnchorPane townMap = (AnchorPane) loader.load();
+            AnchorPane storeScreen = (AnchorPane) loader.load();
 
-            Scene scene = new Scene(townMap);
-            storeController controller = loader.getController();
-
-            controller.setPrevScene(currentScene); // Scene is Town
+            Scene scene = new Scene(storeScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            controller.getStage(primaryStage); //Current Stage everything is displayed on
-            //controller.setGambleBonus(currentRound.getGamblingBonus());//Gambling Bonus
-            controller.setCurrentScene(currentScene); //Scene is Pub
-            controller.setCurrentTimer(timer);// Passes timer to Pub
-            controller.setTimer();
-            controller.getCurrentPlayer(currentPlayer); //Passes current player to pub
+            storeController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+            //printPlayerData();
+            controller.getStage(primaryStage);
+            controller.setCurrentScene(currentScene);
+            controller.getCurrentPlayer(currentPlayer);
             controller.setController(this);
             loader.setController(controller);
+
 
         }catch (IOException e){
             e.printStackTrace();

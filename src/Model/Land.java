@@ -11,9 +11,6 @@ public class Land {
     private boolean river;
     private boolean open;
     private boolean town = false;
-    private Mule oreMule;
-    private Mule foodMule;
-    private Mule energyMule;
 
     private final int cost = 300; //Constant cost for all pieces of land
     //Added a player as an owner of the Land that is set when purchased.
@@ -28,14 +25,12 @@ public class Land {
         this.open = true;
         this.player = null;
     }
-
     public Land(int mountain) {
         this.mountain = mountain;
         this.river = mountain != 0;
         this.open = true;
         this.player = null;
     }
-
     public Land(boolean river) {
         this.river = river;
         if (river) {
@@ -44,7 +39,6 @@ public class Land {
         }
         this.player = null;
     }
-
     public Land(Town town) {
         this.mountain = 0;
         this.river = false;
@@ -55,114 +49,44 @@ public class Land {
     public boolean hasRiver() {
         return this.river;
     }
-
     public boolean hasMountain() {
         return this.mountain != 0;
     }
-
-    public boolean hasMule() {
-        return (getTotalMule() != 0);
-    }
-
-    public boolean isOpen() {
-        return this.open;
-    }
-
-    public boolean isPlain() {
+    public boolean isOpen () { return this.open;}
+    public boolean isPlain () {
         return this.mountain == 0 && !this.river;
     }
-
-    public int getMountain() {
+    public int getMountain () {
         return this.mountain;
     }
-
-    public boolean isTown() {
+    public boolean isTown () {
         return town;
     }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public Pane getMyPane() {
+    public Player getPlayer(){return this.player;}
+    public Pane getMyPane(){
         return this.myPane;
     }
-
-    public int getCost() {
+    public int getCost(){
         return this.cost;
     }
 
-    public int getOreMule() {
-        return this.oreMule.getAmount();
-    }
 
-    public int getEnergyMule() {
-        return this.energyMule.getAmount();
-    }
-
-    public int getFoodMule() {
-        return this.foodMule.getAmount();
-    }
-
-    public int getTotalMule() {
-        return getOreMule() + getFoodMule() + getEnergyMule();
-    }
-
-    public Mule getMuleType() {
-        if (getOreMule() == 1) {
-            return oreMule;
-        } else if (getEnergyMule() == 1) {
-            return energyMule;
-        } else if (getFoodMule() == 1) {
-            return foodMule;
-        }
-        return null;
-    }
-
-
-    public void setMountain(int mountain) {
+    public void setMountain (int mountain) {
         this.mountain = mountain;
     }
-
-    public void setRiver(boolean river) {
+    public void setRiver (boolean river) {
         this.river = river;
     }
-
-    public void setOpen(boolean open) {
+    public void setOpen (boolean open) {
         this.open = open;
     }
-
-    public void setTown(boolean town) {
+    public void setTown (boolean town) {
         this.town = town;
     }
-
-    public void setPlayerOwner(Player player) {
+    public void setPlayerOwner(Player player){
         this.player = player;
     }
-
-    public void setMyPane(Pane pane) {
+    public void setMyPane(Pane pane){
         this.myPane = pane;
     }
-
-    public void setOreMule(int i) {
-        this.oreMule.setAmount(i);
-    }
-
-    public void setEnergyMule(int i) {
-        this.energyMule.setAmount(i);
-    }
-
-    public void setFoodMule(int i) {
-        this.foodMule.setAmount(i);
-    }
-
-
-
-    public void clearMule() {
-        this.foodMule.setAmount(0);
-        this.oreMule.setAmount(0);
-        this.energyMule.setAmount(0);
-    }
-
 }
-

@@ -75,6 +75,7 @@ public class gameScreenController{
     public String getMapChoice(){
         return cmbMapChoice.getValue();
     }
+
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
     }
