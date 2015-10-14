@@ -25,7 +25,15 @@ public class Round {
         return food.getAmount() >= foodRequirement[this.round];
     }
 
+<<<<<<< HEAD
     public int getGamblingBonus(Round round) {
         return gamblingBonus[roundNumber];
+=======
+    public int getGamblingBonus() {
+        return gamblingBonus[this.round];
+    }
+    public boolean gameOver(){
+        return this.round > 12 ;
+>>>>>>> origin/master
     }
 }

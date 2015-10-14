@@ -6,7 +6,7 @@ import java.util.Random;
 public class Pub {
     
     private static Pub instance = null;
-    private Pub(){} 
+    public Pub(){} // Singleton -> private constructor
     
     public static Pub getInstance(){
         if(instance == null){
@@ -17,20 +17,22 @@ public class Pub {
     }
 
     /**
-     * cGamble method to calculate the amount a player can gamble in terms of time
+     * calcGamble method to calculate the amount a player can gamble in terms of time
      * 
      * @param round
      * @param timeLeft
      * @return time lost from player's turn
      */
-    public static int cGamble(Round round, long timeLeft){
+    public int calcGamble(int bonus, long timeLeft){
         Random rand = new Random();
         double secondsLeft = (double) timeLeft/1000;
         
         if (secondsLeft < 0){
             secondsLeft = 0;
         }
-        return (int)(round.getGamblingBonus(round) + rand.nextInt((int)(2 * (2.14 * secondsLeft)+1))); // convert seconds to BTU then double
+        
+        //System.out.println("Seconds left = " + secondsLeft);
+        return (int)(bonus + rand.nextInt((int)(2 * (2.14 * secondsLeft)+1))); // convert seconds to BTU then double
 
     }
 
