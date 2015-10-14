@@ -30,6 +30,7 @@ public class Player {
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
+    private final int ENERGY_CONST = 25, FOOD_CONST = 30, LAND_GRAND_CONST = 500, ORE_CONST = 50;
 
 
     public Player(){
@@ -142,6 +143,12 @@ public class Player {
         if(ownedLand.contains(land)) {
             ownedLand.remove(land);
         }
+    }
+
+    public int calcScore(){
+
+        return getMoney() + (getEnergy()*ENERGY_CONST) + (getFood()*FOOD_CONST) +
+                (getLandGrants() * LAND_GRAND_CONST) + (0* ORE_CONST);
     }
     
 }

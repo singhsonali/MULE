@@ -1,5 +1,6 @@
 package Model;
 
+import View.townMapController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -7,6 +8,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
@@ -18,7 +21,6 @@ public class GameTimer {
     private Timeline timeline;
     private int duration;
     private IntegerProperty timeSeconds;
-    private Player currentPlayer;
 
     public GameTimer(int duration){
         this.duration = duration;
@@ -36,31 +38,34 @@ public class GameTimer {
                         new KeyValue(timeSeconds,0)));
         timeline.playFromStart();
 
-        timeline.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //Set something to actually happen here
-                currentPlayer.setTurn(false);
-                System.out.println("Time is up");
-            }
-        });
     }
 
     public void setDuration(int duration){
         this.duration = duration;
+        this.timeSeconds.setValue(duration);
     }
 
     public int getCurrentTime(){
         return timeSeconds.getValue();
     }
+
     public void resetTimer(){
         timeline.stop();
         int toReset = timeSeconds.getValue();
         setDuration(toReset);
         startTimer();
     }
+    public void stopTimer(){
+        timeline.stop();
+    }
+
+    public Timeline getTimeline(){
+        return this.timeline;
+    }
 
     public int getTime() {
-        return timeSeconds.get();
+        System.out.println("Time =" +timeSeconds.intValue());
+        return timeSeconds.intValue();
+
     }
 }
