@@ -30,8 +30,10 @@ public class Main extends Application {
     //Structure to hold players
     private ObservableList<Player> playerData = FXCollections.observableArrayList();
     private Map gameMap = new Map(); //Gets map
-    private Round round; //Class for keeping track of rounds
+    private Round round = new Round(); //Class for keeping track of rounds
     private Player currentPlayer;
+    private boolean mulePhase = false;
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -105,6 +107,7 @@ public class Main extends Application {
             controller.getMap(gameMap);
             controller.connectMapWithPanes();
             controller.setRound(round);
+            controller.setMulePhase(mulePhase);
 
             loader.setController(controller);
             controller.setMainApp(this);
@@ -130,8 +133,10 @@ public class Main extends Application {
 
             //printPlayerData();
             controller.setCurrentScene(currentScene); //Town Scene
+            controller.setMyScene(currentScene);//Used for handling end of time for player turns
             controller.setPlayerData(playerData); //pass in all players
             controller.setCurrentRound(round); //Set round
+            controller.getPrimaryStage(primaryStage);
             controller.setTimer(); //Start timer
             loader.setController(controller);
             controller.setMainApp(this);
@@ -176,5 +181,7 @@ public class Main extends Application {
     public Map getGameMap(){
         return this.gameMap;
     }
+    public void setMulePhase(boolean bool) {
+        this.mulePhase = true;
+    }
 }
-

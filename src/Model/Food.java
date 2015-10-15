@@ -11,6 +11,7 @@ public class Food extends Resources {
         this.amount = 8;
     }
     //Update method
+
     @Override
     void setAmount(int i) {
         this.amount = i;

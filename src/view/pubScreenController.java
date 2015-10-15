@@ -24,29 +24,43 @@ public class pubScreenController {
     private Button btnGamble;
 
     @FXML
-    private Label lblTimer;
+    private Label lblPubTimer;
 
-    private Stage stage;
     private Scene prevScene; //Town
-    private GameTimer timer; //Current time
+    private GameTimer currentTimer; //Current time
     private Scene currentScene; //Pub
     private Player currentPlayer; //Current player
-    private int gambleBonus ;
+    private int gambleBonus;
     private townMapController controller;
     private Pub pub;
+    private Stage primaryStage;
 
     private void initialize() {
         //Needed
     }
 
+    public void setCurrentTimer(GameTimer timer){
+        this.currentTimer = timer;
+    }
+    public void setTimer(){
+        currentTimer.setLabel(lblPubTimer);
+        currentTimer.getTimeline().setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                leavePub();
+                controller.updateCurrent();
+            }
+        });
+    }
+
     public void playerGambles(){
         //Do some calculations to player then return player and close screen
         //End Turn
-        int time = controller.getTime();
-        int x = pub.calcGamble(gambleBonus, time);
-        System.out.println(time);
-        //currentPlayer.setMoney(x);
-        //controller.currentPlayerGambled(currentPlayer);
+        int x = pub.calcGamble(gambleBonus, currentTimer.getTime());
+        System.out.println("Gamble Money: " + x + " Player ="  + currentPlayer.getName());
+        currentPlayer.addMoney(x);
+        //Turn is over
+        currentTimer.stopTimer();
         leavePub();
     }
     public void getCurrentPlayer(Player player){
@@ -55,17 +69,24 @@ public class pubScreenController {
     public void setPrevScene(Scene scene){
         this.prevScene = scene;
         pub = new Pub();
+        //controller.updateCurrent();
     }
     public void setCurrentScene(Scene scene){
         this.currentScene = scene;
     }
     public void leavePub(){
         //Close the scene
+        primaryStage.setScene(prevScene);
+        primaryStage.show();
+
+        Stage stage = new Stage();
         stage.setScene(currentScene);
         stage.close();
+
+        controller.updateCurrent();
     }
     public void getStage(Stage stage){
-        this.stage = stage;
+        this.primaryStage  = stage;
     }
     public void setGambleBonus(int bonus){
         this.gambleBonus = bonus;
@@ -73,5 +94,4 @@ public class pubScreenController {
     public void setController(townMapController controller){
         this.controller = controller;
     }
-
 }

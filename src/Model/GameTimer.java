@@ -45,16 +45,6 @@ public class GameTimer {
         this.timeSeconds.setValue(duration);
     }
 
-    public int getCurrentTime(){
-        return timeSeconds.getValue();
-    }
-
-    public void resetTimer(){
-        timeline.stop();
-        int toReset = timeSeconds.getValue();
-        setDuration(toReset);
-        startTimer();
-    }
     public void stopTimer(){
         timeline.stop();
     }
@@ -64,7 +54,6 @@ public class GameTimer {
     }
 
     public int getTime() {
-        System.out.println("Time =" +timeSeconds.intValue());
         return timeSeconds.intValue();
 
     }
