@@ -22,6 +22,7 @@ public class Store {
         return MULE_AMOUNT;
     }
 
+
     public void setFood(int food) {
         FOOD_AMOUNT = food;
     }
