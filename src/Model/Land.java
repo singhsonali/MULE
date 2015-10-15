@@ -21,7 +21,8 @@ public class Land {
     private Player player;
     @FXML
     private Pane myPane;
-
+    private Mule mule;
+    
     public Land() {
         this.mountain = 0;
         this.river = false;
@@ -143,6 +144,20 @@ public class Land {
     public void setMyPane(Pane pane) {
         this.myPane = pane;
     }
+<<<<<<< HEAD
+    public boolean hasMULE() {
+        return mule != null;
+    }
+
+    public void setMULE(Mule mu) {
+        mule = mu;
+    }
+
+    public Mule getMULE() {
+        return mule;
+    }
+}
+=======
 
     public void setOreMule(int i) {
         this.oreMule.setAmount(i);
@@ -156,8 +171,6 @@ public class Land {
         this.foodMule.setAmount(i);
     }
 
-
-
     public void clearMule() {
         this.foodMule.setAmount(0);
         this.oreMule.setAmount(0);
@@ -166,3 +179,4 @@ public class Land {
 
 }
 
+>>>>>>> master
