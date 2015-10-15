@@ -40,8 +40,6 @@ public class Player {
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
 
-
-
     public Player(){
         this.name = "temp";
         this.race = "temp";
@@ -186,6 +184,12 @@ public class Player {
     public int calcScore() {
         return getMoney() + (getEnergy()*ENERGY_CONST) + (getFood()*FOOD_CONST) +
                 (getLandGrants() * LAND_GRAND_CONST) + (getOre() * ORE_CONST);
+    }
+
+    public void muleProduction() {
+        for (Land land : ownedLand) {
+            land.updatePlayerResources();
+        }
     }
 
     // onMouseClick event
