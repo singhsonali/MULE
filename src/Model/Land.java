@@ -18,7 +18,8 @@ public class Land {
     private Player player;
     @FXML
     private Pane myPane;
-
+    private Mule mule;
+    
     public Land() {
         this.mountain = 0;
         this.river = false;
@@ -88,5 +89,16 @@ public class Land {
     }
     public void setMyPane(Pane pane){
         this.myPane = pane;
+    }
+    public boolean hasMULE() {
+        return mule != null;
+    }
+
+    public void setMULE(Mule mu) {
+        mule = mu;
+    }
+
+    public Mule getMULE() {
+        return mule;
     }
 }
