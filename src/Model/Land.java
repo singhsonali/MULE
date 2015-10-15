@@ -145,7 +145,7 @@ public class Land {
     public void setMyPane(Pane pane) {
         this.myPane = pane;
     }
-<<<<<<< HEAD
+
     public boolean hasMULE() {
         return mule != null;
     }
@@ -157,27 +157,6 @@ public class Land {
     public Mule getMULE() {
         return mule;
     }
-        @Override
-    public int getFoodRate() {
-        return 2;
-    }
-
-    /**
-     * returns the energy rate
-     */
-    @Override
-    public int getEnergyRate() {
-        return 3;
-    }
-
-    /**
-     * returns the ore rate
-     */
-    @Override
-    public int getOreRate() {
-        return 1;
-}
-=======
 
     public void setOreMule(int i) {
         this.oreMule.setAmount(i);
@@ -196,23 +175,46 @@ public class Land {
         this.oreMule.setAmount(0);
         this.energyMule.setAmount(0);
     }
-    public void production() {
-        if (hasMule() && mule.toString() == "Food Mule"
-                && owner.getEnergyMule() > 0) {
-            owner.setFoodMule(owner.getFoodMule() + getFoodRate());
-            owner.setEnergyMule(owner.getEnergyMule() - 1);
-        } else if (hasMule() && mule.toString() == "Energy Mule"
-                && owner.getEnergy() > 0) {
-            owner.setEnergyMule(owner.getEnergyMule() + getEnergyRate());
-            owner.setEnergyMule(owner.getEnergyMule() - 1);
-        } else if (hasMule() && mule.toString() == "Ore Mule"
-                && owner.getEnergy() > 0) {
-            owner.setOreMule(owner.getOreMule() + getOreRate());
-            owner.setEnergyMule(owner.getEnergyMule() - 1);
+
+    public void updatePlayerResources() {
+        if (isPlain() && hasMule()) {
+            if (getMuleType().equals("foodMule")) {
+                player.setFood(player.getFood() + 2);
+            } else if (getMuleType().equals("oreMule")) {
+                player.setOre(player.getOre() + 1);
+            } else {
+                player.setEnergy(player.getEnergy() + 3);
+            }
+        } else if (hasRiver() && hasMule()) {
+            if (getMuleType().equals("foodMule")) {
+                player.setFood(player.getFood() + 4);
+            } else if (getMuleType().equals("energyMule")) {
+                player.setEnergy(player.getEnergy() + 2);
+            }
+        } else if (getMountain() == 1 && hasMule()) {
+            if (getMuleType().equals("foodMule")) {
+                player.setFood(player.getFood() + 1);
+            } else if (getMuleType().equals("oreMule")) {
+                player.setOre(player.getOre() + 2);
+            } else {
+                player.setEnergy(player.getEnergy() + 1);
+            }
+        } else if (getMountain() == 2 && hasMule()) {
+            if (getMuleType().equals("foodMule")) {
+                player.setFood(player.getFood() + 1);
+            } else if (getMuleType().equals("oreMule")) {
+                player.setOre(player.getOre() + 3);
+            } else {
+                player.setEnergy(player.getEnergy() + 1);
+            }
+        } else if (getMountain() == 3 && hasMule()) {
+            if (getMuleType().equals("foodMule")) {
+                player.setFood(player.getFood() + 1);
+            } else if (getMuleType().equals("oreMule")) {
+                player.setOre(player.getOre() + 4);
+            } else {
+                player.setEnergy(player.getEnergy() + 1);
+            }
         }
     }
-
-
 }
-
->>>>>>> master

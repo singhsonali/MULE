@@ -30,7 +30,6 @@ public class Player {
     private int totalMule;
     private String holdingMule;
 
-
     //How much time they have for the round
     private int roundTime;
     private Round round;
@@ -39,8 +38,6 @@ public class Player {
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
-
-
 
     public Player(){
         this.name = "temp";
@@ -117,7 +114,6 @@ public class Player {
         return oreMule.getAmount() + energyMule.getAmount() + foodMule.getAmount();
     }
 
-
     public void addMoney(int i){
         int temp = this.money.getAmount();
         temp += i;
@@ -188,6 +184,12 @@ public class Player {
                 (getLandGrants() * LAND_GRAND_CONST) + (getOre() * ORE_CONST);
     }
 
+    public void muleProduction() {
+        for (Land land : ownedLand) {
+            land.updatePlayerResources();
+        }
+    }
+
     // onMouseClick event
     public void buyOreMule() {
         if (money.getAmount() < 175) {
@@ -225,4 +227,8 @@ public class Player {
             setEnergyMule(getEnergyMule() - 1);
         }
     }
+
 }
+
+
+
