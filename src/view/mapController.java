@@ -4,6 +4,8 @@ import Model.*;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,7 +38,11 @@ public class mapController {
     private Pane currentPane;
     private int skips = 0; //Counts the number of skips
     private Round round;
-
+    private mapController controller;
+    private Stage primaryStage;
+    private GameTimer currentTimer;
+    private boolean mulePhase;
+    private storeController storeController;
 
     @FXML
     private Pane townPane;
@@ -196,7 +202,6 @@ public class mapController {
     @FXML
     private void initialize(){
 
-        currentPane = null;
     }
 
     @FXML
@@ -209,6 +214,7 @@ public class mapController {
             //main.updateRound(round);
             currentPlayer =  tempPlayers.get(0);
             main.setCurrentPlayer(currentPlayer);
+
         }
     }
 
@@ -287,7 +293,6 @@ public class mapController {
                 skips = 0;
                 System.out.println("Start Town Game");
             }
-
         }
     }
 
@@ -311,7 +316,6 @@ public class mapController {
                 currentPane = pane;
                 updateColor(pane);
             }
-
         }
     }
 
@@ -322,7 +326,9 @@ public class mapController {
         lblPlayerName.setText(tempPlayers.get(0).getName());
     }
 
-
+    public void setStoreController(storeController storeController) {
+        this.storeController = storeController;
+    }
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
     }
@@ -344,6 +350,13 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
+    public void setController(mapController controller){
+        this.controller = controller;
+    }
+
+    public void setCurrentPlayer(Player player) {
+        this.currentPlayer = player;
+    }
 
     public static class PlayerComparator implements Comparator<Player> {
 
@@ -357,7 +370,71 @@ public class mapController {
             }else{
                 return 0;
             }
+        }
+    }
 
+    public void setMulePhaseLabels() {
+        lblPlayerName.setText(currentPlayer.getName());
+        lblInstructions.setText("Select Where to Place Mule");
+        btnContinue.setVisible(false);
+        btnSkip.setVisible(false);
+    }
+
+    //Will be the action of an onMouseClick
+    public void placeOreMule() {
+        if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
+            tempMap.getLand(row, column).setOreMule(1);
+            currentPlayer.setHoldingMule(null);
+            storeController.leaveStore();
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+            String muleType = tempMap.getLand(row, column).getMuleType();
+            tempMap.getLand(row, column).clearMule();
+            currentPlayer.removeMule(muleType);
+            currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
+            currentPlayer.setHoldingMule(muleType);
+            tempMap.getLand(row, column).setOreMule(1);
+            currentPlayer.setHoldingMule(null);
+        } else {
+            currentPlayer.setOreMule(currentPlayer.getOreMule() - 1);
+        }
+    }
+
+    //Will be the action of an onMouseClick
+    public void placeEnergyMule() {
+        if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
+            System.out.println("This is good.");
+            tempMap.getLand(row, column).setEnergyMule(1);
+            currentPlayer.setHoldingMule(null);
+            storeController.leaveStore();
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+            tempMap.getLand(row, column).clearMule();
+            String muleType = tempMap.getLand(row, column).getMuleType();
+            currentPlayer.removeMule(muleType);
+            currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
+            currentPlayer.setHoldingMule(muleType);
+            tempMap.getLand(row, column).setOreMule(1);
+            currentPlayer.setHoldingMule(null);
+        } else {
+            currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() - 1);
+        }
+    }
+
+    //Will be the action of an onMouseClick
+    public void placeFoodMule() {
+        if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
+            tempMap.getLand(row, column).setFoodMule(1);
+            currentPlayer.setHoldingMule(null);
+            storeController.leaveStore();
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+                tempMap.getLand(row, column).clearMule();
+                String muleType = tempMap.getLand(row, column).getMuleType();
+                currentPlayer.removeMule(muleType);
+            currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
+                currentPlayer.setHoldingMule(muleType);
+            tempMap.getLand(row, column).setFoodMule(1);
+                currentPlayer.setHoldingMule(null);
+        } else {
+            currentPlayer.setFoodMule(currentPlayer.getFoodMule() - 1);
         }
     }
 
@@ -406,7 +483,6 @@ public class mapController {
         tempMap.getLand(3,7).setMyPane(pane37);
         tempMap.getLand(3,8).setMyPane(pane38);
 
-
         tempMap.getLand(4,0).setMyPane(pane40);
         tempMap.getLand(4,1).setMyPane(pane41);
         tempMap.getLand(4,2).setMyPane(pane42);
@@ -418,13 +494,11 @@ public class mapController {
         tempMap.getLand(4,8).setMyPane(pane48);
     }
 
-
-
     public void updateColor(Pane pane){
         //Sets the Land border to player color
         //Temp[0] hold the original background
         String temp[] = pane.getStyle().split(";");
-        pane.setStyle( temp[0]+ ";" + "-fx-border-color: "+currentPlayer.getColor());
+        pane.setStyle(temp[0] + ";" + "-fx-border-color: " + currentPlayer.getColor());
     }
     public void revertColor(Pane pane){
         //Set back to original color
@@ -432,20 +506,35 @@ public class mapController {
         pane.setStyle(temp[0] + ";" + "-fx-border-color: Black");
     }
 
+    public void placeMule() {
+        if (currentPlayer.getHoldingMule().equals("Energy")) {
+            placeEnergyMule();
+        } else if (currentPlayer.getHoldingMule().equals("Food")) {
+            placeFoodMule();
+        } else {
+            placeOreMule();
+        }
+    }
+
 
     @FXML
     public void setLandChoice00(){
         this.column = 0;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
+        System.out.println("Mules: " + tempMap.getLand(row,column).getEnergyMule());
     }
     @FXML
     public void setLandChoice01() {
         this.column = 1;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -453,7 +542,9 @@ public class mapController {
     public void setLandChoice02() {
         this.column = 2;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -461,7 +552,9 @@ public class mapController {
     public void setLandChoice03() {
         this.column = 3;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -469,7 +562,9 @@ public class mapController {
     public void setLandChoice04() {
         this.column = 4;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -477,7 +572,9 @@ public class mapController {
     public void setLandChoice05() {
         this.column = 5;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -485,7 +582,9 @@ public class mapController {
     public void setLandChoice06() {
         this.column = 6;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -493,7 +592,9 @@ public class mapController {
     public void setLandChoice07() {
         this.column = 7;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -501,7 +602,9 @@ public class mapController {
     public void setLandChoice08() {
         this.column = 8;
         this.row = 0;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -509,7 +612,9 @@ public class mapController {
     public void setLandChoice10(){
         this.column = 0;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -517,7 +622,9 @@ public class mapController {
     public void setLandChoice11() {
         this.column = 1;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -525,7 +632,9 @@ public class mapController {
     public void setLandChoice12() {
         this.column = 2;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -533,7 +642,9 @@ public class mapController {
     public void setLandChoice13() {
         this.column = 3;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -541,7 +652,9 @@ public class mapController {
     public void setLandChoice14() {
         this.column = 4;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -549,7 +662,9 @@ public class mapController {
     public void setLandChoice15() {
         this.column = 5;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -557,7 +672,9 @@ public class mapController {
     public void setLandChoice16() {
         this.column = 6;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -565,7 +682,9 @@ public class mapController {
     public void setLandChoice17() {
         this.column = 7;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -573,7 +692,9 @@ public class mapController {
     public void setLandChoice18() {
         this.column = 8;
         this.row = 1;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -581,7 +702,9 @@ public class mapController {
     public void setLandChoice20(){
         this.column = 0;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -589,7 +712,9 @@ public class mapController {
     public void setLandChoice21() {
         this.column = 1;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -597,7 +722,9 @@ public class mapController {
     public void setLandChoice22() {
         this.column = 2;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -605,7 +732,9 @@ public class mapController {
     public void setLandChoice23() {
         this.column = 3;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -613,7 +742,9 @@ public class mapController {
     public void setLandChoice25() {
         this.column = 5;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -621,7 +752,9 @@ public class mapController {
     public void setLandChoice26() {
         this.column = 6;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -629,7 +762,9 @@ public class mapController {
     public void setLandChoice27() {
         this.column = 7;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -637,7 +772,9 @@ public class mapController {
     public void setLandChoice28() {
         this.column = 8;
         this.row = 2;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -645,7 +782,9 @@ public class mapController {
     public void setLandChoice30(){
         this.column = 0;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -653,7 +792,9 @@ public class mapController {
     public void setLandChoice31() {
         this.column = 1;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -661,7 +802,9 @@ public class mapController {
     public void setLandChoice32() {
         this.column = 2;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -669,7 +812,9 @@ public class mapController {
     public void setLandChoice33() {
         this.column = 3;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -677,7 +822,9 @@ public class mapController {
     public void setLandChoice34() {
         this.column = 4;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -685,7 +832,9 @@ public class mapController {
     public void setLandChoice35() {
         this.column = 5;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -693,7 +842,9 @@ public class mapController {
     public void setLandChoice36() {
         this.column = 6;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -701,7 +852,9 @@ public class mapController {
     public void setLandChoice37() {
         this.column = 7;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -709,7 +862,9 @@ public class mapController {
     public void setLandChoice38() {
         this.column = 8;
         this.row = 3;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -717,7 +872,9 @@ public class mapController {
     public void setLandChoice40(){
         this.column = 0;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -725,7 +882,9 @@ public class mapController {
     public void setLandChoice41() {
         this.column = 1;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -733,7 +892,9 @@ public class mapController {
     public void setLandChoice42() {
         this.column = 2;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -741,7 +902,9 @@ public class mapController {
     public void setLandChoice43() {
         this.column = 3;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -749,7 +912,9 @@ public class mapController {
     public void setLandChoice44() {
         this.column = 4;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -757,7 +922,9 @@ public class mapController {
     public void setLandChoice45() {
         this.column = 5;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -765,7 +932,9 @@ public class mapController {
     public void setLandChoice46() {
         this.column = 6;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -773,7 +942,9 @@ public class mapController {
     public void setLandChoice47() {
         this.column = 7;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
@@ -781,8 +952,26 @@ public class mapController {
     public void setLandChoice48() {
         this.column = 8;
         this.row = 4;
-        if(tempMap.getLand(row,column).isOpen()){
+        if (currentPlayer.getHoldingMule() != null) {
+            placeMule();
+        } else if(tempMap.getLand(row,column).isOpen()){
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
+    }
+
+    public void getStage(Stage stage){
+        this.primaryStage  = stage;
+    }
+    public void getCurrentPlayer(Player player){
+        this.currentPlayer = player;
+    }
+    public void setCurrentScene(Scene scene){
+        this.currentScene = scene;
+    }
+    public void setCurrentTimer(GameTimer timer){
+        this.currentTimer = timer;
+    }
+    public void setMulePhase(boolean mulePhase) {
+        this.mulePhase = mulePhase;
     }
 }
