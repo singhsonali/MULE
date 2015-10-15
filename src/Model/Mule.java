@@ -1,22 +1,20 @@
 package Model;
-import Model.MuleType;
+
 /**
  * Created by Ashley on 9/30/2015.
  */
 public class Mule extends Resources {
-    private MuleType kind;
-    private int cost;
-    
-    public Mule(MuleType kind) {
-    this.kind = kind;
-    cost = 10;
-  }
 
-  public MuleType getKind() {
-    return kind;
-  }
+    public Mule() {
+    this.amount = 0;
+    }
 
-  public int getCost() {
-    return cost;
-  }
+    @Override
+    void setAmount(int i) {
+        this.amount = i;
+    }
+    @Override
+    int getAmount() {
+        return this.amount;
+    }
 }

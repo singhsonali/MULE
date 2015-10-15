@@ -171,8 +171,6 @@ public class Land {
         this.foodMule.setAmount(i);
     }
 
-
-
     public void clearMule() {
         this.foodMule.setAmount(0);
         this.oreMule.setAmount(0);
