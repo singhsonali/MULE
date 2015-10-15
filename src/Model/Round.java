@@ -31,6 +31,4 @@ public class Round {
     public boolean gameOver(){
         return this.round > 12 ;
     }
-
-
 }
