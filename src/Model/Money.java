@@ -5,7 +5,7 @@ package Model;
  * Class to hold Money item
  * Will be held by Player and the Town stores
  */
-public class Money extends Resources{
+public class Money extends Resources {
 
     public Money(){
         this.amount = 0;

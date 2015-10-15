@@ -22,6 +22,7 @@ public class pubScreenController {
     private Button btnReturn;
     @FXML
     private Button btnGamble;
+
     @FXML
     private Label lblPubTimer;
 
@@ -29,7 +30,7 @@ public class pubScreenController {
     private GameTimer currentTimer; //Current time
     private Scene currentScene; //Pub
     private Player currentPlayer; //Current player
-    private int gambleBonus ;
+    private int gambleBonus;
     private townMapController controller;
     private Pub pub;
     private Stage primaryStage;
@@ -68,6 +69,7 @@ public class pubScreenController {
     public void setPrevScene(Scene scene){
         this.prevScene = scene;
         pub = new Pub();
+        //controller.updateCurrent();
     }
     public void setCurrentScene(Scene scene){
         this.currentScene = scene;
@@ -92,5 +94,4 @@ public class pubScreenController {
     public void setController(townMapController controller){
         this.controller = controller;
     }
-
 }
