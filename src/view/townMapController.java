@@ -117,6 +117,9 @@ public class townMapController {
         currentPlayer = tempPlayers.get(0);
         updatePlayerInfoLabels();
     }
+    @Override
+    public void production() {
+    }
 
     public void getPrimaryStage(Stage stage){
         this.primaryStage = stage;
