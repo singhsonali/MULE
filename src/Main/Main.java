@@ -1,24 +1,17 @@
 package Main;
 
+import Model.Map;
+import Model.Player;
+import Model.Round;
+import View.townMapController;
 import com.sun.javafx.PlatformUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.GridLayout;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.WindowConstants;
 
 import java.io.IOException;
-
+import View.gameScreenController;
+import View.playerTraitController;
+import View.mapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -154,6 +147,10 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     public void addPlayer(Player player){
 //        Player tempPlayer = new Player(name,Race,Color);
         playerData.add(player);
