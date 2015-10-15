@@ -1,7 +1,13 @@
 package Model;
 
 import java.util.ArrayList;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.scene.paint.Color;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /**
  * Created by Shannor on 9/16/2015.
  * Will hold all information about a player,
@@ -35,6 +41,8 @@ public class Player {
     private Round round;
 
     private final int ENERGY_CONST = 25, FOOD_CONST = 30, LAND_GRAND_CONST = 500, ORE_CONST = 50;
+    private ObservableMap<Store.Item, Integer> inventoryAmount = FXCollections.observableHashMap();
+    private ObservableList<Store.Item> inventory = FXCollections.observableArrayList();
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
@@ -225,6 +233,29 @@ public class Player {
             setFoodMule(getFoodMule() - 1);
         } else if (muleType.equals("Energy")) {
             setEnergyMule(getEnergyMule() - 1);
+        }
+    }
+    public ObservableList<Store.Item> getInventory() {
+        return inventory;
+    }
+
+    public int getInventoryAmount(Store.Item item) {
+        if (inventory.contains(item)) {
+            return inventoryAmount.get(item);
+        } else {
+            return 0;
+        }
+    }
+    public void changeInventory(Store.Item item, int adjustment) {
+
+        int amount = 0;
+        if (inventoryAmount.get(item) != null) {
+            amount = inventoryAmount.get(item);
+        }
+        inventoryAmount.put(item, amount + adjustment);
+
+        if (!inventory.contains(item)) {
+            inventory.add(item);
         }
     }
 
