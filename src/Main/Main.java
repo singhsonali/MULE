@@ -1,17 +1,24 @@
 package Main;
 
-import Model.Map;
-import Model.Player;
-import Model.Round;
-import View.townMapController;
 import com.sun.javafx.PlatformUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.GridLayout;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import java.io.IOException;
-import View.gameScreenController;
-import View.playerTraitController;
-import View.mapController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -102,6 +109,7 @@ public class Main extends Application {
 
             mapController controller = loader.getController();
             controller.setPrevScene(currentScene);
+
             //Pass in player Array and Map Data
             controller.setPlayerData(playerData);
             controller.getMap(gameMap);
@@ -111,6 +119,7 @@ public class Main extends Application {
 
             loader.setController(controller);
             controller.setMainApp(this);
+
             //printPlayerData();
         }catch (IOException e){
             e.printStackTrace();
@@ -145,6 +154,66 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    class production implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent arg0){
+                productionFrame produce = new productionFrame();
+            }
+            
+        }
+        class productionFrame extends JFrame {
+            
+            public productionFrame(){
+                setTitle("Production");
+                setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                setSize(400, 300);
+                setVisible(true);
+                setLocationRelativeTo(null);
+                setResizable(false);
+                JPanel list = new JPanel();
+                list.setLayout(new GridLayout(4,1));
+                JLabel dialog, foodProduction, energyProduction, oreProduction;
+                int food, energy, ore;
+                food = 0; energy = 0; ore = 0;
+                dialog = new JLabel("<html>How many resources you are producing is shown below.<br>It takes one energy per mule to produce resources.<br>If you have 0 energy you are unable to produce anything.</html>");
+                foodProduction = new JLabel("Currently producing: " + food + " food");
+                energyProduction = new JLabel("Currently producing: " + energy + " energy");
+                oreProduction = new JLabel("Currently producing: " + ore + " ore");
+                add(list);
+                list.add(dialog);
+                list.add(foodProduction);
+                list.add(energyProduction);
+                list.add(oreProduction);
+                
+                if(player.getOwnedTiles().size() >= 1){
+                    if(player.getEnergy() == 0){
+                        foodProduction.setText("Currently producing: 0 food");
+                        energyProduction.setText("Currently producing: 0 energy");
+                        oreProduction.setText("Currently producing: 0 ore");
+                    }
+                    else {
+                        for(int i = 0; i < player.getOwnedTiles().size(); i++){
+                            Tile land = player.getOwnedTiles().get(i);
+                            if(land.hasMule() && land.getMule().toString() == "Food Mule" && player.getEnergy() > 0){
+                                food += land.getFoodRate();
+                                energy -= 1;
+                            }
+                            else if(land.hasMule() && land.getMule().toString() == "Energy Mule" && player.getEnergy() > 0)
+                                energy += land.getEnergyRate()-1;
+                            else if(land.hasMule() && land.getMule().toString() == "Ore Mule" && player.getEnergy() > 0){
+                                ore += land.getOreRate();
+                                energy -= 1;
+                            }
+                            foodProduction.setText("Currently producing: " + food + " food");
+                            energyProduction.setText("Currently producing: " + energy + " energy");
+                            oreProduction.setText("Currently producing: " + ore + " ore");
+                        }
+                    }
+                    
+                }
+            } 
+        
+        }
 
     public void addPlayer(Player player){
 //        Player tempPlayer = new Player(name,Race,Color);

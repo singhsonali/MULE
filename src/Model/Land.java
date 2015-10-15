@@ -53,6 +53,7 @@ public class Land {
         this.town = true;
     }
 
+
     public boolean hasRiver() {
         return this.river;
     }
@@ -149,13 +150,32 @@ public class Land {
         return mule != null;
     }
 
-    public void setMULE(Mule mu) {
-        mule = mu;
+    public void setMULE(Mule mule) {
+        mule = mule;
     }
 
     public Mule getMULE() {
         return mule;
     }
+        @Override
+    public int getFoodRate() {
+        return 2;
+    }
+
+    /**
+     * returns the energy rate
+     */
+    @Override
+    public int getEnergyRate() {
+        return 3;
+    }
+
+    /**
+     * returns the ore rate
+     */
+    @Override
+    public int getOreRate() {
+        return 1;
 }
 =======
 
@@ -176,6 +196,22 @@ public class Land {
         this.oreMule.setAmount(0);
         this.energyMule.setAmount(0);
     }
+    public void production() {
+        if (hasMule() && mule.toString() == "Food Mule"
+                && owner.getEnergyMule() > 0) {
+            owner.setFoodMule(owner.getFoodMule() + getFoodRate());
+            owner.setEnergyMule(owner.getEnergyMule() - 1);
+        } else if (hasMule() && mule.toString() == "Energy Mule"
+                && owner.getEnergy() > 0) {
+            owner.setEnergyMule(owner.getEnergyMule() + getEnergyRate());
+            owner.setEnergyMule(owner.getEnergyMule() - 1);
+        } else if (hasMule() && mule.toString() == "Ore Mule"
+                && owner.getEnergy() > 0) {
+            owner.setOreMule(owner.getOreMule() + getOreRate());
+            owner.setEnergyMule(owner.getEnergyMule() - 1);
+        }
+    }
+
 
 }
 

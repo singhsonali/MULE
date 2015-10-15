@@ -225,11 +225,4 @@ public class Player {
             setEnergyMule(getEnergyMule() - 1);
         }
     }
-    public String getResources() {
-        return "Player: " + getName() + "\n"
-            + "Food: " + getFood() + "\n"
-            + "Energy: " + getEnergy() + "\n"
-            + "Ore: " + getOre() + "\n"
-            + "==================================================";
-    }
 }
