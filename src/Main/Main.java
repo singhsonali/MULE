@@ -1,5 +1,6 @@
 package Main;
 
+import Model.GameTimer;
 import Model.Map;
 import Model.Player;
 import Model.Round;
@@ -33,6 +34,9 @@ public class Main extends Application {
     private Round round = new Round(); //Class for keeping track of rounds
     private Player currentPlayer;
     private boolean mulePhase = false;
+    private boolean returningFromStore = false;
+    private GameTimer returnTimer;
+    private boolean landPhaseSkipped = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -102,6 +106,7 @@ public class Main extends Application {
 
             mapController controller = loader.getController();
             controller.setPrevScene(currentScene);
+            controller.setLandPhaseSkipped(landPhaseSkipped);
 
             //Pass in player Array and Map Data
             controller.setPlayerData(playerData);
@@ -139,7 +144,11 @@ public class Main extends Application {
             controller.setPlayerData(playerData); //pass in all players
             controller.setCurrentRound(round); //Set round
             controller.getPrimaryStage(primaryStage);
-            controller.setTimer(); //Start timer
+            if (!returningFromStore) {
+                controller.setTimer(); //Start timer
+            } else {
+                controller.setReturnTimer(returnTimer);
+            }
             loader.setController(controller);
             controller.setMainApp(this);
 
@@ -174,6 +183,15 @@ public class Main extends Application {
         this.playerData = playerData;
     }
 
+    public void setReturnTimer(GameTimer timer) {
+        this.returnTimer = timer;
+    }
+    public void setReturningFromStore(boolean bool) {
+        this.returningFromStore = bool;
+    }
+    public void setLandPhaseSkipped(boolean bool) {
+        this.landPhaseSkipped = bool;
+    }
     public void updateRound(Round round){
         this.round = round;
     }

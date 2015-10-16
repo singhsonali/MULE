@@ -192,20 +192,21 @@ public class storeController {
 
     public void leaveStore(){
         //Close the scene
+        main.setReturningFromStore(true);
+        main.setReturnTimer(currentTimer);
         main.showTownScreen();
 
         /*primaryStage.setScene(prevScene);
         primaryStage.show(); */
         controller.updatePlayerInfoLabels();
 
-        /*Stage stage = new Stage();
+        Stage stage = new Stage();
         stage.setScene(currentScene);
-        stage.close();*/
+        stage.close();
 
         //controller.updateCurrent();
     }
 
-    //If there is a separate buy/sell screen that we are going to implement, these methods will have to be under a different controller. I'm just putting them here for now
     // onMouseClick event
     public void buyOreMule() {
         if (currentPlayer.getMoney() < 175) {
@@ -277,7 +278,6 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - (30 * amnt));
             currentPlayer.setFood(currentPlayer.getFood() + amnt);
-            currentPlayer.setHoldingMule(currentPlayer.getHoldingMule() + 1);
             store.setFood(store.getFood() - amnt);
             lblConfirmMsg.setText("You have purchased " + amnt + " food.");
             updateStoreInventoryLabels();
@@ -428,7 +428,7 @@ public class storeController {
             controller.setStoreController(this);
             controller.getStage(primaryStage); //Current Stage everything is displayed on
             controller.setCurrentScene(currentScene); //Scene is Pub
-            //controller.setCurrentTimer(timer);// Passes timer to Pub
+            controller.setCurrentTimer(currentTimer);// Passes timer to Pub
             //controller.setTimer();
             //controller.setController(this);
             loader.setController(controller);

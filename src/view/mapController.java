@@ -47,6 +47,7 @@ public class mapController {
     private GameTimer currentTimer;
     private boolean mulePhase;
     private storeController storeController;
+    private boolean landPhaseSkipped = false;
 
     @FXML
     private Pane townPane;
@@ -214,6 +215,7 @@ public class mapController {
         //ie if(land purchases are done)
         if(landSelectionFinished) {
             //round.nextRound();
+            main.setReturningFromStore(false);
             main.showTownScreen();
             //main.updateRound(round);
             currentPlayer =  tempPlayers.get(0);
@@ -228,6 +230,7 @@ public class mapController {
         if (skips == tempPlayers.size()) {
             System.out.println("All players skipped. Land selection phase ended.");
             landSelectionFinished = true;
+            main.setLandPhaseSkipped(true);
             setInterfaceInvis(false);
         } else if (!landSelectionFinished) {
             numPlayers++;
@@ -245,7 +248,7 @@ public class mapController {
     }
     @FXML
     public void playersSelectLand() {
-        if (!landSelectionFinished) {
+        if (!landSelectionFinished && !landPhaseSkipped) {
             if (numPlayers < tempPlayers.size()) {
                 //Go through land procedure
                 //If land is not owned
@@ -330,6 +333,9 @@ public class mapController {
         lblPlayerName.setText(tempPlayers.get(0).getName());
     }
 
+    public void setLandPhaseSkipped(boolean bool) {
+        this.landPhaseSkipped = bool;
+    }
     public void setStoreController(storeController storeController) {
         this.storeController = storeController;
     }
