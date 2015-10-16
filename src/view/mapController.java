@@ -406,7 +406,6 @@ public class mapController {
     //Will be the action of an onMouseClick
     public void placeEnergyMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
-            System.out.println("This is good.");
             tempMap.getLand(row, column).setEnergyMule(1);
             currentPlayer.setHoldingMule(null);
             storeController.leaveStore();

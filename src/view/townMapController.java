@@ -86,6 +86,10 @@ public class townMapController {
             updatePlayerInfoLabels();
             setTimer();
         }else{
+            for (Player player : tempPlayers) {
+                player.muleProduction();
+            }
+            main.updatePlayerData(tempPlayers);
             main.printPlayerData();
             timer.stopTimer();
             primaryStage.setScene(prevScene);
