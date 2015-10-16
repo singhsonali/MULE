@@ -79,6 +79,13 @@ public class townMapController {
         });
     }
 
+    public void setReturnTimer(GameTimer timer) {
+        setTimer();
+        timer.setDuration(timer.getTime());
+        timer.setLabel(lblTimer);
+        timer.startTimer();
+    }
+
     public void updateCurrent(){
         if(playersBeenToTown < tempPlayers.size()-1){
             playersBeenToTown++;
@@ -86,10 +93,15 @@ public class townMapController {
             updatePlayerInfoLabels();
             setTimer();
         }else{
+            for (Player player : tempPlayers) {
+                player.muleProduction();
+            }
+            main.updatePlayerData(tempPlayers);
             main.printPlayerData();
             timer.stopTimer();
-            primaryStage.setScene(prevScene);
-            primaryStage.show();
+            /*primaryStage.setScene(prevScene);
+            primaryStage.show();*/
+            main.showMapScreen();
             //Done here go back to Map to pick land
         }
     }

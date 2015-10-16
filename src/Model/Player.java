@@ -159,6 +159,9 @@ public class Player {
         System.out.println("HoldingMule set.");
     }
 
+    public boolean hasLand() {
+        return !ownedLand.isEmpty();
+    }
     public boolean haveLandGrants(){
         return this.landGrants > 0;
     }

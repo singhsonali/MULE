@@ -184,44 +184,48 @@ public class Land {
 =======
 
     public void updatePlayerResources() {
-        if (isPlain() && hasMule()) {
-            if (getMuleType().equals("foodMule")) {
-                player.setFood(player.getFood() + 2);
-            } else if (getMuleType().equals("oreMule")) {
-                player.setOre(player.getOre() + 1);
-            } else {
-                player.setEnergy(player.getEnergy() + 3);
+        if (player.getEnergy() >= player.calcTotalMules()) {
+            if (isPlain() && hasMule()) {
+                if (getMuleType().equals("foodMule")) {
+                    player.setFood(player.getFood() + 2);
+                } else if (getMuleType().equals("oreMule")) {
+                    player.setOre(player.getOre() + 1);
+                } else {
+                    player.setEnergy(player.getEnergy() + 3);
+                }
+            } else if (hasRiver() && hasMule()) {
+                if (getMuleType().equals("foodMule")) {
+                    player.setFood(player.getFood() + 4);
+                } else if (getMuleType().equals("energyMule")) {
+                    player.setEnergy(player.getEnergy() + 2);
+                }
+            } else if (getMountain() == 1 && hasMule()) {
+                if (getMuleType().equals("foodMule")) {
+                    player.setFood(player.getFood() + 1);
+                } else if (getMuleType().equals("oreMule")) {
+                    player.setOre(player.getOre() + 2);
+                } else {
+                    player.setEnergy(player.getEnergy() + 1);
+                }
+            } else if (getMountain() == 2 && hasMule()) {
+                if (getMuleType().equals("foodMule")) {
+                    player.setFood(player.getFood() + 1);
+                } else if (getMuleType().equals("oreMule")) {
+                    player.setOre(player.getOre() + 3);
+                } else {
+                    player.setEnergy(player.getEnergy() + 1);
+                }
+            } else if (getMountain() == 3 && hasMule()) {
+                if (getMuleType().equals("foodMule")) {
+                    player.setFood(player.getFood() + 1);
+                } else if (getMuleType().equals("oreMule")) {
+                    player.setOre(player.getOre() + 4);
+                } else {
+                    player.setEnergy(player.getEnergy() + 1);
+                }
             }
-        } else if (hasRiver() && hasMule()) {
-            if (getMuleType().equals("foodMule")) {
-                player.setFood(player.getFood() + 4);
-            } else if (getMuleType().equals("energyMule")) {
-                player.setEnergy(player.getEnergy() + 2);
-            }
-        } else if (getMountain() == 1 && hasMule()) {
-            if (getMuleType().equals("foodMule")) {
-                player.setFood(player.getFood() + 1);
-            } else if (getMuleType().equals("oreMule")) {
-                player.setOre(player.getOre() + 2);
-            } else {
-                player.setEnergy(player.getEnergy() + 1);
-            }
-        } else if (getMountain() == 2 && hasMule()) {
-            if (getMuleType().equals("foodMule")) {
-                player.setFood(player.getFood() + 1);
-            } else if (getMuleType().equals("oreMule")) {
-                player.setOre(player.getOre() + 3);
-            } else {
-                player.setEnergy(player.getEnergy() + 1);
-            }
-        } else if (getMountain() == 3 && hasMule()) {
-            if (getMuleType().equals("foodMule")) {
-                player.setFood(player.getFood() + 1);
-            } else if (getMuleType().equals("oreMule")) {
-                player.setOre(player.getOre() + 4);
-            } else {
-                player.setEnergy(player.getEnergy() + 1);
-            }
+        } else {
+            System.out.println("Not enough energy for MULEs to produce.");
         }
     }
 >>>>>>> master
