@@ -14,6 +14,8 @@ public class Land {
     private Mule oreMule = new Mule();
     private Mule foodMule = new Mule();
     private Mule energyMule = new Mule();
+    private boolean hasMule = false;
+    private Mule.MuleType productionType = Mule.MuleType.NONE;
 
     private final int cost = 300; //Constant cost for all pieces of land
     //Added a player as an owner of the Land that is set when purchased.
@@ -63,8 +65,11 @@ public class Land {
     }
 
     public boolean hasMule() {
-        return (getTotalMule() != 0);
+        return hasMule;
     }
+    public void setHasMule(boolean bool) {
+        hasMule = bool;
+     }
 
     public boolean isOpen() {
         return this.open;
@@ -175,6 +180,8 @@ public class Land {
         this.oreMule.setAmount(0);
         this.energyMule.setAmount(0);
     }
+<<<<<<< HEAD
+=======
 
     public void updatePlayerResources() {
         if (isPlain() && hasMule()) {
@@ -217,4 +224,5 @@ public class Land {
             }
         }
     }
+>>>>>>> master
 }

@@ -324,6 +324,7 @@ public class storeController {
             store.setEnergy(store.getEnergy() + amnt);
         }
     }
+    
 
     @FXML
     public int getNumChoice(){
