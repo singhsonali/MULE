@@ -221,7 +221,7 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 175);
             currentPlayer.setOreMule(currentPlayer.getOreMule() + 1);
-            currentPlayer.setHoldingMule("Ore");
+            currentPlayer.setHoldingMule("oreMule");
             store.deleteMule();
             goToMap();
         }
@@ -241,7 +241,7 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 150);
             currentPlayer.setEnergyMule(currentPlayer.getEnergyMule() + 1);
-            currentPlayer.setHoldingMule("Energy");
+            currentPlayer.setHoldingMule("energyMule");
             store.deleteMule();
             goToMap();
         }
@@ -261,7 +261,7 @@ public class storeController {
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() - 125);
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
-            currentPlayer.setHoldingMule("Food");
+            currentPlayer.setHoldingMule("foodMule");
             store.deleteMule();
             goToMap();
         }
@@ -370,7 +370,6 @@ public class storeController {
             txtAmount.setText("");
         }
     }
-    
 
     @FXML
     public int getNumChoice(){

@@ -15,7 +15,6 @@ public class Land {
     private Mule foodMule = new Mule();
     private Mule energyMule = new Mule();
     private boolean hasMule = false;
-    private Mule.MuleType productionType = Mule.MuleType.NONE;
 
     private final int cost = 300; //Constant cost for all pieces of land
     //Added a player as an owner of the Land that is set when purchased.
@@ -23,8 +22,7 @@ public class Land {
     private Player player;
     @FXML
     private Pane myPane;
-    private Mule mule;
-    
+
     public Land() {
         this.mountain = 0;
         this.river = false;
@@ -65,7 +63,7 @@ public class Land {
     }
 
     public boolean hasMule() {
-        return hasMule;
+        return getTotalMule() != 0;
     }
     public void setHasMule(boolean bool) {
         hasMule = bool;
@@ -151,18 +149,6 @@ public class Land {
         this.myPane = pane;
     }
 
-    public boolean hasMULE() {
-        return mule != null;
-    }
-
-    public void setMULE(Mule mule) {
-        mule = mule;
-    }
-
-    public Mule getMULE() {
-        return mule;
-    }
-
     public void setOreMule(int i) {
         this.oreMule.setAmount(i);
     }
@@ -180,8 +166,6 @@ public class Land {
         this.oreMule.setAmount(0);
         this.energyMule.setAmount(0);
     }
-<<<<<<< HEAD
-=======
 
     public void updatePlayerResources() {
         if (player.getEnergy() >= player.calcTotalMules()) {
@@ -228,5 +212,4 @@ public class Land {
             System.out.println("Not enough energy for MULEs to produce.");
         }
     }
->>>>>>> master
 }

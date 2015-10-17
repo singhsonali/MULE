@@ -41,8 +41,6 @@ public class Player {
     private Round round;
 
     private final int ENERGY_CONST = 25, FOOD_CONST = 30, LAND_GRAND_CONST = 500, ORE_CONST = 50;
-    private ObservableMap<Store.Item, Integer> inventoryAmount = FXCollections.observableHashMap();
-    private ObservableList<Store.Item> inventory = FXCollections.observableArrayList();
 
     //Player holds an array of owned land
     private ArrayList<Land> ownedLand;
@@ -238,31 +236,12 @@ public class Player {
             setEnergyMule(getEnergyMule() - 1);
         }
     }
-    public ObservableList<Store.Item> getInventory() {
-        return inventory;
+
+    public String getResources() {
+        return "Player: " + getName() + "\n"
+                + "Food: " + getFood() + "\n"
+                + "Energy: " + getEnergy() + "\n"
+                + "Ore: " + getOre() + "\n"
+                + "==================================================";
     }
-
-    public int getInventoryAmount(Store.Item item) {
-        if (inventory.contains(item)) {
-            return inventoryAmount.get(item);
-        } else {
-            return 0;
-        }
-    }
-    public void changeInventory(Store.Item item, int adjustment) {
-
-        int amount = 0;
-        if (inventoryAmount.get(item) != null) {
-            amount = inventoryAmount.get(item);
-        }
-        inventoryAmount.put(item, amount + adjustment);
-
-        if (!inventory.contains(item)) {
-            inventory.add(item);
-        }
-    }
-
 }
-
-
-

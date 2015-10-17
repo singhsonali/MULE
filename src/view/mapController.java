@@ -15,8 +15,6 @@ import javafx.stage.Stage;
 import java.util.Timer;
 import java.util.PriorityQueue;
 import java.util.Comparator;
-import java.util.Random;
-import java.util.ResourceBundle;
 
 import Model.Player;
 import View.playerTraitController;
@@ -36,7 +34,7 @@ public class mapController {
     private PriorityQueue<Player> playerArray;
     private Player currentPlayer;
     private int currentPlayerNum;
-    private Timer timer
+    private Timer timer;
     private Map tempMap;
     private int numPlayers = 0;
     //-1 for error checking
@@ -49,8 +47,6 @@ public class mapController {
     private mapController controller;
     private Stage primaryStage;
     private GameTimer currentTimer;
-    private Text time;
-    private TextFlow timeFlow;
     private boolean mulePhase;
     private storeController storeController;
     private boolean landPhaseSkipped = false;
@@ -972,22 +968,6 @@ public class mapController {
             updateCurrentPane(tempMap.getLand(row,column).getMyPane());
         }
     }
-    private void buttonPressed(ActionEvent event) {
-        if (currentPlayer.hasMule()) {
-            Button b = (Button) event.getSource();
-            double buttonX = b.getLayoutX();
-            double buttonY = b.getLayoutY();
-            int intButtonXIndex = (int) (buttonX - 1) / 120;
-            int intButtonYIndex = (int) (buttonY - 1) / 144;
-            Land land = landList.get(intButtonYIndex)[intButtonXIndex];
-            if (land.getOwner() == currentPlayer) {
-                land.setProductionType(currentPlayer.getMule().getType());
-            } else {
-                currentPlayer.removeMule();
-            }
-        }
-    }
-
     public void getStage(Stage stage){
         this.primaryStage  = stage;
     }
