@@ -156,10 +156,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> master
     public void addPlayer(Player player){
 //        Player tempPlayer = new Player(name,Race,Color);
         playerData.add(player);
@@ -167,8 +164,9 @@ public class Main extends Application {
 
     public void printPlayerData(){
         for(Player player: playerData){
-            System.out.println(player.getName() + ":" + player.getPlayerNum());
-            System.out.println("Money =" + player.getMoney() + " " + "Energy =" + player.getEnergy());
+            System.out.println(player.getResources());
+            //System.out.println(player.getName() + ":" + player.getPlayerNum());
+            //System.out.println("Money =" + player.getMoney() + " " + "Energy =" + player.getEnergy());
         }
     }
     public void setMapChoice(String mapChoice){ this.mapChoice = mapChoice;}
@@ -206,44 +204,5 @@ public class Main extends Application {
     }
     public void setMulePhase(boolean bool) {
         this.mulePhase = true;
-    }
-    private void calculateProduction() {
-        for (Land[] landRow : map) {
-            for (Land land : landRow) {
-                int amount;
-                if (land.getOwner() != null) {
-                    if (land.getProductionType() != Mule.MuleType.NONE) {
-                        //donothing
-                    }
-                    if (land.getOwner().getInventoryAmount(Store.Item.Energy) > 0) {
-                        if (land.getProductionType() == Mule.MuleType.SMITHORE) {
-                            if (land.getType() == Land.LandType.Mountain) {
-                                amount = 2;
-                            } else {
-                                amount = 1;
-                            }
-                            land.getOwner().changeInventory(Store.Item.Smithore, amount);
-                        } else if (land.getProductionType() == Mule.MuleType.ENERGY) {
-                            if (land.getType() == Land.LandType.Plains) {
-                                amount = 2;
-                            } else {
-                                amount = 1;
-                            }
-                            land.getOwner().changeInventory(Store.Item.Energy, amount);
-                        } else if (land.getProductionType() == Mule.MuleType.FOOD) {
-                            if (land.getType() == Land.LandType.Water) {
-                                amount = 2;
-                            } else {
-                                amount = 1;
-                            }
-                            land.getOwner().changeInventory(Store.Item.Food, amount);
-                        }
-                        land.getOwner().changeInventory(Store.Item.Energy, -1);
-                    }
-
-                }
-            }
-
-        }
     }
 }
