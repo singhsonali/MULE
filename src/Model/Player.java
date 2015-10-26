@@ -105,6 +105,9 @@ public class Player {
     public int getEnergyMule() {return this.energyMule.getAmount(); }
     public int getFoodMule() {return this.foodMule.getAmount(); }
     public String getHoldingMule() {return this.holdingMule; }
+    public ArrayList<Land> getLand() {
+        return this.ownedLand;
+    }
 
     public int calcRoundTime() {
         if (getFood() == 0 || totalMule != 0 && energy.getAmount() == 0) { //No food or no energy for mules
@@ -239,6 +242,7 @@ public class Player {
 
     public String getResources() {
         return "Player: " + getName() + "\n"
+                + "Money: " + getMoney() + "\n"
                 + "Food: " + getFood() + "\n"
                 + "Energy: " + getEnergy() + "\n"
                 + "Ore: " + getOre() + "\n"
