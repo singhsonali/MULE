@@ -1,15 +1,10 @@
-package Model;
+package model;
 
-import View.townMapController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 

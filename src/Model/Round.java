@@ -1,8 +1,6 @@
-package Model;
-import View.mapController;
+package model;
 import javafx.collections.ObservableList;
 
-import java.util.Observable;
 import java.util.Random;
 
 /**

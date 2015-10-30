@@ -8,7 +8,7 @@ package View;
  * @return Number of players, Map Chosen
  */
 import Main.Main;
-import Model.Player;
+import model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

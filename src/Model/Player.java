@@ -1,13 +1,7 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.scene.paint.Color;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 /**
  * Created by Shannor on 9/16/2015.
  * Will hold all information about a player,

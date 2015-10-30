@@ -1,11 +1,10 @@
 package Main;
 
-import Model.GameTimer;
-import Model.Map;
-import Model.Player;
-import Model.Round;
+import model.GameTimer;
+import model.Map;
+import model.Player;
+import model.Round;
 import View.townMapController;
-import com.sun.javafx.PlatformUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
