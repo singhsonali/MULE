@@ -1,4 +1,5 @@
 package View;
+
 import Main.Main;
 import Model.*;
 import javafx.animation.Timeline;
@@ -12,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.PriorityQueue;
 import java.util.Comparator;
@@ -31,9 +34,7 @@ public class mapController {
     private Main main;
 
     private ObservableList<Player> tempPlayers;
-    private PriorityQueue<Player> playerArray;
     private Player currentPlayer;
-    private int currentPlayerNum;
     private Timer timer;
     private Map tempMap;
     private int numPlayers = 0;
@@ -186,6 +187,12 @@ public class mapController {
     @FXML
     private Pane pane48;
 
+    private Pane[] panes = {pane00, pane01, pane02, pane03, pane04, pane05, pane06, pane07, pane08,
+            pane10, pane11, pane12, pane13, pane14, pane15, pane16, pane17, pane18,
+            pane20, pane21, pane22, pane23, /*townpane*/ pane25, pane26, pane27, pane28,
+            pane30, pane31, pane32, pane33, pane34, pane35, pane36, pane37, pane38,
+            pane40, pane41, pane42, pane43, pane44, pane45, pane46, pane47, pane48};
+
     @FXML
     private Label lblPlayerName;
 
@@ -217,12 +224,12 @@ public class mapController {
         //ie if(land purchases are done)
         if(landSelectionFinished) {
             //round.nextRound();
+            round.randEvent(tempPlayers, tempPlayers.get(0));
             main.setReturningFromStore(false);
             main.showTownScreen();
             //main.updateRound(round);
-            currentPlayer =  tempPlayers.get(0);
+            currentPlayer = tempPlayers.get(0);
             main.setCurrentPlayer(currentPlayer);
-
         }
     }
 
@@ -307,6 +314,10 @@ public class mapController {
 
     public void updatePlayer(){
         currentPlayer = tempPlayers.get(numPlayers);
+        updatePlayerLabel();
+    }
+
+    public void updatePlayerLabel() {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
@@ -368,6 +379,15 @@ public class mapController {
 
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
+    }
+
+    public void setLandSelectionFinished(boolean bool) {
+        this.landSelectionFinished = bool;
+        if (bool) {
+            btnContinue.visibleProperty().setValue(false);
+            btnSkip.visibleProperty().setValue(false);
+            lblInstructions.setText("Go to the Town");
+        }
     }
 
     public static class PlayerComparator implements Comparator<Player> {
@@ -971,8 +991,8 @@ public class mapController {
     public void getStage(Stage stage){
         this.primaryStage  = stage;
     }
-    public void getCurrentPlayer(Player player){
-        this.currentPlayer = player;
+    public Player getCurrentPlayer(){
+        return this.currentPlayer;
     }
     public void setCurrentScene(Scene scene){
         this.currentScene = scene;

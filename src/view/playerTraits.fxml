@@ -5,9 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.playerTraitController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.playerTraitController">
     <children>
-        <Label fx:id="lblPlayerNum" layoutX="257.0" layoutY="33.0" text="Player Info" textFill="#37d3e7" AnchorPane.topAnchor="33.0">
+        <Label fx:id="lblPlayerNum" alignment="center" layoutX="12.0" layoutY="33.0" prefHeight="27.0" prefWidth="583.0" text="Player Info" textFill="#37d3e7" AnchorPane.topAnchor="33.0">
             <font>
                 <Font size="18.0" />
             </font>
@@ -49,5 +49,6 @@
         </Label>
         <Label layoutX="530.0" layoutY="33.0" text="★" textFill="#fffd7b" />
         <Label layoutX="418.0" layoutY="324.0" text="★" textFill="#fffd7b" />
+      <Label fx:id="lblWarning" layoutX="286.0" layoutY="353.0" />
     </children>
 </AnchorPane>

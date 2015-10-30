@@ -90,8 +90,10 @@ public class townMapController {
         if(playersBeenToTown < tempPlayers.size()-1){
             playersBeenToTown++;
             currentPlayer = tempPlayers.get(playersBeenToTown);
+            currentRound.randEvent(tempPlayers, currentPlayer);
             updatePlayerInfoLabels();
             setTimer();
+            //goToMap();
         }else{
             for (Player player : tempPlayers) {
                 player.muleProduction();
@@ -103,6 +105,37 @@ public class townMapController {
             primaryStage.show();*/
             main.showMapScreen();
             //Done here go back to Map to pick land
+        }
+    }
+
+    public void goToMap() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
+            AnchorPane mapScreen = (AnchorPane) loader.load();
+
+            Scene scene = new Scene(mapScreen);
+            mapController controller = loader.getController();
+
+            controller.setPrevScene(currentScene); // Scene is Town
+            currentScene = scene;
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            controller.setCurrentPlayer(currentPlayer); //Passes current player to map
+            controller.getStage(primaryStage); //Current Stage everything is displayed on
+            controller.setCurrentScene(currentScene);
+            controller.updatePlayerLabel();
+            controller.setLandSelectionFinished(true);
+            controller.setMainApp(main);
+            //controller.setTimer();
+            //controller.setController(this);
+            loader.setController(controller);
+            controller.getMap(main.getGameMap());
+            controller.connectMapWithPanes();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

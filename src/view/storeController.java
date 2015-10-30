@@ -165,21 +165,6 @@ public class storeController {
                 leaveStore();
             }
         });
-
-        /*buyMule.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String muleChoice = (String) muleBox.getValue();
-                if (muleChoice.equals("Energy Mule")) {
-                    buyEnergyMule();
-                } else if (muleChoice.equals("Food Mule")) {
-                    buyFoodMule();
-                } else if (muleChoice.equals("Ore Mule")) {
-                    buyOreMule();
-                }
-                goToMap();
-            }
-        }); */ //Handled in Buy/Sell Buttons
     }
 
     public void setInterfaceInvis(boolean bool){
@@ -423,19 +408,17 @@ public class storeController {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            controller.getCurrentPlayer(currentPlayer); //Passes current player to pub
+            controller.setCurrentPlayer(currentPlayer); //Passes current player to map
             controller.setMulePhaseLabels();
             controller.setStoreController(this);
             controller.getStage(primaryStage); //Current Stage everything is displayed on
-            controller.setCurrentScene(currentScene); //Scene is Pub
-            controller.setCurrentTimer(currentTimer);// Passes timer to Pub
+            controller.setCurrentScene(currentScene);
+            controller.setCurrentTimer(currentTimer);
             //controller.setTimer();
             //controller.setController(this);
             loader.setController(controller);
             controller.getMap(main.getGameMap());
             controller.connectMapWithPanes();
-
-            System.out.println("Finished the goToMap method.");
 
         } catch (IOException e) {
             e.printStackTrace();
