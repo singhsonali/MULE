@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Stage primaryStage; //Stage the holds scnes
+    private Stage primaryStage; //Stage the holds scene
     private Scene currentScene; //Current displayed scene
     public int players= 0; //Temp variable to count the number of players
     public String mapChoice; //Picked map
@@ -51,14 +51,13 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("../View/gameScreen.fxml"));
             AnchorPane gameScreen = (AnchorPane) loader.load();
 
+            //Creates new scene
             Scene scene = new Scene(gameScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            //Gets Controller that preforms actions to the scene
             gameScreenController controller = loader.getController();
-            controller.setPrevScene(currentScene);
             loader.setController(controller);
             controller.setMainApp(this);
 
@@ -74,13 +73,15 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("../View/playerTraits.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
+
+            playerTraitController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+
             Scene scene = new Scene(personOverview);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            playerTraitController controller = loader.getController();
-            controller.setPrevScene(currentScene);
             controller.setPlayerCount(--players);
             loader.setController(controller);
             controller.setMainApp(this);
@@ -98,13 +99,15 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
             AnchorPane mapScreen= (AnchorPane) loader.load();
 
+
+            mapController controller = loader.getController();
+            controller.setPrevScene(currentScene);
+
             Scene scene = new Scene(mapScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            mapController controller = loader.getController();
-            controller.setPrevScene(currentScene);
             controller.setLandPhaseSkipped(landPhaseSkipped);
 
             //Pass in player Array and Map Data
@@ -131,8 +134,8 @@ public class Main extends Application {
 
             Scene scene = new Scene(townMap);
             townMapController controller = loader.getController();
-
             controller.setPrevScene(currentScene); //MapScene
+
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();

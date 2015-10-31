@@ -37,8 +37,6 @@ public class gameScreenController{
 
     //Ref to main application
     private Main main;
-    //Ref to last scene visited
-    private Scene prevScene;
 
     //Constructor
     public gameScreenController(){
@@ -68,9 +66,6 @@ public class gameScreenController{
                 //Return map choice to Main
                 main.setMapChoice(getMapChoice());
                 main.showPlayerTraitScreen();
-                //Closes this screen
-                Stage stage = (Stage) prevScene.getWindow();
-                stage.close();
             }
         });
 
@@ -91,8 +86,5 @@ public class gameScreenController{
     }
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
-    }
-    public void setPrevScene(Scene scene){
-        this.prevScene = scene;
     }
 }

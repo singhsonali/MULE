@@ -60,7 +60,7 @@ public class playerTraitController extends gameScreenController {
         lblPlayerNum.setText("Player 1: Choose Your Options");
         setColors();
 
-        cmbColor.getItems().addAll(colors);
+//        cmbColor.getItems().addAll(colors);
         cmbRace.getItems().addAll(
                 "Human",
                 "Flapper",
@@ -105,10 +105,6 @@ public class playerTraitController extends gameScreenController {
                 lblWarning.setText("");
                 setPlayerCount(playerCount - 1);
                 lblPlayerNum.setText("Player " + playerNum + ": Choose Your Options");
-                //Display another Screen
-                /*main.showPlayerTraitScreen();
-                Stage stage = (Stage)prevScene.getWindow();
-                stage.close(); */
             }else{
                 //If just one player, and end case for last player
                 Player tempPlayer = new Player(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
