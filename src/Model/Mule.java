@@ -3,7 +3,7 @@ package model;
 /**
  * Created by Ashley on 9/30/2015.
  */
-public class Mule extends Resources {
+public class Mule extends AbstractResources {
 
     public Mule() {
     this.amount = 0;
