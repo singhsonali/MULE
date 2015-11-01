@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 /**
  * Created by Shannor on 9/18/2015.
  * Map Class to hold multiple Class items Land
@@ -10,31 +8,32 @@ import java.util.ArrayList;
  *
  */
 public class Map {
-    //Store owned land current so cna updated MapScene.fxml colors
-    private ArrayList<Land> ownedLand = new ArrayList<Land>();
-    //2D array of all possible land
-    private Land[][] map = new Land[][]{
+    /**
+     * 2D array of all possible land.
+     */
+    private final Land[][] map = new Land[][] {
+    //Over 80 chars, but needed for visualization
             {new Land(), new Land(), new Land(1), new Land(), new Land(true), new Land(), new Land(3), new Land(), new Land()},
             {new Land(), new Land(1), new Land(), new Land(), new Land(true), new Land(), new Land(), new Land(), new Land(3)},
             {new Land(3), new Land(), new Land(), new Land(), new Land("Town"), new Land(), new Land(), new Land(), new Land(1)},
             {new Land(), new Land(2), new Land(), new Land(), new Land(true), new Land(), new Land(2), new Land(), new Land()},
             {new Land(), new Land(), new Land(2), new Land(), new Land(true), new Land(), new Land(), new Land(), new Land(2)}
     };
-    //Constructor
-    public Map(){
-        ArrayList<Land> ownedLand = new ArrayList<Land>();
-        Land[][] map;
+
+    /**
+     * Constructor for map.
+     */
+    public Map() {
     }
 
-    public int getRow(){return 9;}
-    public int getColumn() {return 5;}
-
-    public Land getLand(int i, int j) {
+    /**
+     * Returns the land at i, j.
+     * @param i the row number
+     * @param j the column number
+     * @return desired land
+     */
+    public final Land getLand(final int i, final int j) {
         return map[i][j];
-    }
-
-    public void setLand(int i, int j, Land land) {
-        map[i][j] = land;
     }
 
     //Method that just returns owned Land

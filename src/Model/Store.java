@@ -5,46 +5,117 @@ package model;
  */
 public class Store {
 
-    private int MULE_AMOUNT = 25;
-    private int FOOD_AMOUNT = 16;
-    private int ORE_AMOUNT = 0;
-    private int ENERGY_AMOUNT = 16;
+    /**
+     * Variable to hold initial mule amount.
+     */
+    private final int muleAmount = 25;
+    /**
+     * Variable to hold initial food amount.
+     */
+    private final int foodAmount = 16;
+    /**
+     * Variable to hold initial ore amount.
+     */
+    private final int oreAmount = 0;
+    /**
+     * Variable to hold initial energy amount.
+     */
+    private final int energyAmount = 16;
+    /**
+     * Variable to hold mule amount.
+     */
+    private int muleAmnt;
+    /**
+     * Variable to hold food amount.
+     */
+    private int foodAmnt;
+    /**
+     * Variable to hold ore amount.
+     */
+    private int oreAmnt;
+    /**
+     * Variable to hold energy amount.
+     */
+    private int energyAmnt;
 
+    /**
+     * Constructor for Store.
+     */
     public Store() {
-
+        muleAmnt = muleAmount;
+        foodAmnt = foodAmount;
+        oreAmnt = oreAmount;
+        energyAmnt = energyAmount;
     }
 
-    public void deleteMule() {
-        MULE_AMOUNT--;
+    /**
+     * Subtracts a mule from the store inventory.
+     */
+    public final void deleteMule() {
+        muleAmnt--;
     }
 
-    public int getMuleAmount() {
-        return MULE_AMOUNT;
+    /**
+     * Returns how many mules are in the store.
+     *
+     * @return the Store's mule amount
+     */
+    public final int getMuleAmount() {
+        return muleAmnt;
     }
 
-
-    public void setFood(int food) {
-        FOOD_AMOUNT = food;
+    /**
+     * Sets the Store's food amount.
+     *
+     * @param food the store's new food amount
+     */
+    public final void setFood(final int food) {
+        foodAmnt = food;
     }
 
-    public int getFood() {
-        return FOOD_AMOUNT;
+    /**
+     * Returns how much food is in the store.
+     *
+     * @return the Store's food amount
+     */
+    public final int getFood() {
+        return foodAmnt;
     }
 
-    public void setOre(int ore) {
-        ORE_AMOUNT = ore;
+    /**
+     * Sets the Store's pre amount.
+     *
+     * @param ore the store's new ore amount
+     */
+    public final void setOre(final int ore) {
+        oreAmnt = ore;
     }
 
-    public int getOre() {
-        return ORE_AMOUNT;
+    /**
+     * Returns how much ore is in the store.
+     *
+     * @return the Store's ore amount
+     */
+    public final int getOre() {
+        return oreAmnt;
     }
 
-    public void setEnergy(int energy) {
-        ENERGY_AMOUNT = energy;
+    /**
+     * Sets the Store's energy amount.
+     *
+     * @param energy the store's new food amount
+     */
+    public final void setEnergy(final int energy) {
+        energyAmnt = energy;
     }
 
-    public int getEnergy() {
-        return ENERGY_AMOUNT;
+    /**
+     * Returns how much energy is in the store.
+     *
+     * @return the Store's energy amount
+     */
+    public final int getEnergy() {
+        return energyAmnt;
     }
 
 }

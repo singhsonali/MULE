@@ -1,10 +1,10 @@
-package Main;
+package main;
 
 import model.GameTimer;
 import model.Map;
 import model.Player;
 import model.Round;
-import view.townMapController;
+import view.TownMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -48,7 +48,7 @@ public class Main extends Application {
         try {
             // Load Game Screen.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/gameScreen.fxml"));
+            loader.setLocation(Main.class.getResource("../view/gameScreen.fxml"));
             AnchorPane gameScreen = (AnchorPane) loader.load();
 
             //Creates new scene
@@ -70,7 +70,7 @@ public class Main extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/playerTraits.fxml"));
+            loader.setLocation(Main.class.getResource("../view/playerTraits.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
 
@@ -96,7 +96,7 @@ public class Main extends Application {
         try {
             // Load Map Screen.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
+            loader.setLocation(Main.class.getResource("../view/MapScene.fxml"));
             AnchorPane mapScreen= (AnchorPane) loader.load();
 
 
@@ -129,12 +129,11 @@ public class Main extends Application {
     public void showTownScreen(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/townMap.fxml"));
+            loader.setLocation(Main.class.getResource("../view/townMap.fxml"));
             AnchorPane townMap = (AnchorPane) loader.load();
 
             Scene scene = new Scene(townMap);
-            townMapController controller = loader.getController();
-            controller.setPrevScene(currentScene); //MapScene
+            TownMapController controller = loader.getController();
 
             currentScene = scene;
             primaryStage.setScene(scene);
@@ -142,14 +141,11 @@ public class Main extends Application {
 
             //printPlayerData();
             controller.setCurrentScene(currentScene); //Town Scene
-            controller.setMyScene(currentScene);//Used for handling end of time for player turns
             controller.setPlayerData(playerData); //pass in all players
             controller.setCurrentRound(round); //Set round
-            controller.getPrimaryStage(primaryStage);
+            controller.setPrimaryStage(primaryStage);
             if (!returningFromStore) {
                 controller.setTimer(); //Start timer
-            } else {
-                controller.setReturnTimer(returnTimer);
             }
             loader.setController(controller);
             controller.setMainApp(this);

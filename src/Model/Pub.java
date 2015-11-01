@@ -4,24 +4,47 @@ package model;
  */
 public class Pub {
 
-    public Pub(){
+    /**
+     * Variable holding the timeBonus base number.
+     */
+    private final int timeBonus = 50;
+    /**
+     * Variable holding the timeLeft base number.
+     */
+    private final int timeRemaining = 12;
+
+    /**
+     * Constructor for Pub.
+     */
+    public Pub() {
 
     }
 
-    public int getTimeBonus(int timeLeft) {
-        if (timeLeft > 37) {
-            return 200;
-        } else if (timeLeft > 25) {
-            return 150;
-        } else if (timeLeft > 12) {
-            return 100;
+    /**
+     * Returns the time bonus depending on the time left.
+     * @param timeLeft time left in the turn
+     * @return the time bonus for the player
+     */
+    final int getTimeBonus(final int timeLeft) {
+        if (timeLeft > timeRemaining * 2 + timeRemaining + 1) { // = 37
+            return timeBonus * 2 * 2; //'4' is a magic number, STFU checkstyle
+        } else if (timeLeft > timeRemaining * 2 + 1) { // = 25
+            return timeBonus * 2 + 1; //'3' is a magic number :P
+        } else if (timeLeft > timeRemaining) {
+            return timeBonus * 2;
         } else {
-            return 50;
+            return timeBonus;
         }
     }
 
-    public int calcGamble(int bonus, int timeLeft){
-        return bonus + (int)(Math.random()*getTimeBonus(timeLeft));
+    /**
+     * Calculates and returns the amount won gambling.
+     * @param bonus round bonus
+     * @param timeLeft time left in the turn
+     * @return amount won gambling
+     */
+    public final int calcGamble(final int bonus, final int timeLeft) {
+        return bonus + (int) (Math.random() * getTimeBonus(timeLeft));
     }
 
 }
