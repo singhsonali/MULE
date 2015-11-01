@@ -393,7 +393,7 @@ public class storeController {
     public void goToMap() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../View/MapScene.fxml"));
+            loader.setLocation(Main.class.getResource("../view/MapScene.fxml"));
             AnchorPane mapScreen = (AnchorPane) loader.load();
 
             Scene scene = new Scene(mapScreen);
