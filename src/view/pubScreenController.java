@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import model.GameTimer;
 import model.Player;

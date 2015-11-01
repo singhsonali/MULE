@@ -1,152 +1,152 @@
-package View;
+package view;
 
 import Main.Main;
 import model.Player;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-
 /**
  * Created by Shannor on 9/16/2015.
  * Controller for the PlayerTraits.fxml
  * Adds information for each player
  * Will lead to Map Screen afterwards
  */
-public class playerTraitController extends gameScreenController {
+public class PlayerTraitController {
 
+    /**
+     * Label in the game to display the name of the Player.
+     */
     @FXML
-    private Label lblPlayerNum;
+    private transient Label lblPlayerNum;
 
+    /**
+     * Choice box that holds the color options.
+     */
     @FXML
-    private ChoiceBox<String> cmbColor;
+    private transient ChoiceBox<String> cmbColor;
 
+    /**
+     * Choice box to hold the Race Choices.
+     */
     @FXML
-    private ChoiceBox<String> cmbRace;
+    private transient ChoiceBox<String> cmbRace;
 
+    /**
+     * TextField to take in the input for Player name.
+     */
     @FXML
-    private TextField textName;
+    private transient TextField textName;
 
+    /**
+     * Button to create player and move to next player.
+     * Or to continue to the game.
+     */
     @FXML
-    private Button cntButton;
+    private transient Button cntButton;
 
+    /**
+     * Warning label displayed when person inputs incorrect name.
+     * Or when no name is imputed.
+     */
     @FXML
-    private Label lblWarning;
+    private transient Label lblWarning;
 
-    private Main main;
+    /**
+     * Reference to Main to call functions in main and pass back information.
+     */
+    private transient Main main;
 
-    private Scene prevScene;
+    /**
+     * The amount of players chosen, passed in from main.
+     */
+    private transient int playerCount;
 
-    private int playerCount;
+    /**
+     * Keeps track of which Player Number currently on for displaying.
+     */
+    private transient int playerNum = 1;
 
-    private int playerNum;
-
-    private ArrayList<String> colors;
-    private boolean boolGreen = true;
-    private boolean boolBlue = true;
-    private boolean boolYellow = true;
-    private boolean boolRed = true;
-
+    /**
+     * Init function used by JavaFX.
+     */
     @FXML
-    private void initialize(){
+    private void initialize() {
 
-        setPlayerNum(playerCount);
 
         lblPlayerNum.setText("Player 1: Choose Your Options");
-        setColors();
 
-//        cmbColor.getItems().addAll(colors);
         cmbRace.getItems().addAll(
                 "Human",
                 "Flapper",
                 "Other"
         );
 
+        cmbColor.getItems().addAll(
+                "Blue",
+                "Yellow",
+                "Green",
+                "Orange"
+        );
+
         cmbColor.getSelectionModel().select(0);
         cmbRace.getSelectionModel().select(0);
     }
 
+    /**
+     * Action taken on button click Continue.
+     * Creates a player or displays an error.
+     */
     @FXML
-    public void confirmChoices(){
-        if(textName.getText().isEmpty()){
-            //Error Handling
-            /*Stage newStage = new Stage();
-            VBox comp = new VBox();
-            Label warning = new Label("Invalid Name");
-            comp.getChildren().add(warning);
-            Scene stageScene = new Scene(comp, 100, 100);
-            newStage.setScene(stageScene);
-            newStage.show(); */
+    public final void confirmChoices() {
+        if (textName.getText().isEmpty()) {
             lblWarning.setText("Please enter a name.");
-        }else {
-            if(playerCount > 0){
-                //Add Player's information if more than one
-                Player tempPlayer = new Player(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
-                main.addPlayer(tempPlayer);
-                if (cmbColor.getValue().equals("Green")) {
-                    boolGreen = false;
-                } else if (cmbColor.getValue().equals("Blue")) {
-                    boolBlue = false;
-                } else if (cmbColor.getValue().equals("Yellow")) {
-                    boolYellow = false;
-                } else {
-                    boolRed = false;
-                }
-                //Resets PlayerTraitScreen
-                setColors();
-                cmbColor.valueProperty().setValue(colors.get(0));
-                cmbRace.valueProperty().setValue("Human");
+        } else {
+            if (playerCount > 0) {
+                //Gets the currently picked color
+                final String pickedColor = cmbColor.getValue();
+                //Create new player
+                final Player tempPlayer = new Player(textName.getText(),
+                        cmbRace.getValue(), cmbColor.getValue());
+                main.addPlayer(tempPlayer); // Add new player
+                //Remove picked Color from list
+                cmbColor.getItems().remove(pickedColor);
+                //Sets combo boxes back to zero index
+                cmbColor.getSelectionModel().select(0);
+                cmbRace.getSelectionModel().select(0);
                 textName.clear();
                 lblWarning.setText("");
-                setPlayerCount(playerCount - 1);
-                lblPlayerNum.setText("Player " + playerNum + ": Choose Your Options");
-            }else{
+                playerCount--; //Decrement player count after creation
+                playerNum++; //Increment player Label number
+                lblPlayerNum.setText("Player " + playerNum
+                        + ": Choose Your Options");
+            } else {
                 //If just one player, and end case for last player
-                Player tempPlayer = new Player(textName.getText(),cmbRace.getValue(),cmbColor.getValue());
+                final Player tempPlayer = new Player(textName.getText(),
+                        cmbRace.getValue(), cmbColor.getValue());
                 main.addPlayer(tempPlayer);
                 //Display the map Screen to start game
                 main.showMapScreen();
-                Stage stage = (Stage)prevScene.getWindow();
-                stage.close();
+
             }
         }
     }
 
+    /**
+     * Passes the reference of main to this controller.
+     * @param mainApp main reference
+     */
     @FXML
-    public void setMainApp(Main mainApp) {
+    public final void setMainApp(final Main mainApp) {
         this.main = mainApp;
     }
 
-    public void setPrevScene(Scene scene){
-        this.prevScene = scene;
-    }
-
-    public void setPlayerCount(int i){
-        this.playerCount = i;
-        setPlayerNum(playerNum + 1);
-    }
-
-    public void setPlayerNum(int i) {
-        this.playerNum = i;
-    }
-
-    public void setColors() {
-        //Resets color combo box so no two players can have the same color
-        colors = new ArrayList<>();
-        if (this.boolGreen) {
-            this.colors.add("Green");
-        } if (this.boolBlue) {
-            this.colors.add("Blue");
-        } if (this.boolYellow) {
-            this.colors.add("Yellow");
-        } if (this.boolRed) {
-            this.colors.add("Red");
-        }
-        cmbColor.getItems().setAll(colors);
+    /**
+     * Sets the value of the PlayerCount variable.
+     * @param count number of players
+     */
+    public final void setPlayerCount(final int count) {
+        this.playerCount = count;
     }
 }

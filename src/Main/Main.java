@@ -4,14 +4,14 @@ import model.GameTimer;
 import model.Map;
 import model.Player;
 import model.Round;
-import View.townMapController;
+import view.townMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
-import View.gameScreenController;
-import View.playerTraitController;
-import View.mapController;
+import view.gameScreenController;
+import view.PlayerTraitController;
+import view.mapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -74,15 +74,15 @@ public class Main extends Application {
             AnchorPane personOverview = (AnchorPane) loader.load();
 
 
-            playerTraitController controller = loader.getController();
-            controller.setPrevScene(currentScene);
+            PlayerTraitController controller = loader.getController();
+
 
             Scene scene = new Scene(personOverview);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            controller.setPlayerCount(--players);
+            controller.setPlayerCount(--players); //Decrements player by one when passed in to be zero indexed
             loader.setController(controller);
             controller.setMainApp(this);
 

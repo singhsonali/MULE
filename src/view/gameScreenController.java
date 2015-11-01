@@ -1,4 +1,4 @@
-package View;
+package view;
 
 /**
  * gameScreenController Created by Shannor
@@ -12,11 +12,9 @@ import model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
-import javafx.stage.Stage;
 
 public class gameScreenController{
 
