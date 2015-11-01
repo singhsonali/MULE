@@ -6,6 +6,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main/Main.java" afterPath="$PROJECT_DIR$/src/Main/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/storeController.java" afterPath="$PROJECT_DIR$/src/view/storeController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/townMapController.java" afterPath="$PROJECT_DIR$/src/view/townMapController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -685,15 +686,15 @@
       <workItem from="1446237622009" duration="7000" />
       <workItem from="1446243536976" duration="162000" />
       <workItem from="1446243722714" duration="17586000" />
-      <workItem from="1446420725645" duration="238000" />
+      <workItem from="1446420725645" duration="285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25795000" />
+    <option name="totallyTimeSpent" value="25842000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
