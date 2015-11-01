@@ -1,11 +1,13 @@
-package Model;
+package model;
 
 /**
  * Created by Shannor on 9/20/2015.
  * Class to hold Money item
- * Will be held by Player and the Town stores
+ * Will be held by Player and the stores
  */
-public class Money extends Resources {
+public class Money extends AbstractResources {
+
+    private int amount;
 
     public Money(){
         this.amount = 0;

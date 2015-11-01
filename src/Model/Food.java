@@ -1,11 +1,12 @@
-package Model;
+package model;
 
 /**
  * Created by Shannor on 9/20/2015.
- * Food class inherits from Resources
+ * Food class inherits from AbstractResources
  * Food is given at the start and updated as the game goes on
  */
-public class Food extends Resources {
+public class Food extends AbstractResources {
+    private int amount;
 
     public Food(){
         this.amount = 8;

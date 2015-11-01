@@ -1,12 +1,10 @@
-package View;
+package view;
 
 import Main.Main;
-import Model.*;
+import model.*;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,13 +12,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.Timer;
-import java.util.PriorityQueue;
 import java.util.Comparator;
 
-import Model.Player;
-import View.playerTraitController;
+import model.Player;
 
 /**
  * Created by Melanie Smith on 9/20/2015.

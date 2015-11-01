@@ -1,32 +1,20 @@
-package View;
+package view;
 
 import Main.Main;
-import Model.GameTimer;
-import Model.Player;
-import Model.Round;
-import com.sun.imageio.spi.RAFImageOutputStreamSpi;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
+import model.GameTimer;
+import model.Player;
+import model.Round;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import javax.swing.text.LabelView;
 import java.io.IOException;
-import java.util.concurrent.Callable;
 
 /**
  * Created by Ashley on 10/1/2015.

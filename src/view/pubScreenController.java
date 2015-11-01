@@ -1,16 +1,14 @@
-package View;
+package view;
 
-import Main.Main;
-import Model.GameTimer;
-import Model.Player;
-import Model.Pub;
+import model.GameTimer;
+import model.Player;
+import model.Pub;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**

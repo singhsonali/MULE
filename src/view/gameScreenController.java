@@ -1,4 +1,4 @@
-package View;
+package view;
 
 /**
  * gameScreenController Created by Shannor
@@ -8,15 +8,13 @@ package View;
  * @return Number of players, Map Chosen
  */
 import Main.Main;
-import Model.Player;
+import model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
-import javafx.stage.Stage;
 
 public class gameScreenController{
 
@@ -37,8 +35,6 @@ public class gameScreenController{
 
     //Ref to main application
     private Main main;
-    //Ref to last scene visited
-    private Scene prevScene;
 
     //Constructor
     public gameScreenController(){
@@ -68,9 +64,6 @@ public class gameScreenController{
                 //Return map choice to Main
                 main.setMapChoice(getMapChoice());
                 main.showPlayerTraitScreen();
-                //Closes this screen
-                Stage stage = (Stage) prevScene.getWindow();
-                stage.close();
             }
         });
 
@@ -91,8 +84,5 @@ public class gameScreenController{
     }
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
-    }
-    public void setPrevScene(Scene scene){
-        this.prevScene = scene;
     }
 }

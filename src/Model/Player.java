@@ -1,13 +1,7 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.scene.paint.Color;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 /**
  * Created by Shannor on 9/16/2015.
  * Will hold all information about a player,
@@ -25,7 +19,7 @@ public class Player {
     private int landGrants;
     //The number the player is when created, Class variable
     private static int playerNumber = 0;
-    //Resources
+    //AbstractResources
     private Food food;
     private Energy energy;
     private Money money;

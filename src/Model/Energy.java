@@ -1,11 +1,12 @@
-package Model;
+package model;
 
 /**
  * Created by Shannor on 9/20/2015.
  * Class to hold Energy types
- * Will be held by Players and the Town (I Think)
+ * Will be held by Players and Stores
  */
-public class Energy extends Resources {
+public class Energy extends AbstractResources {
+    private int amount;
 
     public Energy(){
         this.amount = 4; //default

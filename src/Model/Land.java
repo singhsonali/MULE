@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -46,11 +46,14 @@ public class Land {
         this.player = null;
     }
 
-    public Land(Town town) {
-        this.mountain = 0;
-        this.river = false;
-        this.open = false;
-        this.town = true;
+    public Land(String town) {
+        if(town.equals("Town")){
+            this.mountain = 0;
+            this.river = false;
+            this.open = false;
+            this.town = true;
+        }
+
     }
 
 
