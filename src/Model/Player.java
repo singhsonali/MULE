@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Up to four players
  *
  */
-public class Player {
+public class Player implements java.io.Serializable {
     private String name;
     private String race;
     private String color;

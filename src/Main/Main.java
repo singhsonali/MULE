@@ -8,7 +8,8 @@ import view.townMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
+import java.io.*;
+
 import view.gameScreenController;
 import view.PlayerTraitController;
 import view.mapController;
@@ -206,5 +207,44 @@ public class Main extends Application {
     }
     public void setMulePhase(boolean bool) {
         this.mulePhase = true;
+    }
+
+
+    public void saveGame(){
+        try{
+            FileOutputStream fileOut = new FileOutputStream("saveFile.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(playerData); //Save all player information
+            out.writeObject(round); //Save the round information
+            out.writeObject(gameMap); //Save the current Map
+            out.close(); //close
+            fileOut.close();
+            System.out.println("Saved data is saved in saveFile.txt");
+            System.out.println("Saved Player 1:" + playerData.get(0).getName());
+            System.out.println("Saved Round:" + round.getRound());
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGame(){
+        try{
+            FileInputStream fileIn = new FileInputStream("saveFile.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            this.playerData = (ObservableList<Player>) in.readObject();
+            this.round = (Round)in.readObject();
+            this.gameMap =(Map)in.readObject();
+            in.close();
+            fileIn.close();
+            System.out.println("Loaded Player 1:" + playerData.get(0).getName());
+            System.out.println("Saved Round:" + round.getRound());
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException c){
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
     }
 }

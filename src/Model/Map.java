@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * When Map is created it should also make all the Land as well
  *
  */
-public class Map {
+public class Map implements java.io.Serializable {
     //Store owned land current so cna updated MapScene.fxml colors
     private ArrayList<Land> ownedLand = new ArrayList<Land>();
     //2D array of all possible land
