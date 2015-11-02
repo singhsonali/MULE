@@ -223,7 +223,7 @@ public class Main extends Application {
             System.out.println("Saved data is saved in saveFile.txt");
             System.out.println("Saved Player 1:" + temp.get(0).getName());
             System.out.println("Saved Round:" + round.getRound());
-
+            System.out.println("Saved Player 2:" + playerData.get(1).getName());
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -239,8 +239,14 @@ public class Main extends Application {
             this.gameMap =(Map)in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("Loaded Player 1:" + temp.get(0).getName());
+            //Clear current playerData and add new player back
+            this.playerData.clear();
+            for(Player p : temp){
+                this.playerData.add(p);
+            }
+            System.out.println("Loaded Player 1:" + playerData.get(0).getName());
             System.out.println("Saved Round:" + round.getRound());
+            System.out.println("Loaded Player 2:" + playerData.get(1).getName());
 
         }catch(IOException e){
             e.printStackTrace();
