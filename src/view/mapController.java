@@ -1,6 +1,6 @@
 package view;
 
-import Main.Main;
+import main.Main;
 import model.*;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
