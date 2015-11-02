@@ -7,7 +7,7 @@ package view;
  *
  * @return Number of players, Map Chosen
  */
-import Main.Main;
+import main.Main;
 import model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -61,7 +61,7 @@ public class gameScreenController{
             public void handle(ActionEvent event) {
                 //Return number of players to main
                 main.setPlayerCount((int)numPlayerSlider.getValue());
-                //Return map choice to Main
+                //Return map choice to main
                 main.setMapChoice(getMapChoice());
                 main.showPlayerTraitScreen();
             }

@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 /**
  * Created by Ashley on 9/20/2015.
  */
-public class Land {
+public class Land implements java.io.Serializable {
     private int mountain;
     private boolean river;
     private boolean open;
