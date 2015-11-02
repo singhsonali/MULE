@@ -2,10 +2,9 @@ package model;
 
 /**
  * Created by rileyauten on 9/30/15.
- * Land Resource class that extends from the Abstract Class AbstractResources.
+ * Land Resource class
  */
-public class Ore extends AbstractResources {
-
+public class Ore {
     /**
      * Variable to hold the amount of Ore Owned.
      */

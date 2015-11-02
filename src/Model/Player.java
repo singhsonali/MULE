@@ -19,7 +19,6 @@ public class Player {
     private int landGrants;
     //The number the player is when created, Class variable
     private static int playerNumber = 0;
-    //AbstractResources
     private Food food;
     private Energy energy;
     private Money money;

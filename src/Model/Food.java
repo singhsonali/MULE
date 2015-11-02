@@ -2,10 +2,9 @@ package model;
 
 /**
  * Created by Shannor on 9/20/2015.
- * Food class inherits from AbstractResources
  * Food is given at the start and updated as the game goes on
  */
-public class Food extends AbstractResources {
+public class Food {
     private int amount;
 
     public Food(){
@@ -13,12 +12,10 @@ public class Food extends AbstractResources {
     }
     //Update method
 
-    @Override
     void setAmount(int i) {
         this.amount = i;
     }
 
-    @Override
     public int getAmount() {
         return this.amount;
     }
