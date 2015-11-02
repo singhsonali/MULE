@@ -1,5 +1,5 @@
 package view;
-import Main.Main;
+import main.Main;
 import model.*;
 
 import javafx.event.ActionEvent;
@@ -30,7 +30,7 @@ public class storeController {
     private Scene prevScene; //Town
     private GameTimer currentTimer; //Current time
     private Scene currentScene; //Store
-    private townMapController controller;
+    private TownMapController controller;
 
     @FXML
     public TextField txtAmount;
@@ -310,7 +310,6 @@ public class storeController {
     public void sellFood(int amnt) {
         if (currentPlayer.getFood() < amnt) {
             lblConfirmMsg.setText("Cannot sell more food than you have");
-            //throw new IndexOutOfBoundsException("Cannot sell more food than you have");
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() + (amnt * 30));
             currentPlayer.setFood(currentPlayer.getFood() - amnt);
@@ -325,14 +324,12 @@ public class storeController {
     public void sellOre(int amnt) {
         if (currentPlayer.getOre() < amnt) {
             lblConfirmMsg.setText("Cannot sell more ore than you have");
-            //throw new IndexOutOfBoundsException("Cannot sell more ore than you have");
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() + (amnt * 50));
             currentPlayer.setOre(currentPlayer.getOre() - amnt);
             store.setOre(store.getOre() + amnt);
             lblConfirmMsg.setText("You have sold " + amnt + " ore.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
             txtAmount.setText("");
         }
     }
@@ -340,14 +337,12 @@ public class storeController {
     public void sellEnergy(int amnt) {
         if (currentPlayer.getEnergy() < amnt) {
             lblConfirmMsg.setText("Cannot sell more energy than you have");
-            //throw new IndexOutOfBoundsException("Cannot sell more energy than you have");
         } else {
             currentPlayer.setMoney(currentPlayer.getMoney() + (amnt * 25));
             currentPlayer.setEnergy(currentPlayer.getEnergy() - amnt);
             store.setEnergy(store.getEnergy() + amnt);
             lblConfirmMsg.setText("You have sold " + amnt + " energy.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
             txtAmount.setText("");
         }
     }
@@ -360,18 +355,17 @@ public class storeController {
     public void getStage(Stage stage){
         this.primaryStage  = stage;
     }
-    public void setController(townMapController controller){
+    public void setController(TownMapController controller){
         this.controller = controller;
     }
     public void getPrimaryStage(Stage stage){
         this.primaryStage = stage;
     }
-    public void getCurrentPlayer(Player player){
+    public void setCurrentPlayer(Player player){
         this.currentPlayer = player;
     }
     public void setPrevScene(Scene scene){
         this.prevScene = scene;
-        //controller.updateCurrent();
     }
     public void setCurrentScene(Scene scene){
         this.currentScene = scene;
@@ -380,7 +374,6 @@ public class storeController {
         this.currentTimer = timer;
     }
     public void setTimer(){
-        //currentTimer.setLabel(lblPubTimer);
         currentTimer.getTimeline().setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

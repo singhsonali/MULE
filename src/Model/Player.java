@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Shannor on 9/16/2015.
@@ -9,48 +10,91 @@ import java.util.ArrayList;
  *
  */
 public class Player implements java.io.Serializable {
+    /**
+     * Player's name.
+     */
     private String name;
+    /**
+     * Player's race.
+     */
     private String race;
+    /**
+     * Player's color.
+     */
     private String color;
-    //Turn will be given to the player
-    private int turn;
-    private int playerNum;
-    //Each player gets two for receiving free land
+    /**
+     * Player's land grants.
+     * Each player gets two for receiving free land.
+     */
     private int landGrants;
-    //The number the player is when created, Class variable
-    private static int playerNumber = 0;
+    /**
+     * Player's food.
+     */
     private Food food;
+    /**
+     * Player's energy.
+     */
     private Energy energy;
+    /**
+     * Player's money.
+     */
     private Money money;
+    /**
+     * Player's ore.
+     */
     private Ore ore;
+    /**
+     * Player's ore Mules.
+     */
     private Mule oreMule;
+    /**
+     * Player's energy Mules.
+     */
     private Mule energyMule;
+    /**
+     * Player's food Mules.
+     */
     private Mule foodMule;
+    /**
+     * Player's total Mules.
+     */
     private int totalMule;
+    /**
+     * Player's holding mule.
+     */
     private String holdingMule;
-
-    //How much time they have for the round
-    private int roundTime;
+    /**
+     * The current round.
+     */
     private Round round;
 
-    private final int ENERGY_CONST = 25, FOOD_CONST = 30, LAND_GRAND_CONST = 500, ORE_CONST = 50;
+    /**
+     * Constants for energy, food, landGrants, and ore.
+     */
+    private final static int energyConstant = 25, foodConstant = 30,
+            landGrantConstant = 500, oreConstant = 50;
 
-    //Player holds an array of owned land
-    private ArrayList<Land> ownedLand;
+    /**
+     * Player holds an array of owned land.
+     */
+    private List<Land> ownedLand;
 
-    public Player(){
-        this.name = "temp";
-        this.race = "temp";
-        this.color = "temp";
-        this.playerNum = ++playerNumber;
-        this.landGrants = 2;
+    /**
+     * Variable used in roundTime calculation.
+     */
+    private final static int roundTimeNum = 5;
 
-    }
-    public Player(String name, String race, String color){
-        this.name = name;
-        this.race = race;
-        this.color = color;
-        this.playerNum =  ++playerNumber;
+    /**
+     * Creates a new player with name, race, and color.
+     * @param playerName the player's name
+     * @param playerRace the player's race
+     * @param playerColor the player's color
+     */
+    public Player(final String playerName, final String playerRace,
+                  final String playerColor) {
+        this.name = playerName;
+        this.race = playerRace;
+        this.color = playerColor;
         this.landGrants = 2;
         this.food = new Food();
         this.ore = new Ore();
@@ -59,171 +103,275 @@ public class Player implements java.io.Serializable {
         this.foodMule = new Mule();
         this.energyMule = new Mule();
         this.oreMule = new Mule();
-        this.ownedLand = new ArrayList<Land>();
+        this.ownedLand = new ArrayList<>();
         this.ore = new Ore();
         totalMule = calcTotalMules();
         this.round = new Round();
-        this.holdingMule = holdingMule;
     }
 
-
-    public String getName(){
+    /**
+     * Returns player name.
+     * @return player name
+     */
+    public final String getName() {
         return this.name;
     }
-
-    public String getRace(){
+    /**
+     * Returns player race.
+     * @return player race
+     */
+    final String getRace() {
         return this.race;
     }
-    public String getColor(){
+    /**
+     * Returns player color.
+     * @return player color
+     */
+    public final String getColor() {
         return this.color;
     }
-    public int getTurn(){
-        return this.turn;
+    /**
+     * Returns player's land grants.
+     * @return player land grants
+     */
+    final int getLandGrants() {
+        return this.landGrants;
     }
-    public int getPlayerNum(){
-        return this.playerNum;
-    }
-    public int getLandGrants(){return this.landGrants;}
-    public int getFood(){
+    /**
+     * Returns player food.
+     * @return player food
+     */
+    public final int getFood() {
         return this.food.getAmount();
     }
-    public int getMoney(){
+    /**
+     * Returns player money.
+     * @return player money
+     */
+    public final int getMoney() {
         return this.money.getAmount();
     }
-    public int getEnergy(){
+    /**
+     * Returns player energy.
+     * @return player energy
+     */
+    public final int getEnergy() {
         return this.energy.getAmount();
     }
-    public int getOre() { return this.ore.getAmount(); }
-    public int getOreMule() {return this.oreMule.getAmount(); }
-    public int getEnergyMule() {return this.energyMule.getAmount(); }
-    public int getFoodMule() {return this.foodMule.getAmount(); }
-    public String getHoldingMule() {return this.holdingMule; }
-    public ArrayList<Land> getLand() {
-        return this.ownedLand;
+    /**
+     * Returns player ore.
+     * @return player ore
+     */
+    public final int getOre() {
+        return this.ore.getAmount();
+    }
+    /**
+     * Returns player ore mule.
+     * @return player ore mule
+     */
+    public final int getOreMule() {
+        return this.oreMule.getAmount();
+    }
+    /**
+     * Returns player energy mule.
+     * @return player energy mule
+     */
+    public final int getEnergyMule() {
+        return this.energyMule.getAmount();
+    }
+    /**
+     * Returns player food mule.
+     * @return player food mule
+     */
+    public final int getFoodMule() {
+        return this.foodMule.getAmount();
     }
 
-    public int calcRoundTime() {
-        if (getFood() == 0 || totalMule != 0 && energy.getAmount() == 0) { //No food or no energy for mules
-            return 5;
-        } else if (!this.round.checkRequirement(food) || energy.getAmount() < totalMule) { //Not enough food or energy for mules
-            return 30;
+    /**
+     * Returns the player holding mule.
+     * @return player holding mule
+     */
+    public final String getHoldingMule() {
+        return this.holdingMule;
+    }
+
+    /**
+     * Calculates the round time of a player based on resources.
+     * @return the round time of player
+     */
+    public final int calcRoundTime() {
+        if (getFood() == 0 || totalMule != 0
+                && energy.getAmount() == 0) { //No food or no energy for mules
+            return roundTimeNum;
+        } else if (!this.round.checkRequirement(food) || energy.getAmount()
+                < totalMule) { //Not enough food or energy for mules
+            return roundTimeNum * 2 * 2 * 2; // = 30 (Magic Numbers suck)
         } else { //Meets food and energy requirement
-            return 50;
+            return roundTimeNum * roundTimeNum + roundTimeNum; // = 50
         }
     }
 
-    public int calcTotalMules() {
-        return oreMule.getAmount() + energyMule.getAmount() + foodMule.getAmount();
+    /**
+     * Calculates the total mules of a player.
+     * @return the total mules of a player
+     */
+    final int calcTotalMules() {
+        return oreMule.getAmount() + energyMule.getAmount()
+                + foodMule.getAmount();
     }
 
-    public void addMoney(int i){
+    /**
+     * Adds an amount of money to the player's money.
+     * @param i the amount of money added
+     */
+    public final void addMoney(final int i) {
         int temp = this.money.getAmount();
         temp += i;
         this.money.setAmount(temp);
     }
-    public void subtractMoney(int i){
+
+    /**
+     * Subtracts an amount of money to the player's money.
+     * @param i the amount of money subtracted
+     */
+    public final void subtractMoney(final int i) {
         int temp = this.money.getAmount();
         temp -= i;
         this.money.setAmount(temp);
     }
 
-    public void setName(String name){
-        this.name = name;
+    /**
+     * Sets the player's food.
+     * @param i the player's new food amount
+     */
+    public final void setFood(final int i) {
+        this.food.setAmount(i);
     }
-    public void setRace(String race){
-        this.race = race;
+
+    /**
+     * Sets the player's money.
+     * @param i the player's new money amount
+     */
+    public final void setMoney(final int i) {
+        this.money.setAmount(i);
     }
-    public void setColor(String color){
-        this.color = color;
+    /**
+     * Sets the player's energy.
+     * @param i the player's new energy amount
+     */
+    public final void setEnergy(final int i) {
+        this.energy.setAmount(i);
     }
-    public void setTurn(int i){
-        this.turn = i;
+    /**
+     * Sets the player's ore.
+     * @param i the player's new ore amount
+     */
+    public final void setOre(final int i) {
+        this.ore.setAmount(i);
     }
-    public void setFood(int i){this.food.setAmount(i);}
-    public void setMoney(int i){this.money.setAmount(i);}
-    public void setEnergy(int i){this.energy.setAmount(i);}
-    public void setOre(int i){this.ore.setAmount(i);}
 
     //There are three types of MULE a player can buy, all have different prices
-    public void setOreMule(int i){this.oreMule.setAmount(i);}
-    public void setEnergyMule(int i){this.energyMule.setAmount(i);}
-    public void setFoodMule(int i){this.foodMule.setAmount(i);}
-    public void setHoldingMule(String s){
-        holdingMule = s;
-        System.out.println("HoldingMule set.");
+
+    /**
+     * Sets the player's ore mule amount.
+     * @param i player's new ore mule amount
+     */
+    public final void setOreMule(final int i) {
+        this.oreMule.setAmount(i);
+    }
+    /**
+     * Sets the player's energy mule amount.
+     * @param i player's new energy mule amount
+     */
+    public final void setEnergyMule(final int i) {
+        this.energyMule.setAmount(i);
+    }
+    /**
+     * Sets the player's food mule amount.
+     * @param i player's new food mule amount
+     */
+    public final void setFoodMule(final int i) {
+        this.foodMule.setAmount(i);
     }
 
-    public boolean hasLand() {
+    /**
+     * Sets the player's holding mule string.
+     * @param s the holding mule string
+     */
+    public final void setHoldingMule(final String s) {
+        holdingMule = s;
+    }
+
+    /**
+     * Whether an owned land is empty or not.
+     * @return whether land is empty
+     */
+    public final boolean hasLand() {
         return !ownedLand.isEmpty();
     }
-    public boolean haveLandGrants(){
+    /**
+     * Whether a player has land grants or not.
+     * @return whether player has land grants
+     */
+    public final boolean haveLandGrants() {
         return this.landGrants > 0;
     }
-    public boolean useLandGrant(){
-        if(haveLandGrants()) {
+    /**
+     * Whether a player has land grants or not.
+     * If true, subtract one from land grants.
+     * @return whether player has land grants
+     */
+    public final boolean useLandGrant() {
+        if (haveLandGrants()) {
             this.landGrants--;
             return  true;
         }
-        return false ; //Player is out of landGrants
+        return false; //Player is out of landGrants
     }
 
-    public boolean hasMule() {
-        if (holdingMule != null) {
-            return true;
-        } else {
-            return false;
-        }
+    /**
+     * Whether a player has a holding mule or not.
+     * @return whether player has holding mule
+     */
+    public final boolean hasMule() {
+        return holdingMule != null;
     }
 
-    public void addLand(Land land){
+    /**
+     * Adds land to owned land list.
+     * @param land land to be added
+     */
+    public final void addLand(final Land land) {
         ownedLand.add(land);
     }
-    public void removeLand(Land land){
-        if(ownedLand.contains(land)) {
-            ownedLand.remove(land);
-        }
+
+    /**
+     * Calculates the player's score.
+     * @return player's score
+     */
+    public final int calcScore() {
+        return getMoney() + (getEnergy() * energyConstant)
+                + (getFood() * foodConstant)
+                + (getLandGrants() * landGrantConstant)
+                + (getOre() * oreConstant);
     }
 
-    public int calcScore() {
-        return getMoney() + (getEnergy()*ENERGY_CONST) + (getFood()*FOOD_CONST) +
-                (getLandGrants() * LAND_GRAND_CONST) + (getOre() * ORE_CONST);
-    }
-
-    public void muleProduction() {
+    /**
+     * For every owned land of the player with a mule on it,
+     * resources are produced.
+     */
+    public final void muleProduction() {
         for (Land land : ownedLand) {
             land.updatePlayerResources();
         }
     }
 
-    // onMouseClick event
-    public void buyOreMule() {
-        if (money.getAmount() < 175) {
-            throw new IndexOutOfBoundsException("Insufficient funds: Cannot be in debt");
-        }
-        setMoney(money.getAmount() - 175);
-        setOreMule(oreMule.getAmount() + 1);
-    }
-
-    // onMouseClick event
-    public void buyEnergyMule() {
-        if (money.getAmount() < 150) {
-            throw new IndexOutOfBoundsException("Insufficient funds: Cannot be in debt");
-        }
-        setMoney(money.getAmount() - 150);
-        setEnergyMule(energyMule.getAmount() + 1);
-    }
-
-    //onMouseClick event
-    public void buyFoodMule() {
-        if (money.getAmount() < 125) {
-            throw new IndexOutOfBoundsException("Insufficient funds: Cannot be in debt");
-        }
-        setMoney(money.getAmount() - 125);
-        setFoodMule(foodMule.getAmount() + 1);
-    }
-
-    // happens if a player wants to replace the MULE he currently has on a piece of land
-    public void removeMule(String muleType) {
+    /**
+     * Happens if a player wants to replace the mule
+     * they currently have on a piece of land.
+     * @param muleType the type of mule to be removed
+     */
+    public final void removeMule(final String muleType) {
         if (muleType.equals("Ore")) {
             setOreMule(getOreMule() - 1);
         } else if (muleType.equals("Food")) {
@@ -233,12 +381,17 @@ public class Player implements java.io.Serializable {
         }
     }
 
-    public String getResources() {
-        return "Player: " + getName() + "\n"
-                + "Money: " + getMoney() + "\n"
-                + "Food: " + getFood() + "\n"
-                + "Energy: " + getEnergy() + "\n"
-                + "Ore: " + getOre() + "\n"
+    /**
+     * Returns a string of player resource data for printing.
+     * @return string of player resource data
+     */
+    public final String getResources() {
+        String nextLine = "\n";
+        return "Player: " + getName() + nextLine
+                + "Money: " + getMoney() + nextLine
+                + "Food: " + getFood() + nextLine
+                + "Energy: " + getEnergy() + nextLine
+                + "Ore: " + getOre() + nextLine
                 + "==================================================";
     }
 }

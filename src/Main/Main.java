@@ -1,10 +1,10 @@
-package Main;
+package main;
 
 import model.GameTimer;
 import model.Map;
 import model.Player;
 import model.Round;
-import view.townMapController;
+import view.TownMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -134,8 +134,7 @@ public class Main extends Application {
             AnchorPane townMap = (AnchorPane) loader.load();
 
             Scene scene = new Scene(townMap);
-            townMapController controller = loader.getController();
-            controller.setPrevScene(currentScene); //MapScene
+            TownMapController controller = loader.getController();
 
             currentScene = scene;
             primaryStage.setScene(scene);
@@ -143,14 +142,11 @@ public class Main extends Application {
 
             //printPlayerData();
             controller.setCurrentScene(currentScene); //Town Scene
-            controller.setMyScene(currentScene);//Used for handling end of time for player turns
             controller.setPlayerData(playerData); //pass in all players
             controller.setCurrentRound(round); //Set round
-            controller.getPrimaryStage(primaryStage);
+            controller.setPrimaryStage(primaryStage);
             if (!returningFromStore) {
                 controller.setTimer(); //Start timer
-            } else {
-                controller.setReturnTimer(returnTimer);
             }
             loader.setController(controller);
             controller.setMainApp(this);
