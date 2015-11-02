@@ -453,7 +453,7 @@ public class mapController {
      * Shows the town screen.
      */
     @FXML
-    public void openTown() {
+    public final void openTown() {
         //Provide conditional when this method can work.
         //ie if(land purchases are done)
         if (landSelectionFinished) {
@@ -471,7 +471,7 @@ public class mapController {
      * Skips player's turn.
      */
     @FXML
-    public void skipTurn() {
+    public final void skipTurn() {
         skips++;
         if (skips == tempPlayers.size()) {
             System.out.println("All players skipped. "
@@ -498,7 +498,7 @@ public class mapController {
      * Details the land selection phase for the players.
      */
     @FXML
-    public void playersSelectLand() {
+    public final void playersSelectLand() {
         if (!landSelectionFinished && !landPhaseSkipped) {
             if (numPlayers < tempPlayers.size()) {
                 //Go through land procedure
@@ -559,7 +559,7 @@ public class mapController {
     /**
      * updates the current player.
      */
-    public void updatePlayer() {
+    public final void updatePlayer() {
         currentPlayer = tempPlayers.get(numPlayers);
         updatePlayerLabel();
     }
@@ -567,7 +567,7 @@ public class mapController {
     /**
      * Updates the player label to the current player.
      */
-    public void updatePlayerLabel() {
+    public final void updatePlayerLabel() {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
@@ -576,7 +576,7 @@ public class mapController {
      *
      * @param pane The pane to be the new current pane.
      */
-    public void updateCurrentPane(Pane pane) {
+    public final void updateCurrentPane(final Pane pane) {
         //Error Checking
         if (!landSelectionFinished) {
             if (currentPane == pane) {
@@ -595,11 +595,11 @@ public class mapController {
     }
 
     /**
-     * Changes whether the interface is visible
+     * Changes whether the interface is visible.
      *
      * @param bool Represents whether the interface should be visible
      */
-    public void setInterfaceInvis(boolean bool) {
+    public final void setInterfaceInvis(final boolean bool) {
         btnContinue.visibleProperty().setValue(bool);
         btnSkip.visibleProperty().setValue(bool);
         lblInstructions.setText("Go to the Town");
@@ -611,25 +611,26 @@ public class mapController {
      *
      * @param bool represents whether the set land phase should be skipped.
      */
-    public void setLandPhaseSkipped(boolean bool) {
+    public final void setLandPhaseSkipped(final boolean bool) {
         this.landPhaseSkipped = bool;
     }
 
     /**
      * Sets the controller for the store.
      *
-     * @param storeController
+     * @param storeController controller for the store
      */
-    public void setStoreController(storeController storeController) {
+    public final void setStoreController(
+            final storeController storeController) {
         this.storeController = storeController;
     }
 
     /**
      * Sets the main application for the game.
      *
-     * @param mainApp
+     * @param mainApp main application for the game
      */
-    public void setMainApp(Main mainApp) {
+    public final void setMainApp(final Main mainApp) {
         this.main = mainApp;
     }
 
@@ -638,7 +639,7 @@ public class mapController {
      *
      * @param scene The scene to be set as the previous scene.
      */
-    public void setPrevScene(Scene scene) {
+    public final void setPrevScene(final Scene scene) {
         this.prevScene = scene;
     }
 
@@ -647,14 +648,14 @@ public class mapController {
      *
      * @param map the current map.
      */
-    public void getMap(Map map) {
+    public final void getMap(final Map map) {
         this.tempMap = map;
     }
 
     /**
      * Sorts the list of players.
      */
-    public void sortPlayers() {
+    public final void sortPlayers() {
         FXCollections.sort(this.tempPlayers, new PlayerComparator());
     }
 
@@ -663,7 +664,7 @@ public class mapController {
      *
      * @param player The player whose data is being set.
      */
-    public void setPlayerData(ObservableList<Player> player) {
+    public final void setPlayerData(final ObservableList<Player> player) {
         this.tempPlayers = player;
         sortPlayers();
         currentPlayer = tempPlayers.get(0);
@@ -675,7 +676,7 @@ public class mapController {
      *
      * @param controller the map controller for the game.
      */
-    public void setController(mapController controller) {
+    public final void setController(final mapController controller) {
         this.controller = controller;
     }
 
@@ -684,7 +685,7 @@ public class mapController {
      *
      * @param player the player to be set as the current player.
      */
-    public void setCurrentPlayer(Player player) {
+    public final void setCurrentPlayer(final Player player) {
         this.currentPlayer = player;
     }
 
@@ -693,7 +694,7 @@ public class mapController {
      *
      * @param bool represents whether the land selection phase is completed
      */
-    public void setLandSelectionFinished(boolean bool) {
+    public final void setLandSelectionFinished(final boolean bool) {
         this.landSelectionFinished = bool;
         if (bool) {
             btnContinue.visibleProperty().setValue(false);
@@ -714,7 +715,7 @@ public class mapController {
          * @param b second player.
          * @return 1 if first player's score is higher.
          */
-        public int compare(Player a, Player b) {
+        public final int compare(final Player a, final Player b) {
             int aScore = a.calcScore();
             int bScore = b.calcScore();
             if (aScore > bScore) {
@@ -730,7 +731,7 @@ public class mapController {
     /**
      * Sets the phase labels for the Mules.
      */
-    public void setMulePhaseLabels() {
+    public final void setMulePhaseLabels() {
         lblPlayerName.setText(currentPlayer.getName());
         lblInstructions.setText("Select Where to Place Mule");
         btnContinue.setVisible(false);
@@ -740,7 +741,7 @@ public class mapController {
     /**
      * Places an Ore Mule.
      */
-    public void placeOreMule() {
+    public final void placeOreMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setOreMule(1);
@@ -764,13 +765,14 @@ public class mapController {
     /**
      * Places an energy mule.
      */
-    public void placeEnergyMule() {
+    public final void placeEnergyMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setEnergyMule(1);
             currentPlayer.setHoldingMule(null);
             storeController.leaveStore();
-        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
+        } else if (tempMap.getLand(row, column)
+                .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).clearMule();
             String muleType = tempMap.getLand(row, column).getMuleType();
@@ -787,13 +789,14 @@ public class mapController {
     /**
      * Places a food mule.
      */
-    public void placeFoodMule() {
+    public final void placeFoodMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setFoodMule(1);
             currentPlayer.setHoldingMule(null);
             storeController.leaveStore();
-        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
+        } else if (tempMap.getLand(row, column)
+                .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).clearMule();
             String muleType = tempMap.getLand(row, column).getMuleType();
@@ -812,14 +815,14 @@ public class mapController {
      *
      * @param round the current round.
      */
-    public void setRound(Round round) {
+    public final void setRound(final Round round) {
         this.round = round;
     }
 
     /**
      * connects Map Land's object to gridPane pane's.
      */
-    public void connectMapWithPanes() {
+    public final void connectMapWithPanes() {
         tempMap.getLand(0, 0).setMyPane(pane00);
         tempMap.getLand(0, 1).setMyPane(pane01);
         tempMap.getLand(0, 2).setMyPane(pane02);
@@ -875,10 +878,10 @@ public class mapController {
      *
      * @param pane the map pane to be altered.
      */
-    public void updateColor(Pane pane) {
+    public final void updateColor(final Pane pane) {
         //Sets the Land border to player color
         //Temp[0] hold the original background
-        String temp[] = pane.getStyle().split(";");
+        String[] temp = pane.getStyle().split(";");
         pane.setStyle(temp[0] + ";" + "-fx-border-color: "
                 + currentPlayer.getColor());
     }
@@ -888,16 +891,16 @@ public class mapController {
      *
      * @param pane the pane to be altered.
      */
-    public void revertColor(Pane pane) {
+    public final void revertColor(final Pane pane) {
         //Set back to original color
-        String temp[] = pane.getStyle().split(";");
+        String[] temp = pane.getStyle().split(";");
         pane.setStyle(temp[0] + ";" + "-fx-border-color: Black");
     }
 
     /**
      * Places a mule.
      */
-    public void placeMule() {
+    public final void placeMule() {
         if (currentPlayer.getHoldingMule().equals("Energy")) {
             placeEnergyMule();
         } else if (currentPlayer.getHoldingMule().equals("Food")) {
@@ -911,7 +914,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice00() {
+    public final void setLandChoice00() {
         this.column = 0;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -927,7 +930,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice01() {
+    public final void setLandChoice01() {
         this.column = 1;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -941,7 +944,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice02() {
+    public final void setLandChoice02() {
         this.column = 2;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -955,7 +958,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice03() {
+    public final void setLandChoice03() {
         this.column = 3;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -969,7 +972,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice04() {
+    public final void setLandChoice04() {
         this.column = 4;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -983,7 +986,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice05() {
+    public final void setLandChoice05() {
         this.column = 5;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -997,7 +1000,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice06() {
+    public final void setLandChoice06() {
         this.column = 6;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1011,7 +1014,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice07() {
+    public final void setLandChoice07() {
         this.column = 7;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1025,7 +1028,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice08() {
+    public final void setLandChoice08() {
         this.column = 8;
         this.row = 0;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1039,7 +1042,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice10() {
+    public final void setLandChoice10() {
         this.column = 0;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1053,7 +1056,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice11() {
+    public final void setLandChoice11() {
         this.column = 1;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1067,7 +1070,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice12() {
+    public final void setLandChoice12() {
         this.column = 2;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1081,7 +1084,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice13() {
+    public final void setLandChoice13() {
         this.column = 3;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1095,7 +1098,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice14() {
+    public final void setLandChoice14() {
         this.column = 4;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1109,7 +1112,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice15() {
+    public final void setLandChoice15() {
         this.column = 5;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1123,7 +1126,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice16() {
+    public final void setLandChoice16() {
         this.column = 6;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1137,7 +1140,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice17() {
+    public final void setLandChoice17() {
         this.column = 7;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1151,7 +1154,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice18() {
+    public final void setLandChoice18() {
         this.column = 8;
         this.row = 1;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1165,7 +1168,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice20() {
+    public final void setLandChoice20() {
         this.column = 0;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1179,7 +1182,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice21() {
+    public final void setLandChoice21() {
         this.column = 1;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1193,7 +1196,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice22() {
+    public final void setLandChoice22() {
         this.column = 2;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1207,7 +1210,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice23() {
+    public final void setLandChoice23() {
         this.column = 3;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1221,7 +1224,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice25() {
+    public final void setLandChoice25() {
         this.column = 5;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1235,7 +1238,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice26() {
+    public final void setLandChoice26() {
         this.column = 6;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1249,7 +1252,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice27() {
+    public final void setLandChoice27() {
         this.column = 7;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1263,7 +1266,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice28() {
+    public final void setLandChoice28() {
         this.column = 8;
         this.row = 2;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1277,7 +1280,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice30() {
+    public final void setLandChoice30() {
         this.column = 0;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1291,7 +1294,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice31() {
+    public final void setLandChoice31() {
         this.column = 1;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1305,7 +1308,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice32() {
+    public final void setLandChoice32() {
         this.column = 2;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1319,7 +1322,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice33() {
+    public final void setLandChoice33() {
         this.column = 3;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1333,7 +1336,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice34() {
+    public final void setLandChoice34() {
         this.column = 4;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1347,7 +1350,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice35() {
+    public final void setLandChoice35() {
         this.column = 5;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1361,7 +1364,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice36() {
+    public final void setLandChoice36() {
         this.column = 6;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1375,7 +1378,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice37() {
+    public final void setLandChoice37() {
         this.column = 7;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1389,7 +1392,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice38() {
+    public final void setLandChoice38() {
         this.column = 8;
         this.row = 3;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1403,7 +1406,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice40() {
+    public final void setLandChoice40() {
         this.column = 0;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1417,7 +1420,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice41() {
+    public final void setLandChoice41() {
         this.column = 1;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1431,7 +1434,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice42() {
+    public final void setLandChoice42() {
         this.column = 2;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1445,7 +1448,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice43() {
+    public final void setLandChoice43() {
         this.column = 3;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1459,7 +1462,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice44() {
+    public final void setLandChoice44() {
         this.column = 4;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1473,7 +1476,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice45() {
+    public final void setLandChoice45() {
         this.column = 5;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1487,7 +1490,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice46() {
+    public final void setLandChoice46() {
         this.column = 6;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1501,7 +1504,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice47() {
+    public final void setLandChoice47() {
         this.column = 7;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1515,7 +1518,7 @@ public class mapController {
      * Sets the specific land choice.
      */
     @FXML
-    public void setLandChoice48() {
+    public final void setLandChoice48() {
         this.column = 8;
         this.row = 4;
         if (currentPlayer.getHoldingMule() != null) {
@@ -1530,7 +1533,7 @@ public class mapController {
      *
      * @param stage the stage to be set.
      */
-    public void getStage(Stage stage) {
+    public final void getStage(final Stage stage) {
         this.primaryStage = stage;
     }
 
@@ -1539,7 +1542,7 @@ public class mapController {
      *
      * @return the current player.
      */
-    public Player getCurrentPlayer() {
+    public final Player getCurrentPlayer() {
         return this.currentPlayer;
     }
 
@@ -1548,7 +1551,7 @@ public class mapController {
      *
      * @param scene the current scene.
      */
-    public void setCurrentScene(Scene scene) {
+    public final void setCurrentScene(final Scene scene) {
         this.currentScene = scene;
     }
 
@@ -1557,7 +1560,7 @@ public class mapController {
      *
      * @param timer the current timer.
      */
-    public void setCurrentTimer(GameTimer timer) {
+    public final void setCurrentTimer(final GameTimer timer) {
         this.currentTimer = timer;
     }
 
@@ -1566,7 +1569,7 @@ public class mapController {
      *
      * @param mulePhase the mule phase.
      */
-    public void setMulePhase(boolean mulePhase) {
+    public final void setMulePhase(final boolean mulePhase) {
         this.mulePhase = mulePhase;
     }
 }
