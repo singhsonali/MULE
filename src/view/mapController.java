@@ -44,7 +44,7 @@ public class mapController {
     private Stage primaryStage;
     private GameTimer currentTimer;
     private boolean mulePhase;
-    private StoreController storeController;
+    private view.storeController storeController;
     private boolean landPhaseSkipped = false;
 
     @FXML
@@ -344,7 +344,7 @@ public class mapController {
     public void setLandPhaseSkipped(boolean bool) {
         this.landPhaseSkipped = bool;
     }
-    public void setStoreController(StoreController storeController) {
+    public void setStoreController(view.storeController storeController) {
         this.storeController = storeController;
     }
     public void setMainApp(Main mainApp) {
@@ -452,13 +452,13 @@ public class mapController {
             currentPlayer.setHoldingMule(null);
             storeController.leaveStore();
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
-                tempMap.getLand(row, column).clearMule();
-                String muleType = tempMap.getLand(row, column).getMuleType();
-                currentPlayer.removeMule(muleType);
+            tempMap.getLand(row, column).clearMule();
+            String muleType = tempMap.getLand(row, column).getMuleType();
+            currentPlayer.removeMule(muleType);
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
-                currentPlayer.setHoldingMule(muleType);
+            currentPlayer.setHoldingMule(muleType);
             tempMap.getLand(row, column).setFoodMule(1);
-                currentPlayer.setHoldingMule(null);
+            currentPlayer.setHoldingMule(null);
         } else {
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() - 1);
         }

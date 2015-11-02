@@ -18,9 +18,9 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 /**
- * Created by Ashley on 9/25/2015.
+ * Created by Ashley Noll on 10/1/2015.
  */
-public class StoreController {
+public class storeController {
 
     /**
      * current pane.
@@ -199,7 +199,7 @@ public class StoreController {
     /**
      * Empty constructor for storeController.
      */
-    public StoreController() {
+    public storeController() {
 
     }
 
