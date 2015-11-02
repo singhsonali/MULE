@@ -9,7 +9,7 @@ import java.util.List;
  * Up to four players
  *
  */
-public class Player {
+public class Player implements java.io.Serializable {
     /**
      * Player's name.
      */

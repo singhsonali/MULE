@@ -2,11 +2,9 @@ package model;
 
 /**
  * Created by Shannor on 9/20/2015.
- * Food class inherits from AbstractResources
  * Food is given at the start and updated as the game goes on
  */
-public class Food extends AbstractResources {
-
+public class Food {
     /**
      * Variable to hold the amount of food owned.
      */
@@ -24,7 +22,6 @@ public class Food extends AbstractResources {
         super();
         this.amount = startAmount; //default
     }
-
     /**
      * Sets the amount to a new variable.
      * @param i The new amount desired for Ore.

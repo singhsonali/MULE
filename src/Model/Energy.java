@@ -5,8 +5,7 @@ package model;
  * Class to hold Energy types
  * Will be held by Players and Stores
  */
-public class Energy extends AbstractResources {
-
+public class Energy {
     /**
      * Variable to hold the amount of energy owned.
      */
@@ -24,7 +23,6 @@ public class Energy extends AbstractResources {
     public Energy() {
         this.amount = startAmount;
     }
-
     /**
      * Sets the amount to a new variable.
      * @param i The new amount desired for energy.
