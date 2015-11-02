@@ -1,6 +1,6 @@
 package view;
 
-import Main.Main;
+import main.Main;
 import model.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -54,7 +54,7 @@ public class PlayerTraitController {
     private transient Label lblWarning;
 
     /**
-     * Reference to Main to call functions in main and pass back information.
+     * Reference to main to call functions in main and pass back information.
      */
     private transient Main main;
 

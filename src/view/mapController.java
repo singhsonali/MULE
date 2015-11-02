@@ -1,6 +1,6 @@
 package view;
 
-import Main.Main;
+import main.Main;
 import model.*;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -44,7 +44,7 @@ public class mapController {
     private Stage primaryStage;
     private GameTimer currentTimer;
     private boolean mulePhase;
-    private storeController storeController;
+    private StoreController storeController;
     private boolean landPhaseSkipped = false;
 
     @FXML
@@ -344,7 +344,7 @@ public class mapController {
     public void setLandPhaseSkipped(boolean bool) {
         this.landPhaseSkipped = bool;
     }
-    public void setStoreController(storeController storeController) {
+    public void setStoreController(StoreController storeController) {
         this.storeController = storeController;
     }
     public void setMainApp(Main mainApp) {
