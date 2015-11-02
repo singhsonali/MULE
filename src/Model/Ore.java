@@ -4,7 +4,7 @@ package model;
  * Created by rileyauten on 9/30/15.
  * Land Resource class
  */
-public class Ore {
+public class Ore implements java.io.Serializable {
     /**
      * Variable to hold the amount of Ore Owned.
      */

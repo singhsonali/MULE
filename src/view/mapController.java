@@ -385,6 +385,18 @@ public class mapController {
         }
     }
 
+    //Save function
+    public void saveGame(){
+        main.saveGame();
+    }
+
+    //Load Function
+    public void loadGame(){
+        main.loadGame();
+    }
+
+
+
     public static class PlayerComparator implements Comparator<Player> {
 
         public int compare(Player a, Player b){

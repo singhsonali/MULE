@@ -5,7 +5,7 @@ package model;
  * Class to hold Money item
  * Will be held by Player and the stores
  */
-public class Money {
+public class Money implements java.io.Serializable {
 
     private int amount;
 
