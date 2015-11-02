@@ -14,7 +14,7 @@ public class Food extends AbstractResources {
     /**
      * Variable that holds the starting amount.
      */
-    private final int startAmount = 8;
+    private final static int startAmount = 8;
 
     /**
      * Constructor for Food.

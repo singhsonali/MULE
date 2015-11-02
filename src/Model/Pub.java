@@ -7,11 +7,11 @@ public class Pub {
     /**
      * Variable holding the timeBonus base number.
      */
-    private final int timeBonus = 50;
+    private final static int timeBonus = 50;
     /**
      * Variable holding the timeLeft base number.
      */
-    private final int timeRemaining = 12;
+    private final static int timeRemaining = 12;
 
     /**
      * Constructor for Pub.

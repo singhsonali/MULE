@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Shannor on 9/16/2015.
@@ -26,10 +27,6 @@ public class Player {
      * Each player gets two for receiving free land.
      */
     private int landGrants;
-    /**
-     * The number the player is when created.
-     */
-    private static int playerNumber = 0;
     /**
      * Player's food.
      */
@@ -74,18 +71,18 @@ public class Player {
     /**
      * Constants for energy, food, landGrants, and ore.
      */
-    private final int energyConstant = 25, foodConstant = 30,
+    private final static int energyConstant = 25, foodConstant = 30,
             landGrantConstant = 500, oreConstant = 50;
 
     /**
      * Player holds an array of owned land.
      */
-    private ArrayList<Land> ownedLand;
+    private List<Land> ownedLand;
 
     /**
      * Variable used in roundTime calculation.
      */
-    private final int roundTimeNum = 5;
+    private final static int roundTimeNum = 5;
 
     /**
      * Creates a new player with name, race, and color.
@@ -303,7 +300,6 @@ public class Player {
      */
     public final void setHoldingMule(final String s) {
         holdingMule = s;
-        System.out.println("HoldingMule set.");
     }
 
     /**
@@ -390,11 +386,12 @@ public class Player {
      * @return string of player resource data
      */
     public final String getResources() {
-        return "Player: " + getName() + "\n"
-                + "Money: " + getMoney() + "\n"
-                + "Food: " + getFood() + "\n"
-                + "Energy: " + getEnergy() + "\n"
-                + "Ore: " + getOre() + "\n"
+        String nextLine = "\n";
+        return "Player: " + getName() + nextLine
+                + "Money: " + getMoney() + nextLine
+                + "Food: " + getFood() + nextLine
+                + "Energy: " + getEnergy() + nextLine
+                + "Ore: " + getOre() + nextLine
                 + "==================================================";
     }
 }

@@ -8,19 +8,19 @@ public class Store {
     /**
      * Variable to hold initial mule amount.
      */
-    private final int muleAmount = 25;
+    private final static int muleAmount = 25;
     /**
      * Variable to hold initial food amount.
      */
-    private final int foodAmount = 16;
+    private final static int foodAmount = 16;
     /**
      * Variable to hold initial ore amount.
      */
-    private final int oreAmount = 0;
+    private final static int oreAmount = 0;
     /**
      * Variable to hold initial energy amount.
      */
-    private final int energyAmount = 16;
+    private final static int energyAmount = 16;
     /**
      * Variable to hold mule amount.
      */

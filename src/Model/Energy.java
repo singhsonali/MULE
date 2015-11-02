@@ -15,7 +15,7 @@ public class Energy extends AbstractResources {
     /**
      * Variable that holds the starting amount.
      */
-    private final int startAmount = 4;
+    private final static int startAmount = 4;
 
     /**
      * Constructor for Energy.
