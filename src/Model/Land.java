@@ -53,7 +53,7 @@ public class Land implements java.io.Serializable {
      * Added a player as an owner of the Land that is set when purchased.
      * Also needed to set the color of the land.
      */
-    private final int cost = 300;
+    private final static int cost = 300;
 
     /**
      * A player in the game.
@@ -80,7 +80,7 @@ public class Land implements java.io.Serializable {
      * constructor for mountain panes.
      * @param mountains mountains.
      */
-    public Land(int mountains) {
+    public Land(final int mountains) {
         this.mountain = mountains;
         this.river = mountain != 0;
         this.open = true;
@@ -91,7 +91,7 @@ public class Land implements java.io.Serializable {
      * constructor for river panes.
      * @param rivers rivers.
      */
-    public Land(boolean rivers) {
+    public Land(final boolean rivers) {
         this.river = rivers;
         if (river) {
             this.mountain = 0;
@@ -102,10 +102,10 @@ public class Land implements java.io.Serializable {
 
     /**
      * constructor for the town pane.
-     * @param town the town.
+     * @param towns the town.
      */
-    public Land(String town) {
-        if (town.equals("Town")) {
+    public Land(final String towns) {
+        if (towns.equals("Town")) {
             this.mountain = 0;
             this.river = false;
             this.open = false;
@@ -118,7 +118,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return boolean: does the land have a river?
      */
-    public boolean hasRiver() {
+    public final boolean hasRiver() {
         return this.river;
     }
 
@@ -126,7 +126,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return boolean: does the land have mountains.
      */
-    public boolean hasMountain() {
+    public final boolean hasMountain() {
         return this.mountain != 0;
     }
 
@@ -134,7 +134,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return boolean: does the land have mule?
      */
-    public boolean hasMule() {
+    public final boolean hasMule() {
         return getTotalMule() != 0;
     }
 
@@ -142,7 +142,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @param bool set if a land pane has mule or not.
      */
-    public void setHasMule(boolean bool) {
+    public final void setHasMule(final boolean bool) {
         hasMule = bool;
     }
 
@@ -150,7 +150,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return boolean: is the pane open?
      */
-    public boolean isOpen() {
+    public final boolean isOpen() {
         return this.open;
     }
 
@@ -158,7 +158,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return boolean: is the pane a plain pane?
      */
-    public boolean isPlain() {
+    public final boolean isPlain() {
         return this.mountain == 0 && !this.river;
     }
 
@@ -166,7 +166,7 @@ public class Land implements java.io.Serializable {
      * getter method for the following.
      * @return int: numbers of mountains.
      */
-    public int getMountain() {
+    public final int getMountain() {
         return this.mountain;
     }
 
@@ -174,7 +174,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return boolean: is the pane the town pane?
      */
-    public boolean isTown() {
+    public final boolean isTown() {
         return town;
     }
 
@@ -182,7 +182,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return Player: the selected player.
      */
-    public Player getPlayer() {
+    public final Player getPlayer() {
         return this.player;
     }
 
@@ -190,7 +190,7 @@ public class Land implements java.io.Serializable {
      * method for the following.
      * @return Pane: the pane selected.
      */
-    public Pane getMyPane() {
+    public final Pane getMyPane() {
         return this.myPane;
     }
 
@@ -198,7 +198,7 @@ public class Land implements java.io.Serializable {
      * getter method for the following.
      * @return int: the total cost.
      */
-    public int getCost() {
+    public final int getCost() {
         return this.cost;
     }
 
@@ -206,7 +206,7 @@ public class Land implements java.io.Serializable {
      * getter method for the following.
      * @return int: the total ore mule.
      */
-    public int getOreMule() {
+    public final int getOreMule() {
         return this.oreMule.getAmount();
     }
 
@@ -214,7 +214,7 @@ public class Land implements java.io.Serializable {
      * getter method for the following.
      * @return int: the total energy mule.
      */
-    public int getEnergyMule() {
+    public final int getEnergyMule() {
         return this.energyMule.getAmount();
     }
 
@@ -222,7 +222,7 @@ public class Land implements java.io.Serializable {
      * getter method for the following.
      * @return int: the total food mule.
      */
-    public int getFoodMule() {
+    public final int getFoodMule() {
         return this.foodMule.getAmount();
     }
 
@@ -230,7 +230,7 @@ public class Land implements java.io.Serializable {
      * getter method for the following.
      * @return int: the total mule.
      */
-    public int getTotalMule() {
+    public final int getTotalMule() {
         return getOreMule() + getFoodMule() + getEnergyMule();
     }
 
@@ -238,22 +238,35 @@ public class Land implements java.io.Serializable {
      * getter method for the following.
      * @return String, the type of mule on the land.
      */
-    public String getMuleType() {
+    public final String getMuleType() {
         if (getOreMule() == 1) {
-            return "oreMule";
+            return oreMuleString;
         } else if (getEnergyMule() == 1) {
-            return "energyMule";
+            return energyMuleString;
         } else if (getFoodMule() == 1) {
-            return "foodMule";
+            return foodMuleString;
         }
         return null;
     }
 
     /**
+     * A string.
+     */
+    private final static String oreMuleString = "oreMule";
+    /**
+     * A string.
+     */
+    private final static String foodMuleString = "foodMule";
+    /**
+     * A string.
+     */
+    private final static String energyMuleString = "energyMule";
+
+    /**
      * Sets a pane as having mountains or not.
      * @param mountains How many mountains does a certain pane have.
      */
-    public void setMountain(int mountains) {
+    public final void setMountain(final int mountains) {
         this.mountain = mountains;
     }
 
@@ -261,7 +274,7 @@ public class Land implements java.io.Serializable {
      * Sets a pane as having a river or not.
      * @param rivers Does a certain pain have a river?
      */
-    public void setRiver(boolean rivers) {
+    public final void setRiver(final boolean rivers) {
         this.river = rivers;
     }
 
@@ -269,14 +282,14 @@ public class Land implements java.io.Serializable {
      * Sets as open or not.
      * @param isOpen Is a certain pane open or not.
      */
-    public void setOpen(boolean isOpen) {
+    public final void setOpen(final boolean isOpen) {
         this.open = isOpen;
     }
     /**
      * Sets the town.
      * @param townCenter Is a certain pane town pane or not.
      */
-    public void setTown(boolean townCenter) {
+    public final void setTown(final boolean townCenter) {
         this.town = townCenter;
     }
 
@@ -284,7 +297,7 @@ public class Land implements java.io.Serializable {
      * Dictates which player owns a piece of land.
      * @param players player owning the land.
      */
-    public void setPlayerOwner(Player players) {
+    public final void setPlayerOwner(final Player players) {
         this.player = players;
     }
 
@@ -292,7 +305,7 @@ public class Land implements java.io.Serializable {
      * Sets the pane.
      * @param pane pane you want to be set.
      */
-    public void setMyPane(Pane pane) {
+    public final void setMyPane(final Pane pane) {
         this.myPane = pane;
     }
 
@@ -301,7 +314,7 @@ public class Land implements java.io.Serializable {
      * @param i amount of ore mule you want to be allocated. Land
      * may have either 0 or 1 mule.
      */
-    public void setOreMule(int i) {
+    public final void setOreMule(final int i) {
         this.oreMule.setAmount(i);
     }
 
@@ -310,7 +323,7 @@ public class Land implements java.io.Serializable {
      * @param i amount of energy mule you want to be allocated. Land
      * may have either 0 or 1 mule.
      */
-    public void setEnergyMule(int i) {
+    public final void setEnergyMule(final int i) {
         this.energyMule.setAmount(i);
     }
 
@@ -319,14 +332,14 @@ public class Land implements java.io.Serializable {
      * @param i amount of food mule you want to be allocated. Land
      * may have either 0 or 1 mule.
      */
-    public void setFoodMule(int i) {
+    public final void setFoodMule(final int i) {
         this.foodMule.setAmount(i);
     }
 
     /**
      * Sets all Mule amounts to 0.
      */
-    public void clearMule() {
+    public final void clearMule() {
         this.foodMule.setAmount(0);
         this.oreMule.setAmount(0);
         this.energyMule.setAmount(0);
@@ -336,42 +349,42 @@ public class Land implements java.io.Serializable {
      * Gives a player resources they obtain from owning land
      * and Mule.
      */
-    public void updatePlayerResources() {
+    public final void updatePlayerResources() {
         if (player.getEnergy() >= player.calcTotalMules()) {
             if (isPlain() && hasMule()) {
-                if (getMuleType().equals("foodMule")) {
+                if (getMuleType().equals(foodMuleString)) {
                     player.setFood(player.getFood() + 2);
-                } else if (getMuleType().equals("oreMule")) {
+                } else if (getMuleType().equals(oreMuleString)) {
                     player.setOre(player.getOre() + 1);
                 } else {
                     player.setEnergy(player.getEnergy() + 1 + 2);
                 }
             } else if (hasRiver() && hasMule()) {
-                if (getMuleType().equals("foodMule")) {
+                if (getMuleType().equals(foodMuleString)) {
                     player.setFood(player.getFood() + 2 + 2);
-                } else if (getMuleType().equals("energyMule")) {
+                } else if (getMuleType().equals(energyMuleString)) {
                     player.setEnergy(player.getEnergy() + 2);
                 }
             } else if (getMountain() == 1 && hasMule()) {
-                if (getMuleType().equals("foodMule")) {
+                if (getMuleType().equals(foodMuleString)) {
                     player.setFood(player.getFood() + 1);
-                } else if (getMuleType().equals("oreMule")) {
+                } else if (getMuleType().equals(oreMuleString)) {
                     player.setOre(player.getOre() + 2);
                 } else {
                     player.setEnergy(player.getEnergy() + 1);
                 }
             } else if (getMountain() == 2 && hasMule()) {
-                if (getMuleType().equals("foodMule")) {
+                if (getMuleType().equals(foodMuleString)) {
                     player.setFood(player.getFood() + 1);
-                } else if (getMuleType().equals("oreMule")) {
+                } else if (getMuleType().equals(oreMuleString)) {
                     player.setOre(player.getOre() + 1 + 2);
                 } else {
                     player.setEnergy(player.getEnergy() + 1);
                 }
             } else if (getMountain() == (1 + 2) && hasMule()) {
-                if (getMuleType().equals("foodMule")) {
+                if (getMuleType().equals(foodMuleString)) {
                     player.setFood(player.getFood() + 1);
-                } else if (getMuleType().equals("oreMule")) {
+                } else if (getMuleType().equals(oreMuleString)) {
                     player.setOre(player.getOre() + 2 + 2);
                 } else {
                     player.setEnergy(player.getEnergy() + 1);

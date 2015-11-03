@@ -8,8 +8,6 @@ import view.TownMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.*;
-
 import view.gameScreenController;
 import view.PlayerTraitController;
 import view.mapController;
@@ -18,6 +16,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
 
 /**
  * Created by Shannor on 9/23/2015.
@@ -76,11 +80,11 @@ public class Main extends Application {
 
     /**
      * Initializes the primary stage.
-     * @param primaryStage the first stage of the game.
+     * @param primaryStages the first stage of the game.
      */
     @Override
-    public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public final void start(final Stage primaryStages) {
+        this.primaryStage = primaryStages;
         this.primaryStage.setTitle("MULE");
         showGameScreen();
     }
@@ -88,7 +92,7 @@ public class Main extends Application {
     /**
      * Shows the game screen.
      */
-    public void showGameScreen() {
+    public final void showGameScreen() {
         try {
             // Load Game Screen.
             FXMLLoader loader = new FXMLLoader();
@@ -113,7 +117,7 @@ public class Main extends Application {
      * Shows the player trait screen.
      * Players choose their race/color/name here.
      */
-    public void showPlayerTraitScreen() {
+    public final void showPlayerTraitScreen() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -138,7 +142,7 @@ public class Main extends Application {
      * Shows the map screen where players can buy/select land to own.
      */
     //After each player picks traits start the game loop
-    public void showMapScreen() {
+    public final void showMapScreen() {
         try {
             // Load Map Screen.
             FXMLLoader loader = new FXMLLoader();
@@ -174,7 +178,7 @@ public class Main extends Application {
      * Shows the town screen.
      * Town screen has the Pub, Land Office, Assay, Store.
      */
-    public void showTownScreen() {
+    public final void showTownScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../view/townMap.fxml"));
@@ -211,7 +215,7 @@ public class Main extends Application {
      * Adds a player.
      * @param player An instance of Player.
      */
-    public void addPlayer(Player player) {
+    public final void addPlayer(final Player player) {
 //        Player tempPlayer = new Player(name,Race,Color);
         playerData.add(player);
     }
@@ -219,7 +223,7 @@ public class Main extends Application {
     /**
      * Prints the resources that a player owns.
      */
-    public void printPlayerData() {
+    public final void printPlayerData() {
         for (Player player: playerData) {
             System.out.println(player.getResources());
         }
@@ -229,7 +233,7 @@ public class Main extends Application {
      * Sets the map choice.
      * @param mapPick The string indicator for the map type.
      */
-    public void setMapChoice(String mapPick) {
+    public final void setMapChoice(final String mapPick) {
         this.mapChoice = mapPick;
     }
 
@@ -237,7 +241,7 @@ public class Main extends Application {
      * Sets the number of players in the game.
      * @param i Number of players playing the game.
      */
-    public void setPlayerCount(int i) {
+    public final void setPlayerCount(final int i) {
         players = i;
     }
 
@@ -245,7 +249,7 @@ public class Main extends Application {
      * Launches the game.
      * @param args Argument in main.
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
 
@@ -253,7 +257,8 @@ public class Main extends Application {
      * Updates the player list.
      * @param playerData2 A list of players and their data.
      */
-    public void updatePlayerData(ObservableList<Player> playerData2) {
+    public final void updatePlayerData(
+            final ObservableList<Player> playerData2) {
         this.playerData.removeAll();
         this.playerData = playerData2;
     }
@@ -262,7 +267,7 @@ public class Main extends Application {
      * setter for the timer.
      * @param timer An instance of GameTimer.
      */
-    public void setReturnTimer(GameTimer timer) {
+    public final void setReturnTimer(final GameTimer timer) {
         this.returnTimer = timer;
     }
 
@@ -270,7 +275,7 @@ public class Main extends Application {
      * setter method for the following.
      * @param bool Is a player returning from the store?
      */
-    public void setReturningFromStore(boolean bool) {
+    public final void setReturningFromStore(final boolean bool) {
         this.returningFromStore = bool;
     }
 
@@ -278,7 +283,7 @@ public class Main extends Application {
      * setter method for the following.
      * @param bool Is a player skipping their land selection phase?
      */
-    public void setLandPhaseSkipped(boolean bool) {
+    public final void setLandPhaseSkipped(final boolean bool) {
         this.landPhaseSkipped = bool;
     }
 
@@ -286,7 +291,7 @@ public class Main extends Application {
      * see below.
      * @param rounds An instance of Round.
      */
-    public void updateRound(Round rounds) {
+    public final void updateRound(final Round rounds) {
         this.round = rounds;
     }
 
@@ -294,7 +299,7 @@ public class Main extends Application {
      * Sets the player whose turn it is.
      * @param player An instance of player.
      */
-    public void setCurrentPlayer(Player player) {
+    public final void setCurrentPlayer(final Player player) {
         this.currentPlayer = player;
     }
 
@@ -302,7 +307,7 @@ public class Main extends Application {
      * Gets the game map.
      * @return Returns an instance of Map.
      */
-    public Map getGameMap() {
+    public final Map getGameMap() {
         return this.gameMap;
     }
 
@@ -310,13 +315,14 @@ public class Main extends Application {
      * see below.
      * @param bool Is it the Mule Phase?
      */
-    public void setMulePhase(boolean bool) {
+    public final void setMulePhase(final boolean bool) {
         this.mulePhase = true;
     }
-
-
-    public void saveGame(){
-        try{
+    /**
+     * Saves the game.
+     */
+    public final void saveGame() {
+        try {
             FileOutputStream fileOut = new FileOutputStream("saveFile.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(playerData); //Save all player information
@@ -328,26 +334,30 @@ public class Main extends Application {
             System.out.println("Saved Player 1:" + playerData.get(0).getName());
             System.out.println("Saved Round:" + round.getRound());
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void loadGame(){
-        try{
+    /**
+     * Loads the game.
+     */
+    public final void loadGame() {
+        try {
             FileInputStream fileIn = new FileInputStream("saveFile.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             this.playerData = (ObservableList<Player>) in.readObject();
-            this.round = (Round)in.readObject();
-            this.gameMap =(Map)in.readObject();
+            this.round = (Round) in.readObject();
+            this.gameMap = (Map) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("Loaded Player 1:" + playerData.get(0).getName());
+            System.out.println(
+                    "Loaded Player 1:" + playerData.get(0).getName());
             System.out.println("Saved Round:" + round.getRound());
 
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        }catch (ClassNotFoundException c){
+        } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();
         }
