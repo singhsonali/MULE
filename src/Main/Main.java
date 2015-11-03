@@ -4,11 +4,12 @@ import model.GameTimer;
 import model.Map;
 import model.Player;
 import model.Round;
-import view.townMapController;
+import view.TownMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
+import java.io.*;
+
 import view.gameScreenController;
 import view.PlayerTraitController;
 import view.mapController;
@@ -94,13 +95,11 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource(
                     "../view/gameScreen.fxml"));
             AnchorPane gameScreen = (AnchorPane) loader.load();
-
             //Creates new scene
             Scene scene = new Scene(gameScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
-
             gameScreenController controller = loader.getController();
             loader.setController(controller);
             controller.setMainApp(this);
@@ -121,16 +120,11 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource(
                     "../view/playerTraits.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
-
-
             PlayerTraitController controller = loader.getController();
-
-
             Scene scene = new Scene(personOverview);
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
-
             controller.setPlayerCount(--players);
             loader.setController(controller);
             controller.setMainApp(this);
@@ -148,13 +142,11 @@ public class Main extends Application {
         try {
             // Load Map Screen.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/MapScene.fxml"));
+            loader.setLocation(Main.class.getResource(
+                    "../view/MapScene.fxml"));
             AnchorPane mapScreen = (AnchorPane) loader.load();
-
-
             mapController controller = loader.getController();
             controller.setPrevScene(currentScene);
-
             Scene scene = new Scene(mapScreen);
             currentScene = scene;
             primaryStage.setScene(scene);
@@ -186,11 +178,10 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../view/townMap.fxml"));
-            AnchorPane townMap = (AnchorPane) loader.load();
+            AnchorPane townMap = loader.load();
 
             Scene scene = new Scene(townMap);
-            townMapController controller = loader.getController();
-            controller.setPrevScene(currentScene); //MapScene
+            TownMapController controller = loader.getController();
 
             currentScene = scene;
             primaryStage.setScene(scene);
@@ -199,14 +190,14 @@ public class Main extends Application {
             //printPlayerData();
             controller.setCurrentScene(currentScene); //Town Scene
             //Used for handling end of time
-            controller.setMyScene(currentScene);
+            //controller.setMyScene(currentScene);
             controller.setPlayerData(playerData); //pass in all players
             controller.setCurrentRound(round); //Set round
-            controller.getPrimaryStage(primaryStage);
+            controller.setPrimaryStage(primaryStage);
             if (!returningFromStore) {
                 controller.setTimer(); //Start timer
             } else {
-                controller.setReturnTimer(returnTimer);
+                controller.setCurrentTimer(returnTimer);
             }
             loader.setController(controller);
             controller.setMainApp(this);
@@ -321,5 +312,44 @@ public class Main extends Application {
      */
     public void setMulePhase(boolean bool) {
         this.mulePhase = true;
+    }
+
+
+    public void saveGame(){
+        try{
+            FileOutputStream fileOut = new FileOutputStream("saveFile.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(playerData); //Save all player information
+            out.writeObject(round); //Save the round information
+            out.writeObject(gameMap); //Save the current Map
+            out.close(); //close
+            fileOut.close();
+            System.out.println("Saved data is saved in saveFile.txt");
+            System.out.println("Saved Player 1:" + playerData.get(0).getName());
+            System.out.println("Saved Round:" + round.getRound());
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGame(){
+        try{
+            FileInputStream fileIn = new FileInputStream("saveFile.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            this.playerData = (ObservableList<Player>) in.readObject();
+            this.round = (Round)in.readObject();
+            this.gameMap =(Map)in.readObject();
+            in.close();
+            fileIn.close();
+            System.out.println("Loaded Player 1:" + playerData.get(0).getName());
+            System.out.println("Saved Round:" + round.getRound());
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException c){
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
     }
 }

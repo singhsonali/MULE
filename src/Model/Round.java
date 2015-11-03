@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Created by Ashley on 9/30/2015.
  */
-public class Round {
+public class Round implements java.io.Serializable{
 
     private int[] foodRequirement = {0, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5}; //Starts at index 1
     private int[] gamblingBonus = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 75, 100};

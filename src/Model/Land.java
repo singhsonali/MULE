@@ -6,11 +6,10 @@ import javafx.scene.layout.Pane;
 /**
  * Created by Ashley on 9/20/2015.
  */
-public class Land {
-
+public class Land implements java.io.Serializable {
     /**
      * The number of mountains a piece of land has. 0-3.
-     */
+        */
     private int mountain;
 
     /**

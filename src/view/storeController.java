@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * Created by Ashley Noll on 10/1/2015.
  */
-public class storeController {
+public class StoreController {
 
     /**
      * current pane.
@@ -55,10 +55,9 @@ public class storeController {
      */
     private Scene currentScene; //Store
     /**
-     * Instance of townMapController.
+     * Instance of TownMapController.
      */
-    private townMapController controller;
-
+    private TownMapController controller;
     /**
      * Price of an Ore Mule in the store.
      */
@@ -197,9 +196,9 @@ public class storeController {
     private Label lblConfirmMsg;
 
     /**
-     * Empty constructor for storeController.
+     * Empty constructor for StoreController.
      */
-    public storeController() {
+    public StoreController() {
 
     }
 
@@ -490,8 +489,6 @@ public class storeController {
     public void sellFood(int amnt) {
         if (currentPlayer.getFood() < amnt) {
             lblConfirmMsg.setText("Cannot sell more food than you have");
-            //throw new IndexOutOfBoundsException(
-            // "Cannot sell more food than you have");
         } else {
             currentPlayer.setMoney(
                     currentPlayer.getMoney() + (amnt * foodPrice));
@@ -518,7 +515,6 @@ public class storeController {
             store.setOre(store.getOre() + amnt);
             lblConfirmMsg.setText("You have sold " + amnt + " ore.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
             txtAmount.setText("");
         }
     }
@@ -530,8 +526,6 @@ public class storeController {
     public void sellEnergy(int amnt) {
         if (currentPlayer.getEnergy() < amnt) {
             lblConfirmMsg.setText("Cannot sell more energy than you have");
-            //throw new IndexOutOfBoundsException(
-            // "Cannot sell more energy than you have");
         } else {
             currentPlayer.setMoney(
                     currentPlayer.getMoney() + (amnt * energyPrice));
@@ -539,7 +533,6 @@ public class storeController {
             store.setEnergy(store.getEnergy() + amnt);
             lblConfirmMsg.setText("You have sold " + amnt + " energy.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
             txtAmount.setText("");
         }
     }
@@ -565,7 +558,7 @@ public class storeController {
      * Setter for the following.
      * @param tMController sets the controller of townMapController type.
      */
-    public void setController(townMapController tMController) {
+    public void setController(TownMapController tMController) {
         this.controller = tMController;
     }
 
@@ -581,7 +574,7 @@ public class storeController {
      * Getter for the current player.
      * @param player the current player.
      */
-    public void getCurrentPlayer(Player player) {
+    public void setCurrentPlayer(Player player){
         this.currentPlayer = player;
     }
 
@@ -591,7 +584,6 @@ public class storeController {
      */
     public void setPrevScene(Scene scene) {
         this.prevScene = scene;
-        //controller.updateCurrent();
     }
 
     /**
@@ -633,7 +625,7 @@ public class storeController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource(
                     "../view/MapScene.fxml"));
-            AnchorPane mapScreen = (AnchorPane) loader.load();
+            AnchorPane mapScreen = loader.load();
 
             Scene scene = new Scene(mapScreen);
             mapController controller = loader.getController();
