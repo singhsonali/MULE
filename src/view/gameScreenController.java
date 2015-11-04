@@ -1,7 +1,7 @@
 package view;
 
 /**
- * gameScreenController Created by Shannor
+ * GameScreenController Created by Shannor
  * Controller class for the starting gameScreen
  * Takes the information for num of players, difficulty, and mapChoice
  *
@@ -16,7 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 
-public class gameScreenController{
+public class GameScreenController {
 
     @FXML
     private Slider difficultySlider;
@@ -37,7 +37,7 @@ public class gameScreenController{
     private Main main;
 
     //Constructor
-    public gameScreenController(){
+    public GameScreenController(){
 
     }
 

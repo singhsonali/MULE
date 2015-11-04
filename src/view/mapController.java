@@ -20,7 +20,7 @@ import model.Player;
 /**
  * Created by Melanie Smith on 9/20/2015.
  */
-public class mapController {
+public class MapController {
 
 
     private Scene prevScene; // Player traits
@@ -40,7 +40,7 @@ public class mapController {
     private Pane currentPane;
     private int skips = 0; //Counts the number of skips
     private Round round;
-    private mapController controller;
+    private MapController controller;
     private Stage primaryStage;
     private GameTimer currentTimer;
     private boolean mulePhase;
@@ -201,7 +201,7 @@ public class mapController {
     private Label lblInstructions;
 
 
-    public mapController(){
+    public MapController(){
 
     }
 
@@ -367,7 +367,7 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
-    public void setController(mapController controller){
+    public void setController(MapController controller){
         this.controller = controller;
     }
 
@@ -389,9 +389,12 @@ public class mapController {
         main.saveGame();
     }
 
-    //Load Function
+    //Loads the game and sorts the players based on loaded data
     public void loadGame(){
         main.loadGame();
+        sortPlayers();
+        setCurrentPlayer(this.tempPlayers.get(0));
+        updatePlayerLabel();
     }
 
 
