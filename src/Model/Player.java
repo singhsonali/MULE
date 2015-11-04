@@ -207,7 +207,7 @@ public class Player implements java.io.Serializable {
                 < totalMule) { //Not enough food or energy for mules
             return roundTimeNum * 2 * 2 * 2; // = 30 (Magic Numbers suck)
         } else { //Meets food and energy requirement
-            return roundTimeNum * roundTimeNum + roundTimeNum; // = 50
+            return roundTimeNum * roundTimeNum * 2; // = 50
         }
     }
 

@@ -5,7 +5,9 @@ package model;
  */
 public class LandOffice {
 
+    /**
+     * empty constructor for LandOffice.
+     */
     public LandOffice() {
-
     }
 }
