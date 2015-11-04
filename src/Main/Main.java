@@ -231,7 +231,7 @@ public class Main extends Application {
 
     public void loadGame(){
         try{
-            ArrayList<Player> temp = new ArrayList<>();
+            ArrayList<Player> temp;
             FileInputStream fileIn = new FileInputStream("saveFile.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             temp = (ArrayList<Player>) in.readObject();
