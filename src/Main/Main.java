@@ -10,9 +10,6 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import view.gameScreenController;
 import view.PlayerTraitController;
 import view.mapController;
@@ -213,19 +210,19 @@ public class Main extends Application {
         try{
             FileOutputStream fileOut = new FileOutputStream("saveFile.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            ArrayList<Player> tempPlayerData = new ArrayList<>();
-            for(int i = 0; i < playerData.size(); i++){
-                tempPlayerData.add(playerData.get(0));
+            ArrayList<Player> temp = new ArrayList<>();
+            for(Player p : playerData){
+                temp.add(p);
             }
-            out.writeObject(tempPlayerData); //Save all player information
+            out.writeObject(temp); //Save all player information
             out.writeObject(round); //Save the round information
             out.writeObject(gameMap); //Save the current Map
             out.close(); //close
             fileOut.close();
             System.out.println("Saved data is saved in saveFile.txt");
-            System.out.println("Saved Player 1:" + playerData.get(0).getName());
+            System.out.println("Saved Player 1:" + temp.get(0).getName());
             System.out.println("Saved Round:" + round.getRound());
-
+            System.out.println("Saved Player 2:" + playerData.get(1).getName());
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -233,15 +230,22 @@ public class Main extends Application {
 
     public void loadGame(){
         try{
+            ArrayList<Player> temp = new ArrayList<>();
             FileInputStream fileIn = new FileInputStream("saveFile.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            ArrayList<Player> temp = (ArrayList<Player>) in.readObject();
+            temp = (ArrayList<Player>) in.readObject();
             this.round = (Round)in.readObject();
             this.gameMap =(Map)in.readObject();
             in.close();
             fileIn.close();
+            //Clear current playerData and add new player back
+            this.playerData.clear();
+            for(Player p : temp){
+                this.playerData.add(p);
+            }
             System.out.println("Loaded Player 1:" + playerData.get(0).getName());
             System.out.println("Saved Round:" + round.getRound());
+            System.out.println("Loaded Player 2:" + playerData.get(1).getName());
 
         }catch(IOException e){
             e.printStackTrace();

@@ -311,13 +311,6 @@ public class mapController {
         currentPlayer = tempPlayers.get(numPlayers);
         updatePlayerLabel();
     }
-
-    public void saveGame(){
-        main.saveGame();
-    }
-    public void loadGame(){
-        main.loadGame();
-    }
     public void updatePlayerLabel() {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
@@ -390,6 +383,18 @@ public class mapController {
             lblInstructions.setText("Go to the Town");
         }
     }
+
+    //Save function
+    public void saveGame(){
+        main.saveGame();
+    }
+
+    //Load Function
+    public void loadGame(){
+        main.loadGame();
+    }
+
+
 
     public static class PlayerComparator implements Comparator<Player> {
 

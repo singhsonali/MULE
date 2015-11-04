@@ -5,6 +5,7 @@ package model;
  * Food is given at the start and updated as the game goes on
  */
 public class Food implements java.io.Serializable {
+
     /**
      * Variable to hold the amount of food owned.
      */

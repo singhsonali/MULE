@@ -21,7 +21,7 @@ public class Land implements java.io.Serializable {
     //Also needed to set the color of the land
     private Player player;
     @FXML
-    private Pane myPane;
+    transient private Pane myPane; //Made transient so we don't save it
 
     public Land() {
         this.mountain = 0;
