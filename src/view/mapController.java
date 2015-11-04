@@ -20,7 +20,7 @@ import model.Player;
 /**
  * Created by Melanie Smith on 9/20/2015.
  */
-public class mapController {
+public class MapController {
 
 
     private Scene prevScene; // Player traits
@@ -40,11 +40,11 @@ public class mapController {
     private Pane currentPane;
     private int skips = 0; //Counts the number of skips
     private Round round;
-    private mapController controller;
+    private MapController controller;
     private Stage primaryStage;
     private GameTimer currentTimer;
     private boolean mulePhase;
-    private storeController storeController;
+    private StoreController StoreController;
     private boolean landPhaseSkipped = false;
 
     @FXML
@@ -201,7 +201,7 @@ public class mapController {
     private Label lblInstructions;
 
 
-    public mapController(){
+    public MapController(){
 
     }
 
@@ -311,7 +311,6 @@ public class mapController {
         currentPlayer = tempPlayers.get(numPlayers);
         updatePlayerLabel();
     }
-
     public void updatePlayerLabel() {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
@@ -344,8 +343,8 @@ public class mapController {
     public void setLandPhaseSkipped(boolean bool) {
         this.landPhaseSkipped = bool;
     }
-    public void setStoreController(storeController storeController) {
-        this.storeController = storeController;
+    public void setStoreController(StoreController StoreController) {
+        this.StoreController = StoreController;
     }
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
@@ -368,7 +367,7 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
-    public void setController(mapController controller){
+    public void setController(MapController controller){
         this.controller = controller;
     }
 
@@ -390,9 +389,12 @@ public class mapController {
         main.saveGame();
     }
 
-    //Load Function
+    //Loads the game and sorts the players based on loaded data
     public void loadGame(){
         main.loadGame();
+        sortPlayers();
+        setCurrentPlayer(this.tempPlayers.get(0));
+        updatePlayerLabel();
     }
 
 
@@ -424,7 +426,7 @@ public class mapController {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setOreMule(1);
             currentPlayer.setHoldingMule(null);
-            storeController.leaveStore();
+            StoreController.leaveStore();
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
             String muleType = tempMap.getLand(row, column).getMuleType();
             tempMap.getLand(row, column).clearMule();
@@ -443,7 +445,7 @@ public class mapController {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setEnergyMule(1);
             currentPlayer.setHoldingMule(null);
-            storeController.leaveStore();
+            StoreController.leaveStore();
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).clearMule();
             String muleType = tempMap.getLand(row, column).getMuleType();
@@ -462,15 +464,15 @@ public class mapController {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setFoodMule(1);
             currentPlayer.setHoldingMule(null);
-            storeController.leaveStore();
+            StoreController.leaveStore();
         } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
-                tempMap.getLand(row, column).clearMule();
-                String muleType = tempMap.getLand(row, column).getMuleType();
-                currentPlayer.removeMule(muleType);
+            tempMap.getLand(row, column).clearMule();
+            String muleType = tempMap.getLand(row, column).getMuleType();
+            currentPlayer.removeMule(muleType);
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() + 1);
-                currentPlayer.setHoldingMule(muleType);
+            currentPlayer.setHoldingMule(muleType);
             tempMap.getLand(row, column).setFoodMule(1);
-                currentPlayer.setHoldingMule(null);
+            currentPlayer.setHoldingMule(null);
         } else {
             currentPlayer.setFoodMule(currentPlayer.getFoodMule() - 1);
         }

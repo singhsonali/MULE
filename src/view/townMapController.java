@@ -97,7 +97,7 @@ public class TownMapController {
      */
     public final void setTimer() {
         timer = new GameTimer(currentPlayer.calcRoundTime());
-        //timer.setDuration(10);//Here for testing
+        //timer.setDuration(10); //Here for testing
         timer.setLabel(lblTimer);
         timer.startTimer();
         timer.getTimeline().setOnFinished(event -> updateCurrent());
@@ -137,11 +137,10 @@ public class TownMapController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("../view/MapScene.fxml"));
-
             AnchorPane mapScreen = loader.load();
 
             Scene scene = new Scene(mapScreen);
-            mapController controller = loader.getController();
+            MapController controller = loader.getController();
 
             controller.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
@@ -221,12 +220,21 @@ public class TownMapController {
     }
 
     /**
+     * Sets the current timer
+     * @param gameTimer what the current timer is set to
+     */
+    public final void setCurrentTimer(final GameTimer gameTimer) {
+        setTimer();
+        this.timer.setDuration(gameTimer.getTime());
+        timer.startTimer();
+    }
+
+    /**
      * Sets the scene to pub.
      */
     public final void goToPub() {
         try {
             FXMLLoader loader = new FXMLLoader();
-
             loader.setLocation(Main.class
                     .getResource("../view/pubScreen.fxml"));
             AnchorPane townMap = loader.load();
@@ -261,15 +269,14 @@ public class TownMapController {
     public final void goToStore() {
         try {
             FXMLLoader loader = new FXMLLoader();
-
             loader.setLocation(Main.class
                     .getResource("../view/storeScreen.fxml"));
             AnchorPane townMap = loader.load();
 
             Scene scene = new Scene(townMap);
-            storeController controller = loader.getController();
+            StoreController controller = loader.getController();
 
-            controller.setPrevScene(currentScene); // Scene is Town
+            //controller.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();

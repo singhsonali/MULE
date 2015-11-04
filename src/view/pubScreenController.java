@@ -84,7 +84,7 @@ public class PubScreenController {
      * the timer is finished.
      */
     public final void setTimer() {
-        currentTimer.setLabel(lblPubTimer);
+        //currentTimer.setLabel(lblPubTimer);
         currentTimer.getTimeline().setOnFinished(event -> {
             leavePub();
             controller.updateCurrent();
