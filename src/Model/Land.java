@@ -64,7 +64,7 @@ public class Land implements java.io.Serializable {
      * A pane in the land map.
      */
     @FXML
-    private Pane myPane;
+    transient private Pane myPane; //Made transient so we don't save it
 
     /**
      * constructor for land.

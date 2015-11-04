@@ -563,7 +563,7 @@ public class StoreController {
     /**
      * Setter for the following.
      *
-     * @param tMController sets the controller of townMapController type.
+     * @param tMController sets the controller of TownMapController type.
      */
     public final void setController(final TownMapController tMController) {
         this.controller = tMController;
