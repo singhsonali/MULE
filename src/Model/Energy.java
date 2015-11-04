@@ -5,7 +5,7 @@ package model;
  * Class to hold Energy types
  * Will be held by Players and Stores
  */
-public class Energy {
+public class Energy implements java.io.Serializable {
     /**
      * Variable to hold the amount of energy owned.
      */

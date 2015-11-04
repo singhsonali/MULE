@@ -3,7 +3,7 @@ package model;
 /**
  * Created by Ashley on 9/30/2015.
  */
-public class Mule {
+public class Mule implements java.io.Serializable {
     private  int amount;
     public Mule() {
          this.amount = 0;

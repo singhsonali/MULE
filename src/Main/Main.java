@@ -9,6 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import view.gameScreenController;
 import view.PlayerTraitController;
@@ -210,7 +213,11 @@ public class Main extends Application {
         try{
             FileOutputStream fileOut = new FileOutputStream("saveFile.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(playerData); //Save all player information
+            ArrayList<Player> tempPlayerData = new ArrayList<>();
+            for(int i = 0; i < playerData.size(); i++){
+                tempPlayerData.add(playerData.get(0));
+            }
+            out.writeObject(tempPlayerData); //Save all player information
             out.writeObject(round); //Save the round information
             out.writeObject(gameMap); //Save the current Map
             out.close(); //close
@@ -228,7 +235,7 @@ public class Main extends Application {
         try{
             FileInputStream fileIn = new FileInputStream("saveFile.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            this.playerData = (ObservableList<Player>) in.readObject();
+            ArrayList<Player> temp = (ArrayList<Player>) in.readObject();
             this.round = (Round)in.readObject();
             this.gameMap =(Map)in.readObject();
             in.close();

@@ -312,6 +312,12 @@ public class mapController {
         updatePlayerLabel();
     }
 
+    public void saveGame(){
+        main.saveGame();
+    }
+    public void loadGame(){
+        main.loadGame();
+    }
     public void updatePlayerLabel() {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
