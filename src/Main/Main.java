@@ -8,11 +8,10 @@ import view.TownMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.*;
 import java.util.ArrayList;
-import view.gameScreenController;
+import view.GameScreenController;
 import view.PlayerTraitController;
-import view.mapController;
+import view.MapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -106,7 +105,7 @@ public class Main extends Application {
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
-            gameScreenController controller = loader.getController();
+            GameScreenController controller = loader.getController();
             loader.setController(controller);
             controller.setMainApp(this);
 
@@ -151,7 +150,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource(
                     "../view/MapScene.fxml"));
             AnchorPane mapScreen = (AnchorPane) loader.load();
-            mapController controller = loader.getController();
+            MapController controller = loader.getController();
             controller.setPrevScene(currentScene);
             Scene scene = new Scene(mapScreen);
             currentScene = scene;
@@ -337,9 +336,9 @@ public class Main extends Application {
             out.close(); //close
             fileOut.close();
             System.out.println("Saved data is saved in saveFile.txt");
-            System.out.println("Saved Player 1:" + temp.get(0).getName());
+            System.out.println("Saved Player 1:" + playerData.get(0).getName() + "Money:" + playerData.get(0).getMoney());
             System.out.println("Saved Round:" + round.getRound());
-            System.out.println("Saved Player 2:" + playerData.get(1).getName());
+            System.out.println("Saved Player 2:" + playerData.get(1).getName() + "Money:"+ playerData.get(1).getMoney());
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -350,7 +349,7 @@ public class Main extends Application {
      */
     public void loadGame(){
         try{
-            ArrayList<Player> temp = new ArrayList<>();
+            ArrayList<Player> temp;
             FileInputStream fileIn = new FileInputStream("saveFile.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             temp = (ArrayList<Player>) in.readObject();
@@ -358,14 +357,14 @@ public class Main extends Application {
             this.gameMap =(Map)in.readObject();
             in.close();
             fileIn.close();
-            //Clear current playerData and add new player back
+            //Clear current playerData and add new players back
             this.playerData.clear();
             for(Player p : temp){
                 this.playerData.add(p);
             }
-            System.out.println("Loaded Player 1:" + playerData.get(0).getName());
+            System.out.println("Loaded Player 1:" + playerData.get(0).getName() + "Money:" + playerData.get(0).getMoney());
             System.out.println("Saved Round:" + round.getRound());
-            System.out.println("Loaded Player 2:" + playerData.get(1).getName());
+            System.out.println("Loaded Player 2:" + playerData.get(1).getName() + "Money:"+ playerData.get(1).getMoney());
 
         } catch (IOException e) {
             e.printStackTrace();

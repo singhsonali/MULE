@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
@@ -631,7 +630,7 @@ public class StoreController {
             AnchorPane mapScreen = loader.load();
 
             Scene scene = new Scene(mapScreen);
-            mapController mController = loader.getController();
+            MapController mController = loader.getController();
 
             mController.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
