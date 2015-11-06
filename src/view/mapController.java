@@ -24,7 +24,7 @@ import Model.Player;
 /**
  * Created by Melanie Smith on 9/20/2015.
  */
-public class mapController {
+public class MapController {
 
     /**
      * Scene that asks player traits.
@@ -96,6 +96,7 @@ public class mapController {
      * The current round.
      */
     private Round round;
+<<<<<<< HEAD
 
     /**
      * controller for the map.
@@ -105,6 +106,9 @@ public class mapController {
     /**
      * Stage for game UI.
      */
+=======
+    private MapController controller;
+>>>>>>> refs/remotes/origin/master
     private Stage primaryStage;
 
     /**
@@ -437,10 +441,15 @@ public class mapController {
     @FXML
     private Label lblInstructions;
 
+<<<<<<< HEAD
     /**
      * Constructor for mapController.
      */
     public mapController() {
+=======
+
+    public MapController(){
+>>>>>>> refs/remotes/origin/master
 
     }
 
@@ -572,11 +581,15 @@ public class mapController {
         currentPlayer = tempPlayers.get(numPlayers);
         updatePlayerLabel();
     }
+<<<<<<< HEAD
 
     /**
      * Updates the player label to the current player.
      */
     public final void updatePlayerLabel() {
+=======
+    public void updatePlayerLabel() {
+>>>>>>> refs/remotes/origin/master
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
@@ -685,12 +698,16 @@ public class mapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
+<<<<<<< HEAD
     /**
      * Sets the map controller for the game.
      *
      * @param controller the map controller for the game.
      */
     public final void setController(final mapController controller) {
+=======
+    public void setController(MapController controller){
+>>>>>>> refs/remotes/origin/master
         this.controller = controller;
     }
 
@@ -717,9 +734,27 @@ public class mapController {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Compares the players by their score.
      */
+=======
+    //Save function
+    public void saveGame(){
+        main.saveGame();
+    }
+
+    //Loads the game and sorts the players based on loaded data
+    public void loadGame(){
+        main.loadGame();
+        sortPlayers();
+        setCurrentPlayer(this.tempPlayers.get(0));
+        updatePlayerLabel();
+    }
+
+
+
+>>>>>>> refs/remotes/origin/master
     public static class PlayerComparator implements Comparator<Player> {
 
         /**
