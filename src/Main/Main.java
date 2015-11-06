@@ -4,22 +4,16 @@ import model.GameTimer;
 import model.Map;
 import model.Player;
 import model.Round;
-<<<<<<< HEAD
-import view.mapController;
-import view.townMapController;
-=======
+
 import view.TownMapController;
->>>>>>> refs/remotes/origin/master
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import view.GameScreenController;
 import view.PlayerTraitController;
-<<<<<<< HEAD
-=======
+
 import view.MapController;
->>>>>>> refs/remotes/origin/master
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

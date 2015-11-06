@@ -1,11 +1,8 @@
 package view;
 
-<<<<<<< HEAD
-import Main.Main;
-=======
+
 import main.Main;
 import model.*;
->>>>>>> refs/remotes/origin/master
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,12 +16,13 @@ import javafx.stage.Stage;
 import java.util.Timer;
 import java.util.Comparator;
 
-import Model.Player;
+//import model.Player;
 
 /**
- * Created by Melanie Smith on 9/20/2015.
+ * This is the class for the Map Controller.
  */
 public class MapController {
+
 
     /**
      * Scene that asks player traits.
@@ -96,19 +94,14 @@ public class MapController {
      * The current round.
      */
     private Round round;
-<<<<<<< HEAD
 
     /**
      * controller for the map.
      */
-    private mapController controller;
-
+    private MapController controller;
     /**
      * Stage for game UI.
      */
-=======
-    private MapController controller;
->>>>>>> refs/remotes/origin/master
     private Stage primaryStage;
 
     /**
@@ -120,19 +113,15 @@ public class MapController {
      * Mule Phase.
      */
     private boolean mulePhase;
-<<<<<<< HEAD
 
     /**
      * Controller for the game store.
      */
-    private storeController storeController;
+    private StoreController storeController;
 
     /**
      * Whether the land phase was skipped.
      */
-=======
-    private StoreController StoreController;
->>>>>>> refs/remotes/origin/master
     private boolean landPhaseSkipped = false;
 
     /**
@@ -441,15 +430,10 @@ public class MapController {
     @FXML
     private Label lblInstructions;
 
-<<<<<<< HEAD
     /**
      * Constructor for mapController.
      */
-    public mapController() {
-=======
-
-    public MapController(){
->>>>>>> refs/remotes/origin/master
+    public MapController() {
 
     }
 
@@ -496,7 +480,7 @@ public class MapController {
                     + "Land selection phase ended.");
             landSelectionFinished = true;
             main.setLandPhaseSkipped(true);
-            setInterfaceInvis(false);
+            setInterfaceInvis();
         } else if (!landSelectionFinished) {
             numPlayers++;
             if (numPlayers < tempPlayers.size()) {
@@ -505,7 +489,7 @@ public class MapController {
                 //Done with buying land
                 //Start Turns
                 landSelectionFinished = true;
-                setInterfaceInvis(false);
+                setInterfaceInvis();
                 System.out.println("Finished buying Land.");
                 skips = 0;
             }
@@ -536,7 +520,7 @@ public class MapController {
                             updatePlayer();
                         } else {
                             landSelectionFinished = true;
-                            setInterfaceInvis(false);
+                            setInterfaceInvis();
                             skips = 0;
                         }
                     } else if (currentPlayer.getMoney()
@@ -554,7 +538,7 @@ public class MapController {
                             updatePlayer();
                         } else {
                             landSelectionFinished = true;
-                            setInterfaceInvis(false);
+                            setInterfaceInvis();
                             skips = 0;
                         }
                     } else {
@@ -581,15 +565,11 @@ public class MapController {
         currentPlayer = tempPlayers.get(numPlayers);
         updatePlayerLabel();
     }
-<<<<<<< HEAD
 
     /**
      * Updates the player label to the current player.
      */
     public final void updatePlayerLabel() {
-=======
-    public void updatePlayerLabel() {
->>>>>>> refs/remotes/origin/master
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
@@ -618,12 +598,10 @@ public class MapController {
 
     /**
      * Changes whether the interface is visible.
-     *
-     * @param bool Represents whether the interface should be visible
      */
-    public final void setInterfaceInvis(final boolean bool) {
-        btnContinue.visibleProperty().setValue(bool);
-        btnSkip.visibleProperty().setValue(bool);
+    public final void setInterfaceInvis() {
+        btnContinue.visibleProperty().setValue(false);
+        btnSkip.visibleProperty().setValue(false);
         lblInstructions.setText("Go to the Town");
         lblPlayerName.setText(tempPlayers.get(0).getName());
     }
@@ -636,20 +614,15 @@ public class MapController {
     public final void setLandPhaseSkipped(final boolean bool) {
         this.landPhaseSkipped = bool;
     }
-<<<<<<< HEAD
 
     /**
      * Sets the controller for the store.
      *
-     * @param storeController controller for the store
+     * @param storeCon controller for the store
      */
     public final void setStoreController(
-            final storeController storeController) {
-        this.storeController = storeController;
-=======
-    public void setStoreController(StoreController StoreController) {
-        this.StoreController = StoreController;
->>>>>>> refs/remotes/origin/master
+            final StoreController storeCon) {
+        storeController = storeCon;
     }
 
     /**
@@ -698,17 +671,14 @@ public class MapController {
         this.lblPlayerName.setText(currentPlayer.getName());
     }
 
-<<<<<<< HEAD
     /**
      * Sets the map controller for the game.
      *
-     * @param controller the map controller for the game.
+     * @param control the map controller for the game.
      */
-    public final void setController(final mapController controller) {
-=======
-    public void setController(MapController controller){
->>>>>>> refs/remotes/origin/master
-        this.controller = controller;
+
+    public final void setController(final MapController control) {
+        controller = control;
     }
 
     /**
@@ -721,7 +691,7 @@ public class MapController {
     }
 
     /**
-     * Completion of the land selaection phase.
+     * Completion of the land selection phase.
      *
      * @param bool represents whether the land selection phase is completed
      */
@@ -734,18 +704,17 @@ public class MapController {
         }
     }
 
-<<<<<<< HEAD
     /**
-     * Compares the players by their score.
+     * Save function.
      */
-=======
-    //Save function
-    public void saveGame(){
+    public final void saveGame() {
         main.saveGame();
     }
 
-    //Loads the game and sorts the players based on loaded data
-    public void loadGame(){
+    /**
+     * Loads the game and sorts the players based on loaded data.
+     */
+    public final void loadGame() {
         main.loadGame();
         sortPlayers();
         setCurrentPlayer(this.tempPlayers.get(0));
@@ -753,8 +722,9 @@ public class MapController {
     }
 
 
-
->>>>>>> refs/remotes/origin/master
+    /**
+     * Compares the players by their score.
+     */
     public static class PlayerComparator implements Comparator<Player> {
 
         /**
@@ -795,15 +765,11 @@ public class MapController {
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setOreMule(1);
             currentPlayer.setHoldingMule(null);
-<<<<<<< HEAD
             storeController.leaveStore();
         } else if (tempMap.getLand(row, column)
                 .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
-=======
-            StoreController.leaveStore();
-        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
->>>>>>> refs/remotes/origin/master
+
             String muleType = tempMap.getLand(row, column).getMuleType();
             tempMap.getLand(row, column).clearMule();
             currentPlayer.removeMule(muleType);
@@ -824,15 +790,11 @@ public class MapController {
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setEnergyMule(1);
             currentPlayer.setHoldingMule(null);
-<<<<<<< HEAD
             storeController.leaveStore();
         } else if (tempMap.getLand(row, column)
                 .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
-=======
-            StoreController.leaveStore();
-        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
->>>>>>> refs/remotes/origin/master
+
             tempMap.getLand(row, column).clearMule();
             String muleType = tempMap.getLand(row, column).getMuleType();
             currentPlayer.removeMule(muleType);
@@ -853,15 +815,11 @@ public class MapController {
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setFoodMule(1);
             currentPlayer.setHoldingMule(null);
-<<<<<<< HEAD
             storeController.leaveStore();
         } else if (tempMap.getLand(row, column)
                 .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
-=======
-            StoreController.leaveStore();
-        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
->>>>>>> refs/remotes/origin/master
+
             tempMap.getLand(row, column).clearMule();
             String muleType = tempMap.getLand(row, column).getMuleType();
             currentPlayer.removeMule(muleType);
@@ -877,10 +835,10 @@ public class MapController {
     /**
      * Sets the currents round.
      *
-     * @param round the current round.
+     * @param roundSet the current round.
      */
-    public final void setRound(final Round round) {
-        this.round = round;
+    public final void setRound(final Round roundSet) {
+        round = roundSet;
     }
 
     /**
@@ -1620,20 +1578,20 @@ public class MapController {
     }
 
     /**
-     * Stes the current timer.
+     * Sets the current timer.
      *
-     * @param timer the current timer.
+     * @param gTimer the current timer.
      */
-    public final void setCurrentTimer(final GameTimer timer) {
-        this.currentTimer = timer;
+    public final void setCurrentTimer(final GameTimer gTimer) {
+        currentTimer = gTimer;
     }
 
     /**
      * Sets the mule phase.
      *
-     * @param mulePhase the mule phase.
+     * @param phaseM the mule phase.
      */
-    public final void setMulePhase(final boolean mulePhase) {
-        this.mulePhase = mulePhase;
+    public final void setMulePhase(final boolean phaseM) {
+        mulePhase = phaseM;
     }
 }
