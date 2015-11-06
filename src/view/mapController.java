@@ -1,6 +1,11 @@
 package view;
 
+<<<<<<< HEAD
 import Main.Main;
+=======
+import main.Main;
+import model.*;
+>>>>>>> refs/remotes/origin/master
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,6 +116,7 @@ public class mapController {
      * Mule Phase.
      */
     private boolean mulePhase;
+<<<<<<< HEAD
 
     /**
      * Controller for the game store.
@@ -120,6 +126,9 @@ public class mapController {
     /**
      * Whether the land phase was skipped.
      */
+=======
+    private StoreController StoreController;
+>>>>>>> refs/remotes/origin/master
     private boolean landPhaseSkipped = false;
 
     /**
@@ -614,6 +623,7 @@ public class mapController {
     public final void setLandPhaseSkipped(final boolean bool) {
         this.landPhaseSkipped = bool;
     }
+<<<<<<< HEAD
 
     /**
      * Sets the controller for the store.
@@ -623,6 +633,10 @@ public class mapController {
     public final void setStoreController(
             final storeController storeController) {
         this.storeController = storeController;
+=======
+    public void setStoreController(StoreController StoreController) {
+        this.StoreController = StoreController;
+>>>>>>> refs/remotes/origin/master
     }
 
     /**
@@ -746,10 +760,15 @@ public class mapController {
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setOreMule(1);
             currentPlayer.setHoldingMule(null);
+<<<<<<< HEAD
             storeController.leaveStore();
         } else if (tempMap.getLand(row, column)
                 .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
+=======
+            StoreController.leaveStore();
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+>>>>>>> refs/remotes/origin/master
             String muleType = tempMap.getLand(row, column).getMuleType();
             tempMap.getLand(row, column).clearMule();
             currentPlayer.removeMule(muleType);
@@ -770,10 +789,15 @@ public class mapController {
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setEnergyMule(1);
             currentPlayer.setHoldingMule(null);
+<<<<<<< HEAD
             storeController.leaveStore();
         } else if (tempMap.getLand(row, column)
                 .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
+=======
+            StoreController.leaveStore();
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+>>>>>>> refs/remotes/origin/master
             tempMap.getLand(row, column).clearMule();
             String muleType = tempMap.getLand(row, column).getMuleType();
             currentPlayer.removeMule(muleType);
@@ -794,10 +818,15 @@ public class mapController {
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setFoodMule(1);
             currentPlayer.setHoldingMule(null);
+<<<<<<< HEAD
             storeController.leaveStore();
         } else if (tempMap.getLand(row, column)
                 .getPlayer().equals(currentPlayer)
                 && tempMap.getLand(row, column).hasMule()) {
+=======
+            StoreController.leaveStore();
+        } else if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer) && tempMap.getLand(row, column).hasMule()) {
+>>>>>>> refs/remotes/origin/master
             tempMap.getLand(row, column).clearMule();
             String muleType = tempMap.getLand(row, column).getMuleType();
             currentPlayer.removeMule(muleType);

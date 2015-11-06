@@ -5,7 +5,7 @@ package model;
  * Class to hold Money item
  * Will be held by Player and the stores
  */
-public class Money extends AbstractResources {
+public class Money {
 
     private int amount;
 
@@ -23,12 +23,10 @@ public class Money extends AbstractResources {
         }
     }
 
-    @Override
     void setAmount(int i) {
         this.amount = i;
     }
 
-    @Override
     int getAmount() {
         return this.amount;
     }
