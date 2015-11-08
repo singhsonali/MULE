@@ -85,6 +85,17 @@ public class Player implements java.io.Serializable {
     private final static int roundTimeNum = 5;
 
     /**
+     * Empty constructor for Player. Used for testing.
+     */
+    public Player() {
+        this.name = "temp";
+        this.race = "temp";
+        this.color = "temp";
+        this.food = new Food();
+        this.money = new Money();
+    }
+
+    /**
      * Creates a new player with name, race, and color.
      * @param playerName the player's name
      * @param playerRace the player's race

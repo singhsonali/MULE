@@ -407,23 +407,25 @@ public class StoreController {
      */
     public final void buyFood(final int amnt) {
         if (currentPlayer.getMoney() < (foodPrice * amnt)) {
-            lblConfirmMsg.setText("Insufficient funds: Carrot (r = n) be in debt");
-            //throw new IndexOutOfBoundsException(
-            // "Insufficient funds: Cannot be in debt");
-        } else if (store.getEnergy() < amnt) {
-            lblConfirmMsg.setText(
+            //lblConfirmMsg.setText("Insufficient funds: Player cannot be in debt");
+            throw new IndexOutOfBoundsException (
+             "Insufficient funds: Cannot be in debt");
+        } else if (store.getFood() < amnt) {
+            /*lblConfirmMsg.setText(
                     "There is less than " + amnt + " food left in the store."
                             + " You can purchase up to "
-                            + store.getFood() + " food.");
+                            + store.getFood() + " food."); */
+            throw new IndexOutOfBoundsException (
+                    "Insufficient inventory: Cannot sell more than available");
         } else {
             currentPlayer.setMoney(
                     currentPlayer.getMoney() - (foodPrice * amnt));
             currentPlayer.setFood(currentPlayer.getFood() + amnt);
             store.setFood(store.getFood() - amnt);
-            lblConfirmMsg.setText("You have purchased " + amnt + " food.");
-            updateStoreInventoryLabels();
+            //lblConfirmMsg.setText("You have purchased " + amnt + " food.");
+            //updateStoreInventoryLabels();
             //cbItem.valueProperty().setValue(empty);
-            txtAmount.setText(empty);
+            //txtAmount.setText(empty);
         }
     }
 
@@ -662,6 +664,13 @@ public class StoreController {
      */
     public final void setMainApp(final Main mainApp) {
         this.main = mainApp;
+    }
+
+    /**
+     * Sets the store.
+     */
+    public final void setStore() {
+        store = new Store();
     }
 
     /**
