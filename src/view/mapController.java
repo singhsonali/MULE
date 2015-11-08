@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.util.Timer;
+//import java.util.Timer;
 import java.util.Comparator;
 
 //import model.Player;
@@ -39,10 +39,6 @@ public class MapController {
      */
     private Player currentPlayer;
 
-    /**
-     * Timer for the game.
-     */
-    private Timer timer;
 
     /**
      * Current Map.
@@ -387,6 +383,7 @@ public class MapController {
     /**
      * Array for all the map location panes.
      */
+    @SuppressWarnings("MismatchedReadAndWriteOfArray")
     private Pane[] panes = {pane00, pane01, pane02, pane03,
             pane04, pane05, pane06, pane07, pane08,
             pane10, pane11, pane12, pane13, pane14, pane15,
@@ -551,7 +548,7 @@ public class MapController {
     /**
      * updates the current player.
      */
-    public final void updatePlayer() {
+    private void updatePlayer() {
         currentPlayer = tempPlayers.get(numPlayers);
         updatePlayerLabel();
     }
@@ -568,7 +565,7 @@ public class MapController {
      *
      * @param pane The pane to be the new current pane.
      */
-    public final void updateCurrentPane(final Pane pane) {
+    private void updateCurrentPane(final Pane pane) {
         //Error Checking
         if (!landSelectionFinished) {
             if (currentPane == pane) {
@@ -589,7 +586,7 @@ public class MapController {
     /**
      * Changes whether the interface is visible.
      */
-    public final void setInterfaceInvis() {
+    private void setInterfaceInvis() {
         btnContinue.visibleProperty().setValue(false);
         btnSkip.visibleProperty().setValue(false);
         lblInstructions.setText("Go to the Town");
@@ -630,10 +627,8 @@ public class MapController {
      * @param scene The scene to be set as the previous scene.
      */
     public final void setPrevScene(final Scene scene) {
-        /*
-      Scene that asks player traits.
-     */
-        Scene prevScene = scene;
+
+        @SuppressWarnings("UnusedAssignment") Scene prevScene = scene;
     }
 
     /**
@@ -648,7 +643,7 @@ public class MapController {
     /**
      * Sorts the list of players.
      */
-    public final void sortPlayers() {
+    private void sortPlayers() {
         FXCollections.sort(this.tempPlayers, new PlayerComparator());
     }
 
@@ -718,7 +713,7 @@ public class MapController {
     /**
      * Compares the players by their score.
      */
-    public static class PlayerComparator implements Comparator<Player> {
+    private static class PlayerComparator implements Comparator<Player> {
 
         /**
          * compares the scores of two players.
@@ -753,7 +748,7 @@ public class MapController {
     /**
      * Places an Ore Mule.
      */
-    public final void placeOreMule() {
+    private void placeOreMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setOreMule(1);
@@ -778,7 +773,7 @@ public class MapController {
     /**
      * Places an energy mule.
      */
-    public final void placeEnergyMule() {
+    private void placeEnergyMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setEnergyMule(1);
@@ -803,7 +798,7 @@ public class MapController {
     /**
      * Places a food mule.
      */
-    public final void placeFoodMule() {
+    private void placeFoodMule() {
         if (tempMap.getLand(row, column).getPlayer().equals(currentPlayer)
                 && !tempMap.getLand(row, column).hasMule()) {
             tempMap.getLand(row, column).setFoodMule(1);
@@ -893,7 +888,7 @@ public class MapController {
      *
      * @param pane the map pane to be altered.
      */
-    public final void updateColor(final Pane pane) {
+    private void updateColor(final Pane pane) {
         //Sets the Land border to player color
         //Temp[0] hold the original background
         String[] temp = pane.getStyle().split(";");
@@ -906,7 +901,7 @@ public class MapController {
      *
      * @param pane the pane to be altered.
      */
-    public final void revertColor(final Pane pane) {
+    private void revertColor(final Pane pane) {
         //Set back to original color
         String[] temp = pane.getStyle().split(";");
         pane.setStyle(temp[0] + ";" + "-fx-border-color: Black");
@@ -915,7 +910,8 @@ public class MapController {
     /**
      * Places a mule.
      */
-    public final void placeMule() {
+    private void placeMule() {
+        //noinspection IfCanBeSwitch,IfCanBeSwitch
         if (currentPlayer.getHoldingMule().equals("Energy")) {
             placeEnergyMule();
         } else if (currentPlayer.getHoldingMule().equals("Food")) {
@@ -1570,7 +1566,7 @@ public class MapController {
         /*
       The current Scene.
      */
-        Scene currentScene = scene;
+        @SuppressWarnings("UnusedAssignment") Scene currentScene = scene;
     }
 
     /**
