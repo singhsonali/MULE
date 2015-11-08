@@ -25,16 +25,6 @@ public class MapController {
 
 
     /**
-     * Scene that asks player traits.
-     */
-    private Scene prevScene; // Player traits
-
-    /**
-     * The current Scene.
-     */
-    private Scene currentScene; //Map
-
-    /**
      * Creates instance of main.
      */
     private Main main;
@@ -640,7 +630,10 @@ public class MapController {
      * @param scene The scene to be set as the previous scene.
      */
     public final void setPrevScene(final Scene scene) {
-        this.prevScene = scene;
+        /*
+      Scene that asks player traits.
+     */
+        Scene prevScene = scene;
     }
 
     /**
@@ -1574,7 +1567,10 @@ public class MapController {
      * @param scene the current scene.
      */
     public final void setCurrentScene(final Scene scene) {
-        this.currentScene = scene;
+        /*
+      The current Scene.
+     */
+        Scene currentScene = scene;
     }
 
     /**
