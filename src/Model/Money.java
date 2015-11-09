@@ -6,27 +6,41 @@ package model;
  * Will be held by Player and the stores
  */
 public class Money implements java.io.Serializable {
-
+    /**
+     * Variable to hold the amount of food owned.
+     */
     private int amount;
-
-    public Money(){
+    /**
+     * Constructor for Money.
+     * Init to the default amount.
+     */
+    public Money() {
         this.amount = 0;
     }
-
-    public Money(Player player){
-        if(player.getRace().equals("Flapper")) {
+    /**
+     * constructor for mountain panes.
+     * @param player Player.
+     */
+    public Money(Player player) {
+        if (player.getRace().equals("Flapper")) {
             this.amount = 1600;
-        }else if(player.getRace().equals("Human")){
+        } else if (player.getRace().equals("Human")) {
             this.amount = 600;
-        }else{
+        } else {
             this.amount = 1000;
         }
     }
-
+    /**
+     * Sets the amount to a new variable.
+     * @param i The new amount desired for money.
+     */
     void setAmount(int i) {
         this.amount = i;
     }
-
+    /**
+     * Returns the current value stored in amount.
+     * @return amount
+     */
     int getAmount() {
         return this.amount;
     }
