@@ -27,9 +27,9 @@ public class Pub {
      */
     final int getTimeBonus(final int timeLeft) {
         if (timeLeft > timeRemaining * 2 + timeRemaining + 1) { // = 37
-            return timeBonus * 2 * 2; //'4' is a magic number, STFU checkstyle
+            return timeBonus * (2 * 2); //'4' is a magic number, STFU checkstyle
         } else if (timeLeft > timeRemaining * 2 + 1) { // = 25
-            return timeBonus * 2 + 1; //'3' is a magic number :P
+            return timeBonus * (2 + 1); //'3' is a magic number :P
         } else if (timeLeft > timeRemaining) {
             return timeBonus * 2;
         } else {
