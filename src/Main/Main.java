@@ -4,6 +4,7 @@ import model.GameTimer;
 import model.Map;
 import model.Player;
 import model.Round;
+
 import view.TownMapController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import view.GameScreenController;
 import view.PlayerTraitController;
+
 import view.MapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
