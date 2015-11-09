@@ -43,7 +43,6 @@ public class GameTimer {
     public final void setLabel(final Label label) {
         label.textProperty().bind(timeSeconds.asString());
     }
-
     /**
      * Starts the timer based on the information given.
      * Stops the timer when it gets to zero.
@@ -54,7 +53,6 @@ public class GameTimer {
                         new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
     }
-
     /**
      * Sets the duration to the value passed in.
      * @param time new duration that is desired.

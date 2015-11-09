@@ -10,12 +10,10 @@ public class Energy implements java.io.Serializable {
      * Variable to hold the amount of energy owned.
      */
     private int amount;
-
     /**
      * Variable that holds the starting amount.
      */
     private final static int startAmount = 4;
-
     /**
      * Constructor for Energy.
      * Init to the default amount.
@@ -30,7 +28,6 @@ public class Energy implements java.io.Serializable {
     final void setAmount(final int i) {
         this.amount = i;
     }
-
     /**
      * Returns the current value stored in amount.
      * @return amount
