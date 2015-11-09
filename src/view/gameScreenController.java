@@ -17,30 +17,46 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 
 public class GameScreenController {
-
+    /**
+     * Slider for choosing difficulty.
+     */
     @FXML
     private Slider difficultySlider;
-
+    /**
+     * Continue button.
+     */
     @FXML
     private Button cntButton;
-
+    /**
+     * Slider for choosing number of players.
+     */
     @FXML
     private Slider numPlayerSlider;
-
+    /**
+     * Choice box for map.
+     */
     @FXML
     private ChoiceBox<String> cmbMapChoice;
-
+    /**
+     * Testing button.
+     */
     @FXML
     private Button btnForTesting;
 
-    //Ref to main application
+    /**
+     * Instance of Main.
+     */
     private Main main;
 
-    //Constructor
+    /**
+     * Empty constructor for GameScreenController.
+     */
     public GameScreenController(){
 
     }
-
+    /**
+     * Initializes the controller.
+     */
     @FXML
     private void initialize(){
 
@@ -77,7 +93,9 @@ public class GameScreenController {
             }
         });
     }
-
+    /**
+     * Goes to main map.
+     */
     @FXML
     public String getMapChoice(){
         return cmbMapChoice.getValue();
