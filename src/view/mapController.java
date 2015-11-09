@@ -2,7 +2,6 @@ package view;
 
 
 import main.Main;
-import model.*;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.GameTimer;
+import model.Map;
+import model.Player;
+import model.Round;
+import model.Land;
 
 //import java.util.Timer;
 import java.util.Comparator;

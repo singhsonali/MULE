@@ -100,7 +100,7 @@ public class Main extends Application {
             // Load Game Screen.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource(
-                    "../view/gameScreen.fxml"));
+                    "../view/GameScreen.fxml"));
             AnchorPane gameScreen = (AnchorPane) loader.load();
             //Creates new scene
             Scene scene = new Scene(gameScreen);
@@ -125,7 +125,7 @@ public class Main extends Application {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource(
-                    "../view/playerTraits.fxml"));
+                    "../view/PlayerTraits.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             PlayerTraitController controller = loader.getController();
             Scene scene = new Scene(personOverview);
@@ -184,7 +184,7 @@ public class Main extends Application {
     public final void showTownScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/townMap.fxml"));
+            loader.setLocation(Main.class.getResource("../view/TownMap.fxml"));
             AnchorPane townMap = loader.load();
 
             Scene scene = new Scene(townMap);

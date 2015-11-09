@@ -236,7 +236,7 @@ public class TownMapController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class
-                    .getResource("../view/pubScreen.fxml"));
+                    .getResource("../view/PubScreen.fxml"));
             AnchorPane townMap = loader.load();
 
             Scene scene = new Scene(townMap);
@@ -270,7 +270,7 @@ public class TownMapController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class
-                    .getResource("../view/storeScreen.fxml"));
+                    .getResource("../view/StoreScreen.fxml"));
             AnchorPane townMap = loader.load();
 
             Scene scene = new Scene(townMap);
