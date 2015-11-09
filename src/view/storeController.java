@@ -408,15 +408,15 @@ public class StoreController {
     public final void buyFood(final int amnt) {
         if (currentPlayer.getMoney() < (foodPrice * amnt)) {
             //lblConfirmMsg.setText("Insufficient funds: Player cannot be in debt");
-            throw new IndexOutOfBoundsException (
-             "Insufficient funds: Cannot be in debt");
+            //throw new IndexOutOfBoundsException (
+             //"Insufficient funds: Cannot be in debt");
         } else if (store.getFood() < amnt) {
             /*lblConfirmMsg.setText(
                     "There is less than " + amnt + " food left in the store."
                             + " You can purchase up to "
                             + store.getFood() + " food."); */
-            throw new IndexOutOfBoundsException (
-                    "Insufficient inventory: Cannot sell more than available");
+            //throw new IndexOutOfBoundsException (
+                    //"Insufficient inventory: Cannot sell more than available");
         } else {
             currentPlayer.setMoney(
                     currentPlayer.getMoney() - (foodPrice * amnt));

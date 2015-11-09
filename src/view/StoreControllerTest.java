@@ -32,15 +32,20 @@ public class StoreControllerTest extends TestCase {
         assertEquals(player.getFood(), origFood + 1);
     }
 
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void buyFoodException() {
+    @Test
+    public void testBuyFoodException() {
+        //Does not have enough money to buy food
         player.setMoney(29);
         StoreController.buyFood(1);
+        assertEquals(29, player.getMoney());
+        assertEquals(origFood, player.getFood());
     }
 
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void buyOverInventory() {
+    @Test
+    public void testBuyOverInventory() {
+        //Store does not have enough inventory to sell amount
         player.setMoney(Integer.MAX_VALUE);
         StoreController.buyFood(17);
+        assertEquals(origFood, player.getFood());
     }
 }
