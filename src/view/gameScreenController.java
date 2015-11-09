@@ -51,32 +51,25 @@ public class GameScreenController {
     /**
      * Empty constructor for GameScreenController.
      */
-    public GameScreenController(){
-
+    public GameScreenController() {
     }
     /**
      * Initializes the controller.
      */
     @FXML
-    private void initialize(){
-
-        //Set the default number of players to one
+    private void initialize() {
         numPlayerSlider.setValue(2);
-        //Adds choices
         cmbMapChoice.getItems().addAll(
                 "Default",
                 "Normal",
                 "Random"
         );
-        //Sets first item as default of combo box
         cmbMapChoice.getSelectionModel().select(0);
-
-        //When continue button is pressed
         cntButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //Return number of players to main
-                main.setPlayerCount((int)numPlayerSlider.getValue());
+                main.setPlayerCount((int) numPlayerSlider.getValue());
                 //Return map choice to main
                 main.setMapChoice(getMapChoice());
                 main.showPlayerTraitScreen();
@@ -95,11 +88,16 @@ public class GameScreenController {
     }
     /**
      * Goes to main map.
+     * @return mapChoice.
      */
     @FXML
-    public String getMapChoice(){
+    public String getMapChoice() {
         return cmbMapChoice.getValue();
     }
+    /**
+     * Goes to main map.
+     * @param mainApp goes to mainApp.
+     */
     public void setMainApp(Main mainApp) {
         this.main = mainApp;
     }
