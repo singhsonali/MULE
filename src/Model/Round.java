@@ -1,64 +1,99 @@
 package model;
 import javafx.collections.ObservableList;
-
 import java.util.Random;
-
 /**
- * Created by Ashley on 9/30/2015.
+ * Round created by Ashley.
+ * Keeps track of the Round a player is on.
  */
-public class Round implements java.io.Serializable{
-
-    private int[] foodRequirement = {0, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5}; //Starts at index 1
-    private int[] gamblingBonus = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 75, 100};
-    private int round;
-
+public class Round implements java.io.Serializable {
+    /**
+     * Holds the gambling bonus value.
+     */
+    private final int gb1 = 25;
+    /**
+     * Holds the gambling bonus value.
+     */
+    private final int gb2 = 50;
+    /**
+     * Holds gambling bonus value.
+     */
+    private final int gb3 = 75;
+    /**
+     * Holds gambling bonus value.
+     */
+    private final int gb4 = 100;
+    /**
+     * Variable that keeps track of food requirement.
+     */
+    private final int[]
+            foodRequirement
+                = {0, 2 + 1, 2 + 1, 2 + 1, 2 + 1, 2 + 2,
+                    2 + 2, 2 + 2, 2 + 2, 2 + 2 + 1, 2 + 2 + 1,
+                    2 + 2 + 1, 2 + 2 + 1};
+    /**
+     * Variable that keeps track of the gambling bonus.
+     */
+    private final int[] gamblingBonus
+            = {gb1, gb1, gb1, gb2, gb2, gb2, gb2, gb3, gb3, gb3, gb3, gb4};
+    /**
+     * Variable to keep track of round.
+     */
+    private final int round;
+    /**
+     * Constructor for Round.
+     * Init to the default amount.
+     */
     public Round() {
         this.round = 1;
     }
-
-    public int getRound() {
+    /**
+     * Returns the integer representation of players round.
+     * @return (int)round
+     */
+    public final int getRound() {
         return this.round;
     }
-    public void nextRound() {
-        this.round++;
-        //calling randEvent here should make it so it never happens during the first round... right?
-        //iterate through players?
-        //if(p.getLandGrants()==0){randEvent(p)}
-
-    }
-    //Checks to make sure the food requirement is met for the round.
-    //If not met, returns false.
-    public boolean checkRequirement(Food food) {
+    /**
+     * Checks to make sure the food requirement is met for the round.
+     * @param food amount of food.
+     * @return foodRequirement round.
+     *
+     */
+    public final boolean checkRequirement(final Food food) {
         return food.getAmount() >= foodRequirement[this.round];
     }
-
-    public int getGamblingBonus() {
-        return gamblingBonus[this.round-1];
+    /**
+     * Calculates the gambling bonus for the round.
+     * @return gamblingBonus
+     *
+     */
+    public final int getGamblingBonus() {
+        return gamblingBonus[this.round - 1];
     }
-    public boolean gameOver(){
-        return this.round > 12 ;
-    }
-
-    public void randEvent(ObservableList<Player> players, Player p){
+    /**
+     * method for the following.
+     * @param players calculate random event
+     * @param p chance that random event will occur.
+     */
+    public final void randEvent(final ObservableList<Player>
+                                        players, final Player p) {
         int chance;
         Random randGen = new Random();
         chance = randGen.nextInt(100); //calc if random event will occur
         int m;
         //Sets the value of m according to round number
-        if(round<4){
-            m=25;
-        }else if(round>3 && round<8){
-            m=50;
-        }else if (round>7 && round<12){
-            m=75;
-        }else{
-            m=100;
+        if (round < 2 + 2) {
+            m = 25;
+        } else if (round > 2 + 1 && round < 8) {
+            m = 50;
+        } else if (round > 7 && round < 12) {
+            m = 75;
+        } else {
+            m = 100;
         }
-
-        //Gets a random event number
         int eventNum;
-        if(chance > 27) {
-            if (!p.equals(players.get(0))) { //If p is not the lowest scoring player
+        if (chance > 27) {
+            if (!p.equals(players.get(0))) {
                 eventNum = (randGen.nextInt(7)) + 1; //all events
             } else {
                 eventNum = (randGen.nextInt(4)) + 1; //includes only good events
@@ -78,38 +113,80 @@ public class Round implements java.io.Serializable{
             } else {
                 event7(p, m);
             }
+        }
     }
+    /**
+     * Random event 1.
+     * @param p player going through random event.
+     */
+    private void event1(final Player p) {
+        System.out.println("You just received a package from the GT "
+                + "Alumni containing 3 food and 2 energy units.");
+        p.setFood(p.getFood() + (2 + 1));
+        p.setEnergy(p.getEnergy() + 2);
     }
-    private void event1(Player p){
-        System.out.println("You just received a package from the GT Alumni containing 3 food and 2 energy units.");
-        p.setFood(p.getFood()+3);
-        p.setEnergy(p.getEnergy()+2);
+    /**
+     * Random event 2.
+     * @param p player going through random event.
+     */
+    private void event2(final Player p) {
+        System.out.println("A wandering Tech student repaid your "
+                +
+                "hospitality by leaving two bars of ore.");
+        p.setOre(p.getOre() + 2);
     }
-
-    private void event2(Player p){
-        System.out.println("A wandering Tech student repaid your hospitality by leaving two bars of ore.");
-        p.setOre(p.getOre()+2);
+    /**
+     * Random event 3.
+     * @param p player going through random event.
+     * @param m integer.
+     */
+    private void event3(final Player p, final int m) {
+        System.out.println("The museum bought your antique personal "
+                +
+                "computer for $" + (8 * m) + ".");
+        p.setMoney(p.getMoney() + (8 * m));
     }
-    private void event3(Player p, int m){
-        System.out.println("The museum bought your antique personal computer for $"+(8*m)+".");
-        p.setMoney(p.getMoney()+(8*m));
+    /**
+     * Random event 4.
+     * @param p player going through random event.
+     * @param m  integer.
+     */
+    private void event4(final Player p, final int m) {
+        System.out.println("You found a dead moose rat and sold the "
+                +
+                "hide for $" + (2 * m) + ".");
+        p.setMoney(p.getMoney() + (2 * m));
     }
-    private void event4(Player p, int m){
-        System.out.println("You found a dead moose rat and sold the hide for $"+(2*m)+".");
-        p.setMoney(p.getMoney()+(2*m));
+    /**
+     * Random event 5.
+     * @param p player going through random event.
+     * @param m integer.
+     */
+    private void event5(final Player p, final int m) {
+        System.out.println("Flying cat-bugs ate the roof off your house. "
+                +
+                "Repairs cost $" + (4 * m) + ".");
+        p.setMoney(p.getMoney() - (4 * m));
     }
-    private void event5(Player p, int m){
-        System.out.println("Flying cat-bugs ate the roof off your house. Repairs cost $"+(4*m)+".");
-        p.setMoney(p.getMoney()-(4*m));
+    /**
+     * Random event 6.
+     * @param p player going through random event.
+     */
+    private void event6(final Player p) {
+        System.out.println("Mischievous UGA students broke into your "
+                +
+                "storage shed and stole half your food.");
+        p.setFood(p.getFood() / 2);
     }
-    private void event6(Player p){
-        System.out.println("Mischievous UGA students broke into your storage shed and stole half your food.");
-        p.setFood(p.getFood()/2);
-    }
-    private void event7(Player p, int m){
-        System.out.println("Your space gypsy inlaws made a mess of the town. It cost you $" + (6 * m) + " to clean it up.");
-        p.setMoney(p.getMoney()-(6*m));
+    /**
+     * Random event 7.
+     * @param p player going through random event.
+     * @param m integer.
+     */
+    private void event7(final Player p, final int m) {
+        System.out.println("Your space gypsy in-laws made a mess of the town. "
+                +
+                "It cost you $" + (6 * m) + " to clean it up.");
+        p.setMoney(p.getMoney() - (6 * m));
     }
 }
-
-
