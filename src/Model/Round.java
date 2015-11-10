@@ -9,19 +9,19 @@ public class Round implements java.io.Serializable {
     /**
      * Holds the gambling bonus value.
      */
-    private final int gb1 = 25;
+    private static final int GB1 = 25;
     /**
      * Holds the gambling bonus value.
      */
-    private final int gb2 = 50;
+    private static final int GB2 = 50;
     /**
      * Holds gambling bonus value.
      */
-    private final int gb3 = 75;
+    private static final int GB3 = 75;
     /**
      * Holds gambling bonus value.
      */
-    private final int gb4 = 100;
+    private static final int GB4 = 100;
     /**
      * Variable that keeps track of food requirement.
      */
@@ -34,7 +34,7 @@ public class Round implements java.io.Serializable {
      * Variable that keeps track of the gambling bonus.
      */
     private final int[] gamblingBonus
-            = {gb1, gb1, gb1, gb2, gb2, gb2, gb2, gb3, gb3, gb3, gb3, gb4};
+            = {GB1, GB1, GB1, GB2, GB2, GB2, GB2, GB3, GB3, GB3, GB3, GB4};
     /**
      * Variable to keep track of round.
      */
@@ -79,17 +79,17 @@ public class Round implements java.io.Serializable {
                                         players, final Player p) {
         int chance;
         Random randGen = new Random();
-        chance = randGen.nextInt(100); //calc if random event will occur
+        chance = randGen.nextInt(GB4); //calc if random event will occur
         int m;
         //Sets the value of m according to round number
         if (round < 2 + 2) {
-            m = gb1;
+            m = GB1;
         } else if (round > 2 + 1 && round < 8) {
-            m = gb2;
+            m = GB2;
         } else if (round > 7 && round < 12) {
-            m = gb3;
+            m = GB3;
         } else {
-            m = gb4;
+            m = GB4;
         }
         int eventNum;
         if (chance > 27) {

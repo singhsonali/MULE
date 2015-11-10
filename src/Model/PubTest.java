@@ -1,13 +1,15 @@
 package model;
 
 import org.junit.Test;
+import junit.framework.TestCase;
+
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Shannor on 11/7/2015.
  */
-public class PubTest {
+public class PubTest extends TestCase {
 
     //Timebonus = 50
     //Test cases
