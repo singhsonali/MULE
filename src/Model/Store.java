@@ -8,19 +8,19 @@ public class Store {
     /**
      * Variable to hold initial mule amount.
      */
-    private final static int muleAmount = 25;
+    private static final int MULE_AMOUNT = 25;
     /**
      * Variable to hold initial food amount.
      */
-    private final static int foodAmount = 16;
+    private static final int FOOD_AMOUNT = 16;
     /**
      * Variable to hold initial ore amount.
      */
-    private final static int oreAmount = 0;
+    private static final int ORE_AMOUNT = 0;
     /**
      * Variable to hold initial energy amount.
      */
-    private final static int energyAmount = 16;
+    private static final int ENERGY_AMOUNT = 16;
     /**
      * Variable to hold mule amount.
      */
@@ -42,10 +42,10 @@ public class Store {
      * Constructor for Store.
      */
     public Store() {
-        muleAmnt = muleAmount;
-        foodAmnt = foodAmount;
-        oreAmnt = oreAmount;
-        energyAmnt = energyAmount;
+        muleAmnt = MULE_AMOUNT;
+        foodAmnt = FOOD_AMOUNT;
+        oreAmnt = ORE_AMOUNT;
+        energyAmnt = ENERGY_AMOUNT;
     }
 
     /**
