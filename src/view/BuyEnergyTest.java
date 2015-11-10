@@ -27,19 +27,6 @@ public class BuyEnergyTest extends TestCase {
     }
 
     /**
-     * Test case: player has enough money to buy the energy & inventory is sufficient.
-     * Player's money should be reduced by 25*energyAmount.
-     * Player's energy should increase by energy purchased.
-     */
-    @Test
-    public void testEnoughMoney() {
-        player.setMoney(50);
-        storeController.buyEnergy(2);
-        assertEquals(player.getMoney(), 0);
-        assertEquals(player.getEnergy(), playerOrigEnergy + 2);
-    }
-
-    /**
      * Test case: Player does not have enough money to purchase desired energy.
      * Player's money should stay the same.
      * Player's energy should stay the same.
@@ -55,7 +42,7 @@ public class BuyEnergyTest extends TestCase {
     /**
      * Test case: when there is not enough energy in the inventory to complete the player's desired purchase
      * Player's money should not change.
-     * Energy energy should not change.
+     * Player's energy should not change.
      */
     @Test
     public void testInsufficientInventory() {
@@ -65,5 +52,18 @@ public class BuyEnergyTest extends TestCase {
         assertEquals(player.getMoney(), 425);
     }
 
+
+    /**
+     * Test case: player has enough money to buy the energy & inventory is sufficient.
+     * Player's money should be reduced by 25*energyAmount.
+     * Player's energy should increase by energy purchased.
+     */
+    @Test
+    public void testEnoughMoneyAndInventory() {
+        player.setMoney(50);
+        storeController.buyEnergy(2);
+        assertEquals(player.getMoney(), 0);
+        assertEquals(player.getEnergy(), playerOrigEnergy + 2);
+    }
 
 }
