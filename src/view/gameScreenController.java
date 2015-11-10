@@ -1,8 +1,6 @@
 package view;
 import main.Main;
 import model.Player;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -11,15 +9,8 @@ import javafx.scene.control.Slider;
  * GameScreenController created by Shannor.
  * Controller class for the starting gameScreen
  * Takes the information for num of players, difficulty, and mapChoice
- *
- * @return Number of players, Map Chosen
  */
 public class GameScreenController {
-    /**
-     * Slider for choosing difficulty.
-     */
-    @FXML
-    private Slider difficultySlider;
     /**
      * Continue button.
      */
@@ -63,25 +54,19 @@ public class GameScreenController {
                 "Random"
         );
         cmbMapChoice.getSelectionModel().select(0);
-        cntButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                //Return number of players to main
-                main.setPlayerCount((int) numPlayerSlider.getValue());
-                //Return map choice to main
-                main.setMapChoice(getMapChoice());
-                main.showPlayerTraitScreen();
-            }
+        cntButton.setOnAction(event -> {
+            //Return number of players to main
+            main.setPlayerCount((int) numPlayerSlider.getValue());
+            //Return map choice to main
+            main.setMapChoice(getMapChoice());
+            main.showPlayerTraitScreen();
         });
 
-        btnForTesting.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                main.setPlayerCount(2);
-                main.addPlayer(new Player("Player1", "Human", "Blue"));
-                main.addPlayer(new Player("Player2", "Human", "Yellow"));
-                main.showMapScreen();
-            }
+        btnForTesting.setOnAction(event -> {
+            main.setPlayerCount(2);
+            main.addPlayer(new Player("Player1", "Human", "Blue"));
+            main.addPlayer(new Player("Player2", "Human", "Yellow"));
+            main.showMapScreen();
         });
     }
     /**
@@ -89,7 +74,7 @@ public class GameScreenController {
      * @return mapChoice.
      */
     @FXML
-    public final String getMapChoice() {
+    private String getMapChoice() {
         return cmbMapChoice.getValue();
     }
     /**

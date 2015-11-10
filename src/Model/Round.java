@@ -7,18 +7,38 @@ import java.util.Random;
  */
 public class Round implements java.io.Serializable {
     /**
+     * Holds the gambling bonus value.
+     */
+    private final int gb1 = 25;
+    /**
+     * Holds the gambling bonus value.
+     */
+    private final int gb2 = 50;
+    /**
+     * Holds gambling bonus value.
+     */
+    private final int gb3 = 75;
+    /**
+     * Holds gambling bonus value.
+     */
+    private final int gb4 = 100;
+    /**
      * Variable that keeps track of food requirement.
      */
-    private int[] foodRequirement = {0, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5};
+    private final int[]
+            foodRequirement
+                = {0, 2 + 1, 2 + 1, 2 + 1, 2 + 1, 2 + 2,
+                    2 + 2, 2 + 2, 2 + 2, 2 + 2 + 1, 2 + 2 + 1,
+                    2 + 2 + 1, 2 + 2 + 1};
     /**
      * Variable that keeps track of the gambling bonus.
      */
-    private int[] gamblingBonus
-            = {25, 25, 25, 50, 50, 50, 50, 75, 75, 75, 75, 100};
+    private final int[] gamblingBonus
+            = {gb1, gb1, gb1, gb2, gb2, gb2, gb2, gb3, gb3, gb3, gb3, gb4};
     /**
      * Variable to keep track of round.
      */
-    private int round;
+    private final int round;
     /**
      * Constructor for Round.
      * Init to the default amount.
@@ -62,9 +82,9 @@ public class Round implements java.io.Serializable {
         chance = randGen.nextInt(100); //calc if random event will occur
         int m;
         //Sets the value of m according to round number
-        if (round < 4) {
+        if (round < 2 + 2) {
             m = 25;
-        } else if (round > 3 && round < 8) {
+        } else if (round > 2 + 1 && round < 8) {
             m = 50;
         } else if (round > 7 && round < 12) {
             m = 75;
@@ -102,7 +122,7 @@ public class Round implements java.io.Serializable {
     private void event1(final Player p) {
         System.out.println("You just received a package from the GT "
                 + "Alumni containing 3 food and 2 energy units.");
-        p.setFood(p.getFood() + 3);
+        p.setFood(p.getFood() + (2 + 1));
         p.setEnergy(p.getEnergy() + 2);
     }
     /**

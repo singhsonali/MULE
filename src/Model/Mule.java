@@ -19,14 +19,14 @@ public class Mule implements java.io.Serializable {
      * Sets the amount to a new variable.
      * @param i The new amount desired for mule.
      */
-    final void setAmount(final int i) {
+    public final void setAmount(final int i) {
         this.amount = i;
     }
     /**
      * Returns the current value stored in amount.
      * @return amount
      */
-    final int getAmount() {
+    public final int getAmount() {
         return this.amount;
     }
 }

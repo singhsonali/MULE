@@ -10,6 +10,18 @@ public class Money implements java.io.Serializable {
      */
     private int amount;
     /**
+     * Variable to hold money value.
+     */
+    private final int m1 = 1600;
+    /**
+     * Variable to hold the amount of food owned.
+     */
+    private final int m2 = 600;
+    /**
+     * Variable to hold the amount of food owned.
+     */
+    private final int m3 = 1000;
+    /**
      * Constructor for Money.
      * Init to the default amount.
      */
@@ -21,12 +33,16 @@ public class Money implements java.io.Serializable {
      * @param player Player.
      */
     public Money(final Player player) {
-        if (player.getRace().equals("Flapper")) {
-            this.amount = 1600;
-        } else if (player.getRace().equals("Human")) {
-            this.amount = 600;
-        } else {
-            this.amount = 1000;
+        switch (player.getRace()) {
+        case "Flapper":
+            this.amount = m1;
+            break;
+        case "Human":
+            this.amount = m2;
+            break;
+        default:
+            this.amount = m3;
+            break;
         }
     }
     /**
