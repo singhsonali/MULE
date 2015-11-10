@@ -1,7 +1,6 @@
 package model;
-
 /**
- * Created by Shannor on 9/20/2015.
+ * Money created by Shannor.
  * Class to hold Money item
  * Will be held by Player and the stores
  */
@@ -21,7 +20,7 @@ public class Money implements java.io.Serializable {
      * constructor for mountain panes.
      * @param player Player.
      */
-    public Money(Player player) {
+    public Money(final Player player) {
         if (player.getRace().equals("Flapper")) {
             this.amount = 1600;
         } else if (player.getRace().equals("Human")) {
@@ -34,14 +33,14 @@ public class Money implements java.io.Serializable {
      * Sets the amount to a new variable.
      * @param i The new amount desired for money.
      */
-    void setAmount(int i) {
+    final void setAmount(final int i) {
         this.amount = i;
     }
     /**
      * Returns the current value stored in amount.
      * @return amount
      */
-    int getAmount() {
+    final int getAmount() {
         return this.amount;
     }
 }

@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * Created by Ashley on 9/30/2015.
  */
 public class PubScreenController {
-
     /**
      * Return button.
      */

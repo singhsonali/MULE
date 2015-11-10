@@ -1,12 +1,4 @@
 package view;
-
-/**
- * GameScreenController Created by Shannor
- * Controller class for the starting gameScreen
- * Takes the information for num of players, difficulty, and mapChoice
- *
- * @return Number of players, Map Chosen
- */
 import main.Main;
 import model.Player;
 import javafx.event.ActionEvent;
@@ -15,7 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
-
+/**
+ * GameScreenController created by Shannor.
+ * Controller class for the starting gameScreen
+ * Takes the information for num of players, difficulty, and mapChoice
+ *
+ * @return Number of players, Map Chosen
+ */
 public class GameScreenController {
     /**
      * Slider for choosing difficulty.
@@ -67,7 +65,7 @@ public class GameScreenController {
         cmbMapChoice.getSelectionModel().select(0);
         cntButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
                 //Return number of players to main
                 main.setPlayerCount((int) numPlayerSlider.getValue());
                 //Return map choice to main
@@ -78,7 +76,7 @@ public class GameScreenController {
 
         btnForTesting.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
                 main.setPlayerCount(2);
                 main.addPlayer(new Player("Player1", "Human", "Blue"));
                 main.addPlayer(new Player("Player2", "Human", "Yellow"));
@@ -91,14 +89,14 @@ public class GameScreenController {
      * @return mapChoice.
      */
     @FXML
-    public String getMapChoice() {
+    public final String getMapChoice() {
         return cmbMapChoice.getValue();
     }
     /**
      * Goes to main map.
      * @param mainApp goes to mainApp.
      */
-    public void setMainApp(Main mainApp) {
+    public final void setMainApp(final Main mainApp) {
         this.main = mainApp;
     }
 }
