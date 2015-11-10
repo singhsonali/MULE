@@ -573,7 +573,7 @@ public class MapController {
     private void updateCurrentPane(final Pane pane) {
         //Error Checking
         if (!landSelectionFinished) {
-            if (currentPane.equals(pane)) {
+            if (currentPane == pane) {
                 //Already current pane
                 return;
             }
