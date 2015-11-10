@@ -18,6 +18,7 @@ import model.Round;
 import model.Land;
 
 //import java.util.Timer;
+import java.io.Serializable;
 import java.util.Comparator;
 
 //import model.Player;
@@ -572,7 +573,7 @@ public class MapController {
     private void updateCurrentPane(final Pane pane) {
         //Error Checking
         if (!landSelectionFinished) {
-            if (currentPane == pane) {
+            if (currentPane.equals(pane)) {
                 //Already current pane
                 return;
             }
@@ -717,7 +718,8 @@ public class MapController {
     /**
      * Compares the players by their score.
      */
-    private static class PlayerComparator implements Comparator<Player> {
+    private static class PlayerComparator
+            implements Comparator<Player>, Serializable {
 
         /**
          * compares the scores of two players.

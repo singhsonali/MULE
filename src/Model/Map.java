@@ -7,7 +7,7 @@ package model;
  * When Map is created it should also make all the Land as well
  *
  */
-public class Map implements java.io.Serializable{
+public class Map implements java.io.Serializable {
     /**
      * 2D array of all possible land.
      */

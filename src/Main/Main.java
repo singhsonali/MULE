@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+
 import view.GameScreenController;
 import view.PlayerTraitController;
 
@@ -80,9 +81,14 @@ public class Main extends Application {
      * The land phase is not initially skipped.
      */
     private boolean landPhaseSkipped = false;
+    /**
+     * String used in place of "Money:".
+     */
+    private static String moneyString = "Money:";
 
     /**
      * Initializes the primary stage.
+     *
      * @param primaryStages the first stage of the game.
      */
     @Override
@@ -216,6 +222,7 @@ public class Main extends Application {
 
     /**
      * Adds a player.
+     *
      * @param player An instance of Player.
      */
     public final void addPlayer(final Player player) {
@@ -227,13 +234,14 @@ public class Main extends Application {
      * Prints the resources that a player owns.
      */
     public final void printPlayerData() {
-        for (Player player: playerData) {
+        for (Player player : playerData) {
             System.out.println(player.getResources());
         }
     }
 
     /**
      * Sets the map choice.
+     *
      * @param mapPick The string indicator for the map type.
      */
     public final void setMapChoice(final String mapPick) {
@@ -242,6 +250,7 @@ public class Main extends Application {
 
     /**
      * Sets the number of players in the game.
+     *
      * @param i Number of players playing the game.
      */
     public final void setPlayerCount(final int i) {
@@ -250,6 +259,7 @@ public class Main extends Application {
 
     /**
      * Launches the game.
+     *
      * @param args Argument in main.
      */
     public static void main(final String[] args) {
@@ -258,6 +268,7 @@ public class Main extends Application {
 
     /**
      * Updates the player list.
+     *
      * @param playerData2 A list of players and their data.
      */
     public final void updatePlayerData(
@@ -268,6 +279,7 @@ public class Main extends Application {
 
     /**
      * setter for the timer.
+     *
      * @param timer An instance of GameTimer.
      */
     public final void setReturnTimer(final GameTimer timer) {
@@ -276,6 +288,7 @@ public class Main extends Application {
 
     /**
      * setter method for the following.
+     *
      * @param bool Is a player returning from the store?
      */
     public final void setReturningFromStore(final boolean bool) {
@@ -284,6 +297,7 @@ public class Main extends Application {
 
     /**
      * setter method for the following.
+     *
      * @param bool Is a player skipping their land selection phase?
      */
     public final void setLandPhaseSkipped(final boolean bool) {
@@ -292,6 +306,7 @@ public class Main extends Application {
 
     /**
      * see below.
+     *
      * @param rounds An instance of Round.
      */
     public final void updateRound(final Round rounds) {
@@ -300,6 +315,7 @@ public class Main extends Application {
 
     /**
      * Sets the player whose turn it is.
+     *
      * @param player An instance of player.
      */
     public final void setCurrentPlayer(final Player player) {
@@ -308,6 +324,7 @@ public class Main extends Application {
 
     /**
      * Gets the game map.
+     *
      * @return Returns an instance of Map.
      */
     public final Map getGameMap() {
@@ -316,11 +333,13 @@ public class Main extends Application {
 
     /**
      * see below.
+     *
      * @param bool Is it the Mule Phase?
      */
     public final void setMulePhase(final boolean bool) {
         this.mulePhase = true;
     }
+
     /**
      * Saves the game.
      */
@@ -329,7 +348,7 @@ public class Main extends Application {
             FileOutputStream fileOut = new FileOutputStream("saveFile.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             ArrayList<Player> temp = new ArrayList<>();
-            for(Player p : playerData){
+            for (Player p : playerData) {
                 temp.add(p);
             }
             out.writeObject(temp); //Save all player information
@@ -338,35 +357,39 @@ public class Main extends Application {
             out.close(); //close
             fileOut.close();
             System.out.println("Saved data is saved in saveFile.txt");
-            System.out.println("Saved Player 1:" + playerData.get(0).getName() + "Money:" + playerData.get(0).getMoney());
+            System.out.println("Saved Player 1:" + playerData.get(0).getName()
+                    + moneyString + playerData.get(0).getMoney());
             System.out.println("Saved Round:" + round.getRound());
-            System.out.println("Saved Player 2:" + playerData.get(1).getName() + "Money:"+ playerData.get(1).getMoney());
-        }catch (IOException e) {
+            System.out.println("Saved Player 2:" + playerData.get(1).getName()
+                    + moneyString + playerData.get(1).getMoney());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Loads the game
+     * Loads the game.
      */
-    public void loadGame(){
-        try{
+    public final void loadGame() {
+        try {
             ArrayList<Player> temp;
             FileInputStream fileIn = new FileInputStream("saveFile.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             temp = (ArrayList<Player>) in.readObject();
-            this.round = (Round)in.readObject();
-            this.gameMap =(Map)in.readObject();
+            this.round = (Round) in.readObject();
+            this.gameMap = (Map) in.readObject();
             in.close();
             fileIn.close();
             //Clear current playerData and add new players back
             this.playerData.clear();
-            for(Player p : temp){
+            for (Player p : temp) {
                 this.playerData.add(p);
             }
-            System.out.println("Loaded Player 1:" + playerData.get(0).getName() + "Money:" + playerData.get(0).getMoney());
+            System.out.println("Loaded Player 1:" + playerData.get(0).getName()
+                    + moneyString + playerData.get(0).getMoney());
             System.out.println("Saved Round:" + round.getRound());
-            System.out.println("Loaded Player 2:" + playerData.get(1).getName() + "Money:"+ playerData.get(1).getMoney());
+            System.out.println("Loaded Player 2:" + playerData.get(1).getName()
+                    + moneyString + playerData.get(1).getMoney());
 
         } catch (IOException e) {
             e.printStackTrace();

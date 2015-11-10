@@ -13,7 +13,7 @@ public class Food implements java.io.Serializable {
     /**
      * Variable that holds the starting amount.
      */
-    private final static int startAmount = 8;
+    private static final int START_AMOUNT = 8;
 
     /**
      * Constructor for Food.
@@ -21,7 +21,7 @@ public class Food implements java.io.Serializable {
      */
     public Food() {
         super();
-        this.amount = startAmount; //default
+    this.amount = START_AMOUNT; //default
     }
     /**
      * Sets the amount to a new variable.

@@ -13,13 +13,13 @@ public class Energy implements java.io.Serializable {
     /**
      * Variable that holds the starting amount.
      */
-    private final static int startAmount = 4;
+    private static final int START_AMOUNT = 4;
     /**
      * Constructor for Energy.
      * Init to the default amount.
      */
     public Energy() {
-        this.amount = startAmount;
+        this.amount = START_AMOUNT;
     }
     /**
      * Sets the amount to a new variable.

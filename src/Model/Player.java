@@ -71,8 +71,8 @@ public class Player implements java.io.Serializable {
     /**
      * Constants for energy, food, landGrants, and ore.
      */
-    private final static int energyConstant = 25, foodConstant = 30,
-            landGrantConstant = 500, oreConstant = 50;
+    private static final int ENERGY_CONSTANT = 25, FOOD_CONSTANT = 30,
+            LAND_GRANT_CONSTANT = 500, ORE_CONSTANT = 50;
 
     /**
      * Player holds an array of owned land.
@@ -82,7 +82,7 @@ public class Player implements java.io.Serializable {
     /**
      * Variable used in roundTime calculation.
      */
-    private final static int roundTimeNum = 5;
+    private static final int ROUND_TIME = 5;
 
     /**
      * Empty constructor for Player. Used for testing.
@@ -213,12 +213,12 @@ public class Player implements java.io.Serializable {
     public final int calcRoundTime() {
         if (getFood() == 0 || totalMule != 0
                 && energy.getAmount() == 0) { //No food or no energy for mules
-            return roundTimeNum;
+            return ROUND_TIME;
         } else if (!this.round.checkRequirement(food) || energy.getAmount()
                 < totalMule) { //Not enough food or energy for mules
-            return roundTimeNum * 2 * 2 * 2; // = 30 (Magic Numbers suck)
+            return ROUND_TIME * 2 * 2 * 2; // = 30 (Magic Numbers suck)
         } else { //Meets food and energy requirement
-            return roundTimeNum * roundTimeNum * 2; // = 50
+            return ROUND_TIME * ROUND_TIME * 2; // = 50
         }
     }
 
@@ -361,10 +361,10 @@ public class Player implements java.io.Serializable {
      * @return player's score
      */
     public final int calcScore() {
-        return getMoney() + (getEnergy() * energyConstant)
-                + (getFood() * foodConstant)
-                + (getLandGrants() * landGrantConstant)
-                + (getOre() * oreConstant);
+        return getMoney() + (getEnergy() * ENERGY_CONSTANT)
+                + (getFood() * FOOD_CONSTANT)
+                + (getLandGrants() * LAND_GRANT_CONSTANT)
+                + (getOre() * ORE_CONSTANT);
     }
 
     /**

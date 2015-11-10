@@ -1,4 +1,5 @@
 package model;
+
 /**
  * Created by Ashley on 9/30/2015.
  */
@@ -7,11 +8,11 @@ public class Pub {
     /**
      * Variable holding the timeBonus base number.
      */
-    private final static int timeBonus = 50;
+    private static final int TIME_BONUS = 50;
     /**
      * Variable holding the timeLeft base number.
      */
-    private final static int timeRemaining = 12;
+    private static final int TIME_REMAINING = 12;
 
     /**
      * Constructor for Pub.
@@ -26,14 +27,14 @@ public class Pub {
      * @return the time bonus for the player
      */
     final int getTimeBonus(final int timeLeft) {
-        if (timeLeft > timeRemaining * 2 + timeRemaining + 1) { // = 37
-            return timeBonus * (2 * 2); //'4' is a magic number, STFU checkstyle
-        } else if (timeLeft > timeRemaining * 2 + 1) { // = 25
-            return timeBonus * (2 + 1); //'3' is a magic number :P
-        } else if (timeLeft > timeRemaining) {
-            return timeBonus * 2;
+        if (timeLeft > TIME_REMAINING * 2 + TIME_REMAINING + 1) { // = 37
+            return TIME_BONUS * 4;
+        } else if (timeLeft > TIME_REMAINING * 2 + 1) { // = 25
+            return TIME_BONUS * 3;
+        } else if (timeLeft > TIME_REMAINING) {
+            return TIME_BONUS * 2;
         } else {
-            return timeBonus;
+            return TIME_BONUS;
         }
     }
 

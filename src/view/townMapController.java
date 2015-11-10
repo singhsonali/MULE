@@ -220,7 +220,7 @@ public class TownMapController {
     }
 
     /**
-     * Sets the current timer
+     * Sets the current timer.
      * @param gameTimer what the current timer is set to
      */
     public final void setCurrentTimer(final GameTimer gameTimer) {
