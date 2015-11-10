@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  * Created by Melanie Smith on 11/9/2015.
  */
-public class StoreControllerTest extends TestCase {
+public class BuyEnergyTest extends TestCase {
 
     //create player var
     private Player player;
@@ -23,8 +23,9 @@ public class StoreControllerTest extends TestCase {
         //fix arguments
         player = new Player();
         storeController = new StoreController();
+        storeController.setCurrentPlayer(player);
         originalEnergy = player.getEnergy();
-        StoreController.setStore();
+        storeController.setStore();
     }
 
     @Test
@@ -51,6 +52,6 @@ public class StoreControllerTest extends TestCase {
          player's purchase*/
         player.setMoney(Integer.MAX_VALUE);
         storeController.buyEnergy(20);
-        assertEquals (originalEnergy, player.getEnergy());
+        assertEquals(originalEnergy, player.getEnergy());
     }
 }

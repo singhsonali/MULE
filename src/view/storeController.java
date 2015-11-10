@@ -665,6 +665,13 @@ public class StoreController {
     }
 
     /**
+     * Sets the store.
+     */
+    public final void setStore() {
+        store = new Store();
+    }
+
+    /**
      * Updates the store inventory.
      * How much mule (of each type) and how much resources (of each type).
      */
