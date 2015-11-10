@@ -83,13 +83,13 @@ public class Round implements java.io.Serializable {
         int m;
         //Sets the value of m according to round number
         if (round < 2 + 2) {
-            m = 25;
+            m = gb1;
         } else if (round > 2 + 1 && round < 8) {
-            m = 50;
+            m = gb2;
         } else if (round > 7 && round < 12) {
-            m = 75;
+            m = gb3;
         } else {
-            m = 100;
+            m = gb4;
         }
         int eventNum;
         if (chance > 27) {
