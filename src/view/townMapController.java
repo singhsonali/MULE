@@ -140,7 +140,7 @@ public class TownMapController {
             AnchorPane mapScreen = loader.load();
 
             Scene scene = new Scene(mapScreen);
-            mapController controller = loader.getController();
+            MapController controller = loader.getController();
 
             controller.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
@@ -276,7 +276,7 @@ public class TownMapController {
             Scene scene = new Scene(townMap);
             StoreController controller = loader.getController();
 
-            controller.setPrevScene(currentScene); // Scene is Town
+            //controller.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();

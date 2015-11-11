@@ -1,4 +1,5 @@
 package view;
+
 import main.Main;
 import model.Player;
 import model.Store;
@@ -10,11 +11,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+
 import java.io.IOException;
 
 /**
@@ -23,11 +24,7 @@ import java.io.IOException;
 public class StoreController {
 
     /**
-     * current pane.
-     */
-    private Pane currentPane;
-    /**
-     * the player who's turn it is.
+     * the player whose turn it is.
      */
     private Player currentPlayer;
     /**
@@ -43,10 +40,6 @@ public class StoreController {
      */
     private Stage primaryStage;
     /**
-     * Pointer to the previous scene. Usually town.
-     */
-    private Scene prevScene;
-    /**
      * The current timer.
      */
     private GameTimer currentTimer;
@@ -61,32 +54,37 @@ public class StoreController {
     /**
      * Price of an Ore Mule in the store.
      */
-    private final int oreMulePrice = 175;
+    private final static int oreMulePrice = 175;
 
     /**
      * Price of an Energy Mule in the store.
      */
-    private final int energyMulePrice = 150;
+    private final static int energyMulePrice = 150;
 
     /**
      * Price of Food Mule in the store.
      */
-    private final int foodMulePrice = 125;
+    private final static int foodMulePrice = 125;
 
     /**
      * Price of food in the store.
      */
-    private final int foodPrice = 30;
+    private final static int foodPrice = 30;
 
     /**
      * Price of energy in the store.
      */
-    private final int energyPrice = 25;
+    private final static int energyPrice = 25;
 
     /**
-     * Price of or ore in the store.
+     * Price of ore in the store.
      */
-    private final int orePrice = 50;
+    private final static int orePrice = 50;
+
+    /**
+     * Empty string for clearing purposes.
+     */
+    private final static String empty = "";
 
     /**
      * A TextField in store.
@@ -207,7 +205,6 @@ public class StoreController {
      */
     @FXML
     private void initialize() {
-        currentPane = null;
         store = new Store();
         setInterfaceInvis(false);
         updateStoreInventoryLabels();
@@ -227,7 +224,7 @@ public class StoreController {
 
         cbItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
                 String itemChoice = (String) cbItem.getValue();
                 if (itemChoice.equals("Mule")) {
                     setInterfaceInvis(true);
@@ -239,7 +236,7 @@ public class StoreController {
 
         btnBuy.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
                 //Return number of players to main
                 String itemChoice = (String) cbItem.getValue();
                 if (itemChoice.equals("Food")) {
@@ -258,9 +255,6 @@ public class StoreController {
                         } else if (muleChoice.equals("Ore Mule")) {
                             buyOreMule();
                         }
-                        System.out.println(
-                                currentPlayer + " : "
-                                        + currentPlayer.getEnergyMule());
                     } else {
                         lblConfirmMsg.setText(
                                 "You do not have any"
@@ -272,7 +266,7 @@ public class StoreController {
 
         btnSell.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
                 String itemChoice = (String) cbItem.getValue();
                 if (itemChoice.equals("Food")) {
                     sellFood(getNumChoice());
@@ -286,7 +280,7 @@ public class StoreController {
 
         btnReturn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
                 leaveStore();
             }
         });
@@ -294,9 +288,10 @@ public class StoreController {
 
     /**
      * Sets the interface invisible if true.
+     *
      * @param bool true or false?
      */
-    public void setInterfaceInvis(boolean bool) {
+    public final void setInterfaceInvis(final boolean bool) {
         muleBox.visibleProperty().setValue(bool);
         lblMuleType.setVisible(bool);
         btnSell.visibleProperty().setValue(!bool);
@@ -307,7 +302,7 @@ public class StoreController {
     /**
      * Closes the scene and opens a new stage/scene.
      */
-    public void leaveStore() {
+    public final void leaveStore() {
         //Close the scene
         main.setReturningFromStore(true);
         main.setReturnTimer(currentTimer);
@@ -327,9 +322,9 @@ public class StoreController {
     /**
      * On mouseClick event to buy oreMule.
      */
-    public void buyOreMule() {
+    public final void buyOreMule() {
         if (currentPlayer.getMoney() < oreMulePrice) {
-            lblConfirmMsg.setText("Insufficient funds: Cannot be in debt");
+            lblConfirmMsg.setText("Insufficient funds: You can never be in debt");
             //throw new IndexOutOfBoundsException(
             // "Insufficient funds: Cannot be in debt");
         } else if (store.getMuleAmount() <= 0) {
@@ -354,9 +349,9 @@ public class StoreController {
     /**
      * On mouseClick even to buy energyMule.
      */
-    public void buyEnergyMule() {
+    public final void buyEnergyMule() {
         if (currentPlayer.getMoney() < energyMulePrice) {
-            lblConfirmMsg.setText("Insufficient funds: Cannot be in debt");
+            lblConfirmMsg.setText("Insufficient funds: Can't be in debt");
             //throw new IndexOutOfBoundsException(
             // "Insufficient funds: Cannot be in debt");
         } else if (store.getMuleAmount() <= 0) {
@@ -381,9 +376,9 @@ public class StoreController {
     /**
      * On mouseClick even to buy foodMule.
      */
-    public void buyFoodMule() {
+    public final void buyFoodMule() {
         if (currentPlayer.getMoney() < foodMulePrice) {
-            lblConfirmMsg.setText("Insufficient funds: Cannot be in debt");
+            lblConfirmMsg.setText("Insufficient funds: you can cannot be in debt");
             //throw new IndexOutOfBoundsException(
             // "Insufficient funds: Cannot be in debt");
         } else if (store.getMuleAmount() <= 0) {
@@ -407,11 +402,12 @@ public class StoreController {
 
     /**
      * On mouseClick even to buy food.
+     *
      * @param amnt Amount of food purchased.
      */
-    public void buyFood(int amnt) {
+    public final void buyFood(final int amnt) {
         if (currentPlayer.getMoney() < (foodPrice * amnt)) {
-            lblConfirmMsg.setText("Insufficient funds: Cannot be in debt");
+            lblConfirmMsg.setText("Insufficient funds: Carrot (r = n) be in debt");
             //throw new IndexOutOfBoundsException(
             // "Insufficient funds: Cannot be in debt");
         } else if (store.getEnergy() < amnt) {
@@ -426,18 +422,21 @@ public class StoreController {
             store.setFood(store.getFood() - amnt);
             lblConfirmMsg.setText("You have purchased " + amnt + " food.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
-            txtAmount.setText("");
+            //cbItem.valueProperty().setValue(empty);
+            txtAmount.setText(empty);
         }
     }
 
     /**
      * On mouseClick even to buy energy.
+     *
      * @param amnt Amount of energy purchased.
      */
-    public void buyEnergy(int amnt) {
+    public final void buyEnergy(final int amnt) {
         if (currentPlayer.getMoney() < (energyPrice * amnt)) {
-            lblConfirmMsg.setText("Insufficient funds: Cannot be in debt");
+            lblConfirmMsg.setText(
+                    "Insufficient funds: In debt? Illegal."
+                            + " Nope. Can't do it. Bad kitty.");
             //throw new IndexOutOfBoundsException(
             // "Insufficient funds: Cannot be in debt");
         } else if (store.getEnergy() < amnt) {
@@ -451,18 +450,19 @@ public class StoreController {
             store.setEnergy(store.getEnergy() - amnt);
             lblConfirmMsg.setText("You have purchased " + amnt + " energy.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
-            txtAmount.setText("");
+            //cbItem.valueProperty().setValue(empty);
+            txtAmount.setText(empty);
         }
     }
 
     /**
      * On mouseClick even to buy ore.
+     *
      * @param amnt Amount of ore purchased.
      */
-    public void buyOre(int amnt) {
+    public final void buyOre(final int amnt) {
         if (currentPlayer.getMoney() < (orePrice * amnt)) {
-            lblConfirmMsg.setText("Insufficient funds: Cannot be in debt");
+            lblConfirmMsg.setText("Insufficient funds: :( ");
             //throw new IndexOutOfBoundsException(
             // "Insufficient funds: Cannot be in debt");
         } else if (store.getEnergy() < amnt) {
@@ -476,17 +476,18 @@ public class StoreController {
             store.setOre(store.getOre() - amnt);
             lblConfirmMsg.setText("You have purchased " + amnt + " ore.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
-            txtAmount.setText("");
+            //cbItem.valueProperty().setValue(empty);
+            txtAmount.setText(empty);
         }
     }
 
 
     /**
      * On mouseClick even to sell food.
+     *
      * @param amnt Amount of food sold.
      */
-    public void sellFood(int amnt) {
+    public final void sellFood(final int amnt) {
         if (currentPlayer.getFood() < amnt) {
             lblConfirmMsg.setText("Cannot sell more food than you have");
         } else {
@@ -496,16 +497,17 @@ public class StoreController {
             store.setFood(store.getFood() + amnt);
             lblConfirmMsg.setText("You have sold " + amnt + " food.");
             updateStoreInventoryLabels();
-            //cbItem.valueProperty().setValue("");
-            txtAmount.setText("");
+            //cbItem.valueProperty().setValue(empty);
+            txtAmount.setText(empty);
         }
     }
 
     /**
      * On mouseClick even to sell ore.
+     *
      * @param amnt Amount of ore sold.
      */
-    public void sellOre(int amnt) {
+    public final void sellOre(final int amnt) {
         if (currentPlayer.getOre() < amnt) {
             lblConfirmMsg.setText("Cannot sell more ore than you have");
         } else {
@@ -515,15 +517,16 @@ public class StoreController {
             store.setOre(store.getOre() + amnt);
             lblConfirmMsg.setText("You have sold " + amnt + " ore.");
             updateStoreInventoryLabels();
-            txtAmount.setText("");
+            txtAmount.setText(empty);
         }
     }
 
     /**
      * On mouseClick even to sell energy.
+     *
      * @param amnt Amount of energy sold.
      */
-    public void sellEnergy(int amnt) {
+    public final void sellEnergy(final int amnt) {
         if (currentPlayer.getEnergy() < amnt) {
             lblConfirmMsg.setText("Cannot sell more energy than you have");
         } else {
@@ -533,84 +536,83 @@ public class StoreController {
             store.setEnergy(store.getEnergy() + amnt);
             lblConfirmMsg.setText("You have sold " + amnt + " energy.");
             updateStoreInventoryLabels();
-            txtAmount.setText("");
+            txtAmount.setText(empty);
         }
     }
 
     /**
      * Getter for the following.
+     *
      * @return int: amount a player wishes to buy/sell.
      */
     @FXML
-    public int getNumChoice() {
+    public final int getNumChoice() {
         return Integer.parseInt(txtAmount.getText());
     }
 
     /**
      * Getter for the following.
+     *
      * @param stage gets the primary stage.
      */
-    public void getStage(Stage stage) {
-        this.primaryStage  = stage;
+    public final void getStage(final Stage stage) {
+        this.primaryStage = stage;
     }
 
     /**
      * Setter for the following.
-     * @param tMController sets the controller of townMapController type.
+     *
+     * @param tMController sets the controller of TownMapController type.
      */
-    public void setController(TownMapController tMController) {
+    public final void setController(final TownMapController tMController) {
         this.controller = tMController;
     }
 
     /**
      * Getter for the primary stage.
+     *
      * @param stage Instance of Stage.
      */
-    public void getPrimaryStage(Stage stage) {
+    public final void getPrimaryStage(final Stage stage) {
         this.primaryStage = stage;
     }
 
     /**
      * Getter for the current player.
+     *
      * @param player the current player.
      */
-    public void setCurrentPlayer(Player player){
+    public final void setCurrentPlayer(final Player player) {
         this.currentPlayer = player;
     }
 
     /**
-     * Setter to set the previous scene.
-     * @param scene An instance of Scene.
-     */
-    public void setPrevScene(Scene scene) {
-        this.prevScene = scene;
-    }
-
-    /**
      * Setter to set the current scene.
+     *
      * @param scene An instance of Scene.
      */
-    public void setCurrentScene(Scene scene) {
+    public final void setCurrentScene(final Scene scene) {
         this.currentScene = scene;
     }
 
     /**
      * A setter to set the game timer.
+     *
      * @param timer An instance of GameTimer.
      */
-    public void setCurrentTimer(GameTimer timer) {
+    public final void setCurrentTimer(final GameTimer timer) {
         this.currentTimer = timer;
     }
 
     /**
      * Sets the time limit.
      */
-    public void setTimer() {
+    public final void setTimer() {
         //currentTimer.setLabel(lblPubTimer);
         currentTimer.getTimeline().setOnFinished(
                 new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle(ActionEvent event) {
+                    public void handle(final ActionEvent event) {
                         leaveStore();
                         controller.updateCurrent();
                     }
@@ -620,7 +622,7 @@ public class StoreController {
     /**
      * Action event to go to the map.
      */
-    public void goToMap() {
+    public final void goToMap() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource(
@@ -628,25 +630,25 @@ public class StoreController {
             AnchorPane mapScreen = loader.load();
 
             Scene scene = new Scene(mapScreen);
-            mapController controller = loader.getController();
+            MapController mController = loader.getController();
 
-            controller.setPrevScene(currentScene); // Scene is Town
+            mController.setPrevScene(currentScene); // Scene is Town
             currentScene = scene;
             primaryStage.setScene(scene);
             primaryStage.show();
             //Passes current player to map
-            controller.setCurrentPlayer(currentPlayer);
-            controller.setMulePhaseLabels();
-            controller.setStoreController(this);
+            mController.setCurrentPlayer(currentPlayer);
+            mController.setMulePhaseLabels();
+            mController.setStoreController(this);
             //Current Stage everything is displayed on
-            controller.getStage(primaryStage);
-            controller.setCurrentScene(currentScene);
-            controller.setCurrentTimer(currentTimer);
-            //controller.setTimer();
-            //controller.setController(this);
-            loader.setController(controller);
-            controller.getMap(main.getGameMap());
-            controller.connectMapWithPanes();
+            mController.getStage(primaryStage);
+            mController.setCurrentScene(currentScene);
+            mController.setCurrentTimer(currentTimer);
+            //mController.setTimer();
+            //mController.setController(this);
+            loader.setController(mController);
+            mController.getMap(main.getGameMap());
+            mController.connectMapWithPanes();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -655,28 +657,36 @@ public class StoreController {
 
     /**
      * Sets the main app.
+     *
      * @param mainApp An instance of Main.
      */
-    public void setMainApp(Main mainApp) {
+    public final void setMainApp(final Main mainApp) {
         this.main = mainApp;
+    }
+
+    /**
+     * Sets the store.
+     */
+    public final void setStore() {
+        store = new Store();
     }
 
     /**
      * Updates the store inventory.
      * How much mule (of each type) and how much resources (of each type).
      */
-    public void updateStoreInventoryLabels() {
+    public final void updateStoreInventoryLabels() {
         lblPriceEnergy.setText("25");
         lblPriceFood.setText("30");
         lblPriceOre.setText("50");
         lblPriceMEnergy.setText("130");
         lblPriceMFood.setText("125");
         lblPriceMOre.setText("150");
-        lblStockEnergy.setText("" + store.getEnergy());
-        lblStockFood.setText("" + store.getFood());
-        lblStockOre.setText("" + store.getOre());
-        lblStockMEnergy.setText("" + store.getMuleAmount());
-        lblStockMFood.setText("" + store.getMuleAmount());
-        lblStockMOre.setText("" + store.getMuleAmount());
+        lblStockEnergy.setText(empty + store.getEnergy());
+        lblStockFood.setText(empty + store.getFood());
+        lblStockOre.setText(empty + store.getOre());
+        lblStockMEnergy.setText(empty + store.getMuleAmount());
+        lblStockMFood.setText(empty + store.getMuleAmount());
+        lblStockMOre.setText(empty + store.getMuleAmount());
     }
 }
